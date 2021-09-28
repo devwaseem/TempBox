@@ -11,13 +11,13 @@
 		7501771C26F38A9E00A47F7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7501770226F38A9E00A47F7D /* Assets.xcassets */; };
 		7501772C26F38E0B00A47F7D /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772B26F38E0B00A47F7D /* RootNavigationView.swift */; };
 		7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772E26F38E4200A47F7D /* SidebarView.swift */; };
+		753A8FAE2703A71F00725841 /* MailTMSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 753A8FAD2703A71F00725841 /* MailTMSwift */; };
 		753D3929270050C600911B58 /* FakeMTDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D3928270050C600911B58 /* FakeMTDomainService.swift */; };
 		753D392B27005B4300911B58 /* FakeAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392A27005B4300911B58 /* FakeAccountRepository.swift */; };
 		753D392D2700603400911B58 /* FakeMTAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392C2700603400911B58 /* FakeMTAccountService.swift */; };
 		75529A8126F3916B00588FEA /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8026F3916B00588FEA /* InboxView.swift */; };
 		75529A8326F3917700588FEA /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8226F3917700588FEA /* MessageDetailView.swift */; };
 		755EB00F26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */; };
-		75752EFB26F39C19004EA6C1 /* MailTMSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75752EFA26F39C19004EA6C1 /* MailTMSwift */; };
 		75752EFD26F39C3D004EA6C1 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75752EFC26F39C3D004EA6C1 /* AppController.swift */; };
 		75752EFF26F3A2B1004EA6C1 /* AddAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75752EFE26F3A2B1004EA6C1 /* AddAccountView.swift */; };
 		75752F0226F3A9BC004EA6C1 /* AddAccountWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75752F0126F3A9BC004EA6C1 /* AddAccountWindow.swift */; };
@@ -78,7 +78,6 @@
 		75529A8026F3916B00588FEA /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		75529A8226F3917700588FEA /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
 		755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
-		75752EF826F39BEE004EA6C1 /* MailTMSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MailTMSwift; path = ../../work/personal/ios/MailTMSwift; sourceTree = "<group>"; };
 		75752EFC26F39C3D004EA6C1 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		75752EFE26F3A2B1004EA6C1 /* AddAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountView.swift; sourceTree = "<group>"; };
 		75752F0126F3A9BC004EA6C1 /* AddAccountWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountWindow.swift; sourceTree = "<group>"; };
@@ -120,8 +119,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				753A8FAE2703A71F00725841 /* MailTMSwift in Frameworks */,
 				75C3204D26FBA229009AAB26 /* Resolver in Frameworks */,
-				75752EFB26F39C19004EA6C1 /* MailTMSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +137,6 @@
 		750176F726F38A9C00A47F7D = {
 			isa = PBXGroup;
 			children = (
-				75752EF826F39BEE004EA6C1 /* MailTMSwift */,
 				750176FC26F38A9D00A47F7D /* Shared */,
 				7501771026F38A9E00A47F7D /* macOS */,
 				75C3202C26FB5DDB009AAB26 /* TempBoxTests */,
@@ -415,8 +413,8 @@
 			);
 			name = "TempBox (macOS)";
 			packageProductDependencies = (
-				75752EFA26F39C19004EA6C1 /* MailTMSwift */,
 				75C3204C26FBA229009AAB26 /* Resolver */,
+				753A8FAD2703A71F00725841 /* MailTMSwift */,
 			);
 			productName = "TempBox (macOS)";
 			productReference = 7501770F26F38A9E00A47F7D /* TempBox.app */;
@@ -470,6 +468,7 @@
 			mainGroup = 750176F726F38A9C00A47F7D;
 			packageReferences = (
 				75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */,
+				753A8FAC2703A71F00725841 /* XCRemoteSwiftPackageReference "MailTMSwift" */,
 			);
 			productRefGroup = 7501770826F38A9E00A47F7D /* Products */;
 			projectDirPath = "";
@@ -832,6 +831,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		753A8FAC2703A71F00725841 /* XCRemoteSwiftPackageReference "MailTMSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devwaseem/MailTMSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Resolver";
@@ -843,8 +850,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		75752EFA26F39C19004EA6C1 /* MailTMSwift */ = {
+		753A8FAD2703A71F00725841 /* MailTMSwift */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 753A8FAC2703A71F00725841 /* XCRemoteSwiftPackageReference "MailTMSwift" */;
 			productName = MailTMSwift;
 		};
 		75C3204C26FBA229009AAB26 /* Resolver */ = {
