@@ -3,44 +3,129 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7501771326F38A9E00A47F7D /* TempBox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 750176FD26F38A9D00A47F7D /* TempBox.xcdatamodeld */; };
-		7501771426F38A9E00A47F7D /* TempBox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 750176FD26F38A9D00A47F7D /* TempBox.xcdatamodeld */; };
-		7501771526F38A9E00A47F7D /* TempBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750176FF26F38A9D00A47F7D /* TempBoxApp.swift */; };
 		7501771626F38A9E00A47F7D /* TempBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750176FF26F38A9D00A47F7D /* TempBoxApp.swift */; };
-		7501771726F38A9E00A47F7D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501770026F38A9D00A47F7D /* ContentView.swift */; };
-		7501771826F38A9E00A47F7D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501770026F38A9D00A47F7D /* ContentView.swift */; };
-		7501771926F38A9E00A47F7D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501770126F38A9D00A47F7D /* Persistence.swift */; };
-		7501771A26F38A9E00A47F7D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501770126F38A9D00A47F7D /* Persistence.swift */; };
-		7501771B26F38A9E00A47F7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7501770226F38A9E00A47F7D /* Assets.xcassets */; };
 		7501771C26F38A9E00A47F7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7501770226F38A9E00A47F7D /* Assets.xcassets */; };
+		7501772C26F38E0B00A47F7D /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772B26F38E0B00A47F7D /* RootNavigationView.swift */; };
+		7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772E26F38E4200A47F7D /* SidebarView.swift */; };
+		753D3929270050C600911B58 /* FakeMTDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D3928270050C600911B58 /* FakeMTDomainService.swift */; };
+		753D392B27005B4300911B58 /* FakeAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392A27005B4300911B58 /* FakeAccountRepository.swift */; };
+		753D392D2700603400911B58 /* FakeMTAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392C2700603400911B58 /* FakeMTAccountService.swift */; };
+		75529A8126F3916B00588FEA /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8026F3916B00588FEA /* InboxView.swift */; };
+		75529A8326F3917700588FEA /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8226F3917700588FEA /* MessageDetailView.swift */; };
+		755EB00F26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */; };
+		75752EFB26F39C19004EA6C1 /* MailTMSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75752EFA26F39C19004EA6C1 /* MailTMSwift */; };
+		75752EFD26F39C3D004EA6C1 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75752EFC26F39C3D004EA6C1 /* AppController.swift */; };
+		75752EFF26F3A2B1004EA6C1 /* AddAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75752EFE26F3A2B1004EA6C1 /* AddAccountView.swift */; };
+		75752F0226F3A9BC004EA6C1 /* AddAccountWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75752F0126F3A9BC004EA6C1 /* AddAccountWindow.swift */; };
+		75752F0426F3B214004EA6C1 /* InboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75752F0326F3B214004EA6C1 /* InboxCell.swift */; };
+		7575A2B126F4713F00A90CFE /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7575A2B026F4713F00A90CFE /* AccountRepository.swift */; };
+		7575A2B426F472C200A90CFE /* TempBox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7575A2B226F472C200A90CFE /* TempBox.xcdatamodeld */; };
+		7575A2DA26F473FD00A90CFE /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7575A2D926F473FD00A90CFE /* Persistence.swift */; };
+		758050542700DE0C00C71EA6 /* AppControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758050532700DE0C00C71EA6 /* AppControllerTests.swift */; };
+		7584F26526FF009300C972DA /* AccountServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26426FF009300C972DA /* AccountServiceTests.swift */; };
+		7584F26726FF01D600C972DA /* MockAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26626FF01D600C972DA /* MockAccountRepository.swift */; };
+		7584F26926FF208200C972DA /* MockAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26826FF208200C972DA /* MockAccountService.swift */; };
+		75B39ECE26F3CE5E0004AF82 /* QuotaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B39ECD26F3CE5E0004AF82 /* QuotaView.swift */; };
+		75B39ED026F3D8D80004AF82 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B39ECF26F3D8D80004AF82 /* BadgeView.swift */; };
+		75C3202326FB4644009AAB26 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3202226FB4644009AAB26 /* AddAccountViewController.swift */; };
+		75C3202626FB5AEE009AAB26 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3202526FB5AEE009AAB26 /* String+Extensions.swift */; };
+		75C3203826FB5EA3009AAB26 /* AddAccountControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3203726FB5EA3009AAB26 /* AddAccountControllerTests.swift */; };
+		75C3203B26FB5EC7009AAB26 /* MockMTDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3203A26FB5EC7009AAB26 /* MockMTDomainService.swift */; };
+		75C3203D26FB7657009AAB26 /* MockDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3203C26FB7657009AAB26 /* MockDataTask.swift */; };
+		75C3203F26FB76A1009AAB26 /* MockMTAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3203E26FB76A1009AAB26 /* MockMTAccountService.swift */; };
+		75C3204526FB9FDB009AAB26 /* Account+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3204326FB9FDB009AAB26 /* Account+CoreDataClass.swift */; };
+		75C3204626FB9FDB009AAB26 /* Account+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3204426FB9FDB009AAB26 /* Account+CoreDataProperties.swift */; };
+		75C3204A26FBA1A2009AAB26 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3204926FBA1A2009AAB26 /* AccountService.swift */; };
+		75C3204D26FBA229009AAB26 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 75C3204C26FBA229009AAB26 /* Resolver */; };
+		75C3204F26FBA25D009AAB26 /* App+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3204E26FBA25D009AAB26 /* App+Injection.swift */; };
+		75C3205126FBA281009AAB26 /* Services+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3205026FBA281009AAB26 /* Services+Injection.swift */; };
+		75C3205326FBA4E5009AAB26 /* MTAccount+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3205226FBA4E5009AAB26 /* MTAccount+Extensions.swift */; };
+		75C3205526FBA842009AAB26 /* Persistence+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3205426FBA841009AAB26 /* Persistence+Injection.swift */; };
+		75C3205726FBA89D009AAB26 /* Respositories+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3205626FBA89D009AAB26 /* Respositories+Injection.swift */; };
+		75C3205A26FBABCC009AAB26 /* TestPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3205926FBABCC009AAB26 /* TestPersistenceManager.swift */; };
+		75C3205D26FBACB2009AAB26 /* AccountRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3205C26FBACB2009AAB26 /* AccountRepositoryTests.swift */; };
+		75DE87472702D8D0008C089B /* MessageFetchingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DE87462702D8D0008C089B /* MessageFetchingService.swift */; };
+		75DF252526F3D9D9003F69FE /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DF252426F3D9D9003F69FE /* WebView.swift */; };
+		75DF252826F3DBDA003F69FE /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DF252726F3DBDA003F69FE /* StatusBarController.swift */; };
+		75DFF7632700E77200EE4B7A /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DFF7622700E77200EE4B7A /* Logger+Extensions.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		75C3202F26FB5DDB009AAB26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 750176F826F38A9C00A47F7D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7501770E26F38A9E00A47F7D;
+			remoteInfo = "TempBox (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		750176FE26F38A9D00A47F7D /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		750176FF26F38A9D00A47F7D /* TempBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBoxApp.swift; sourceTree = "<group>"; };
-		7501770026F38A9D00A47F7D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		7501770126F38A9D00A47F7D /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		7501770226F38A9E00A47F7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7501770726F38A9E00A47F7D /* TempBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7501770A26F38A9E00A47F7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7501770F26F38A9E00A47F7D /* TempBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7501771126F38A9E00A47F7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7501771226F38A9E00A47F7D /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		7501772B26F38E0B00A47F7D /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
+		7501772E26F38E4200A47F7D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		753D3928270050C600911B58 /* FakeMTDomainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTDomainService.swift; sourceTree = "<group>"; };
+		753D392A27005B4300911B58 /* FakeAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAccountRepository.swift; sourceTree = "<group>"; };
+		753D392C2700603400911B58 /* FakeMTAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTAccountService.swift; sourceTree = "<group>"; };
+		75529A8026F3916B00588FEA /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		75529A8226F3917700588FEA /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
+		755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
+		75752EF826F39BEE004EA6C1 /* MailTMSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MailTMSwift; path = ../../work/personal/ios/MailTMSwift; sourceTree = "<group>"; };
+		75752EFC26F39C3D004EA6C1 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		75752EFE26F3A2B1004EA6C1 /* AddAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountView.swift; sourceTree = "<group>"; };
+		75752F0126F3A9BC004EA6C1 /* AddAccountWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountWindow.swift; sourceTree = "<group>"; };
+		75752F0326F3B214004EA6C1 /* InboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxCell.swift; sourceTree = "<group>"; };
+		7575A2B026F4713F00A90CFE /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
+		7575A2B326F472C200A90CFE /* TempBox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TempBox.xcdatamodel; sourceTree = "<group>"; };
+		7575A2D926F473FD00A90CFE /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		758050532700DE0C00C71EA6 /* AppControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppControllerTests.swift; sourceTree = "<group>"; };
+		7584F26426FF009300C972DA /* AccountServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceTests.swift; sourceTree = "<group>"; };
+		7584F26626FF01D600C972DA /* MockAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountRepository.swift; sourceTree = "<group>"; };
+		7584F26826FF208200C972DA /* MockAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountService.swift; sourceTree = "<group>"; };
+		75B39ECD26F3CE5E0004AF82 /* QuotaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotaView.swift; sourceTree = "<group>"; };
+		75B39ECF26F3D8D80004AF82 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
+		75C3202226FB4644009AAB26 /* AddAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
+		75C3202526FB5AEE009AAB26 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		75C3202B26FB5DDB009AAB26 /* TempBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75C3203726FB5EA3009AAB26 /* AddAccountControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountControllerTests.swift; sourceTree = "<group>"; };
+		75C3203A26FB5EC7009AAB26 /* MockMTDomainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMTDomainService.swift; sourceTree = "<group>"; };
+		75C3203C26FB7657009AAB26 /* MockDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataTask.swift; sourceTree = "<group>"; };
+		75C3203E26FB76A1009AAB26 /* MockMTAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMTAccountService.swift; sourceTree = "<group>"; };
+		75C3204326FB9FDB009AAB26 /* Account+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+CoreDataClass.swift"; sourceTree = "<group>"; };
+		75C3204426FB9FDB009AAB26 /* Account+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		75C3204926FBA1A2009AAB26 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
+		75C3204E26FBA25D009AAB26 /* App+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+Injection.swift"; sourceTree = "<group>"; };
+		75C3205026FBA281009AAB26 /* Services+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+Injection.swift"; sourceTree = "<group>"; };
+		75C3205226FBA4E5009AAB26 /* MTAccount+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MTAccount+Extensions.swift"; sourceTree = "<group>"; };
+		75C3205426FBA841009AAB26 /* Persistence+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Persistence+Injection.swift"; sourceTree = "<group>"; };
+		75C3205626FBA89D009AAB26 /* Respositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Respositories+Injection.swift"; sourceTree = "<group>"; };
+		75C3205926FBABCC009AAB26 /* TestPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPersistenceManager.swift; sourceTree = "<group>"; };
+		75C3205C26FBACB2009AAB26 /* AccountRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepositoryTests.swift; sourceTree = "<group>"; };
+		75DE87462702D8D0008C089B /* MessageFetchingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFetchingService.swift; sourceTree = "<group>"; };
+		75DF252426F3D9D9003F69FE /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		75DF252726F3DBDA003F69FE /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		75DFF7622700E77200EE4B7A /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7501770426F38A9E00A47F7D /* Frameworks */ = {
+		7501770C26F38A9E00A47F7D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75C3204D26FBA229009AAB26 /* Resolver in Frameworks */,
+				75752EFB26F39C19004EA6C1 /* MailTMSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7501770C26F38A9E00A47F7D /* Frameworks */ = {
+		75C3202826FB5DDB009AAB26 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -53,21 +138,18 @@
 		750176F726F38A9C00A47F7D = {
 			isa = PBXGroup;
 			children = (
+				75752EF826F39BEE004EA6C1 /* MailTMSwift */,
 				750176FC26F38A9D00A47F7D /* Shared */,
-				7501770926F38A9E00A47F7D /* iOS */,
 				7501771026F38A9E00A47F7D /* macOS */,
+				75C3202C26FB5DDB009AAB26 /* TempBoxTests */,
 				7501770826F38A9E00A47F7D /* Products */,
+				75752EF926F39C19004EA6C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		750176FC26F38A9D00A47F7D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				750176FF26F38A9D00A47F7D /* TempBoxApp.swift */,
-				7501770026F38A9D00A47F7D /* ContentView.swift */,
-				7501770126F38A9D00A47F7D /* Persistence.swift */,
-				7501770226F38A9E00A47F7D /* Assets.xcassets */,
-				750176FD26F38A9D00A47F7D /* TempBox.xcdatamodeld */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -75,53 +157,254 @@
 		7501770826F38A9E00A47F7D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7501770726F38A9E00A47F7D /* TempBox.app */,
 				7501770F26F38A9E00A47F7D /* TempBox.app */,
+				75C3202B26FB5DDB009AAB26 /* TempBoxTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7501770926F38A9E00A47F7D /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				7501770A26F38A9E00A47F7D /* Info.plist */,
-			);
-			path = iOS;
 			sourceTree = "<group>";
 		};
 		7501771026F38A9E00A47F7D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				7501771126F38A9E00A47F7D /* Info.plist */,
-				7501771226F38A9E00A47F7D /* macOS.entitlements */,
+				75C3204E26FBA25D009AAB26 /* App+Injection.swift */,
+				75752EFC26F39C3D004EA6C1 /* AppController.swift */,
+				7501772B26F38E0B00A47F7D /* RootNavigationView.swift */,
+				750176FF26F38A9D00A47F7D /* TempBoxApp.swift */,
+				75C3202426FB5AE0009AAB26 /* Extensions */,
+				7501772526F38C1700A47F7D /* Features */,
+				7575A2D826F473EB00A90CFE /* Persistence */,
+				7575A2AD26F4710700A90CFE /* Repositories */,
+				75C3204726FBA0D4009AAB26 /* Services */,
+				7501772626F38C3A00A47F7D /* Shared Views */,
+				75DF252626F3DBCD003F69FE /* StatusBar */,
+				75C3204826FBA0F3009AAB26 /* Supporting files */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		7501772526F38C1700A47F7D /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				75752F0026F3A96E004EA6C1 /* AddAccount */,
+				75529A7E26F3914800588FEA /* Inbox */,
+				75529A7F26F3914F00588FEA /* MessageDetail */,
+				7501772D26F38E3B00A47F7D /* Sidebar */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		7501772626F38C3A00A47F7D /* Shared Views */ = {
+			isa = PBXGroup;
+			children = (
+				75B39ECF26F3D8D80004AF82 /* BadgeView.swift */,
+				75DF252426F3D9D9003F69FE /* WebView.swift */,
+			);
+			path = "Shared Views";
+			sourceTree = "<group>";
+		};
+		7501772D26F38E3B00A47F7D /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				7501772E26F38E4200A47F7D /* SidebarView.swift */,
+				75B39ECD26F3CE5E0004AF82 /* QuotaView.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		753D3927270050B900911B58 /* Fakes */ = {
+			isa = PBXGroup;
+			children = (
+				753D3928270050C600911B58 /* FakeMTDomainService.swift */,
+				753D392A27005B4300911B58 /* FakeAccountRepository.swift */,
+				753D392C2700603400911B58 /* FakeMTAccountService.swift */,
+			);
+			path = Fakes;
+			sourceTree = "<group>";
+		};
+		75529A7E26F3914800588FEA /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				75529A8026F3916B00588FEA /* InboxView.swift */,
+				75752F0326F3B214004EA6C1 /* InboxCell.swift */,
+			);
+			path = Inbox;
+			sourceTree = "<group>";
+		};
+		75529A7F26F3914F00588FEA /* MessageDetail */ = {
+			isa = PBXGroup;
+			children = (
+				75529A8226F3917700588FEA /* MessageDetailView.swift */,
+			);
+			path = MessageDetail;
+			sourceTree = "<group>";
+		};
+		75752EF926F39C19004EA6C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75752F0026F3A96E004EA6C1 /* AddAccount */ = {
+			isa = PBXGroup;
+			children = (
+				75752EFE26F3A2B1004EA6C1 /* AddAccountView.swift */,
+				75752F0126F3A9BC004EA6C1 /* AddAccountWindow.swift */,
+				75C3202226FB4644009AAB26 /* AddAccountViewController.swift */,
+			);
+			path = AddAccount;
+			sourceTree = "<group>";
+		};
+		7575A2AD26F4710700A90CFE /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				7575A2B026F4713F00A90CFE /* AccountRepository.swift */,
+				75C3205626FBA89D009AAB26 /* Respositories+Injection.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		7575A2D826F473EB00A90CFE /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				75C3204026FB9E7A009AAB26 /* Models */,
+				7575A2B226F472C200A90CFE /* TempBox.xcdatamodeld */,
+				7575A2D926F473FD00A90CFE /* Persistence.swift */,
+				75C3205426FBA841009AAB26 /* Persistence+Injection.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		7584F26326FF008700C972DA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7584F26426FF009300C972DA /* AccountServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		75C3202426FB5AE0009AAB26 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				75DFF7622700E77200EE4B7A /* Logger+Extensions.swift */,
+				75C3202526FB5AEE009AAB26 /* String+Extensions.swift */,
+				75C3205226FBA4E5009AAB26 /* MTAccount+Extensions.swift */,
+				755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		75C3202C26FB5DDB009AAB26 /* TempBoxTests */ = {
+			isa = PBXGroup;
+			children = (
+				75C3203526FB5E3F009AAB26 /* Cases */,
+				75C3203926FB5EB8009AAB26 /* Mocks */,
+				753D3927270050B900911B58 /* Fakes */,
+				75C3205826FBABBD009AAB26 /* Persistence */,
+			);
+			path = TempBoxTests;
+			sourceTree = "<group>";
+		};
+		75C3203426FB5E38009AAB26 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				75C3203626FB5E8E009AAB26 /* AddAccountTests */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		75C3203526FB5E3F009AAB26 /* Cases */ = {
+			isa = PBXGroup;
+			children = (
+				7584F26326FF008700C972DA /* Services */,
+				75C3205B26FBAC9B009AAB26 /* Repositories */,
+				75C3203426FB5E38009AAB26 /* Features */,
+				758050532700DE0C00C71EA6 /* AppControllerTests.swift */,
+			);
+			path = Cases;
+			sourceTree = "<group>";
+		};
+		75C3203626FB5E8E009AAB26 /* AddAccountTests */ = {
+			isa = PBXGroup;
+			children = (
+				75C3203726FB5EA3009AAB26 /* AddAccountControllerTests.swift */,
+			);
+			path = AddAccountTests;
+			sourceTree = "<group>";
+		};
+		75C3203926FB5EB8009AAB26 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				75C3203A26FB5EC7009AAB26 /* MockMTDomainService.swift */,
+				75C3203C26FB7657009AAB26 /* MockDataTask.swift */,
+				75C3203E26FB76A1009AAB26 /* MockMTAccountService.swift */,
+				7584F26626FF01D600C972DA /* MockAccountRepository.swift */,
+				7584F26826FF208200C972DA /* MockAccountService.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		75C3204026FB9E7A009AAB26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				75C3204326FB9FDB009AAB26 /* Account+CoreDataClass.swift */,
+				75C3204426FB9FDB009AAB26 /* Account+CoreDataProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		75C3204726FBA0D4009AAB26 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				75DE87462702D8D0008C089B /* MessageFetchingService.swift */,
+				75C3204926FBA1A2009AAB26 /* AccountService.swift */,
+				75C3205026FBA281009AAB26 /* Services+Injection.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		75C3204826FBA0F3009AAB26 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				7501771126F38A9E00A47F7D /* Info.plist */,
+				7501771226F38A9E00A47F7D /* macOS.entitlements */,
+				7501770226F38A9E00A47F7D /* Assets.xcassets */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		75C3205826FBABBD009AAB26 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				75C3205926FBABCC009AAB26 /* TestPersistenceManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		75C3205B26FBAC9B009AAB26 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				75C3205C26FBACB2009AAB26 /* AccountRepositoryTests.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		75DF252626F3DBCD003F69FE /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				75DF252726F3DBDA003F69FE /* StatusBarController.swift */,
+			);
+			path = StatusBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7501770626F38A9E00A47F7D /* TempBox (iOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7501771F26F38A9E00A47F7D /* Build configuration list for PBXNativeTarget "TempBox (iOS)" */;
-			buildPhases = (
-				7501770326F38A9E00A47F7D /* Sources */,
-				7501770426F38A9E00A47F7D /* Frameworks */,
-				7501770526F38A9E00A47F7D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "TempBox (iOS)";
-			productName = "TempBox (iOS)";
-			productReference = 7501770726F38A9E00A47F7D /* TempBox.app */;
-			productType = "com.apple.product-type.application";
-		};
 		7501770E26F38A9E00A47F7D /* TempBox (macOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7501772226F38A9E00A47F7D /* Build configuration list for PBXNativeTarget "TempBox (macOS)" */;
 			buildPhases = (
+				755EB01026FCAF3900846114 /* ShellScript */,
 				7501770B26F38A9E00A47F7D /* Sources */,
 				7501770C26F38A9E00A47F7D /* Frameworks */,
 				7501770D26F38A9E00A47F7D /* Resources */,
@@ -131,9 +414,31 @@
 			dependencies = (
 			);
 			name = "TempBox (macOS)";
+			packageProductDependencies = (
+				75752EFA26F39C19004EA6C1 /* MailTMSwift */,
+				75C3204C26FBA229009AAB26 /* Resolver */,
+			);
 			productName = "TempBox (macOS)";
 			productReference = 7501770F26F38A9E00A47F7D /* TempBox.app */;
 			productType = "com.apple.product-type.application";
+		};
+		75C3202A26FB5DDB009AAB26 /* TempBoxTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75C3203126FB5DDB009AAB26 /* Build configuration list for PBXNativeTarget "TempBoxTests" */;
+			buildPhases = (
+				75C3202726FB5DDB009AAB26 /* Sources */,
+				75C3202826FB5DDB009AAB26 /* Frameworks */,
+				75C3202926FB5DDB009AAB26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75C3203026FB5DDB009AAB26 /* PBXTargetDependency */,
+			);
+			name = TempBoxTests;
+			productName = TempBoxTests;
+			productReference = 75C3202B26FB5DDB009AAB26 /* TempBoxTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -141,14 +446,16 @@
 		750176F826F38A9C00A47F7D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
-					7501770626F38A9E00A47F7D = {
-						CreatedOnToolsVersion = 12.5.1;
-					};
 					7501770E26F38A9E00A47F7D = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					75C3202A26FB5DDB009AAB26 = {
+						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
+						TestTargetID = 7501770E26F38A9E00A47F7D;
 					};
 				};
 			};
@@ -161,25 +468,20 @@
 				Base,
 			);
 			mainGroup = 750176F726F38A9C00A47F7D;
+			packageReferences = (
+				75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */,
+			);
 			productRefGroup = 7501770826F38A9E00A47F7D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7501770626F38A9E00A47F7D /* TempBox (iOS) */,
 				7501770E26F38A9E00A47F7D /* TempBox (macOS) */,
+				75C3202A26FB5DDB009AAB26 /* TempBoxTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7501770526F38A9E00A47F7D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7501771B26F38A9E00A47F7D /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7501770D26F38A9E00A47F7D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -188,32 +490,101 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		7501770326F38A9E00A47F7D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
+		75C3202926FB5DDB009AAB26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7501771326F38A9E00A47F7D /* TempBox.xcdatamodeld in Sources */,
-				7501771926F38A9E00A47F7D /* Persistence.swift in Sources */,
-				7501771526F38A9E00A47F7D /* TempBoxApp.swift in Sources */,
-				7501771726F38A9E00A47F7D /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		755EB01026FCAF3900846114 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
 		7501770B26F38A9E00A47F7D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7501771426F38A9E00A47F7D /* TempBox.xcdatamodeld in Sources */,
-				7501771A26F38A9E00A47F7D /* Persistence.swift in Sources */,
+				75C3205326FBA4E5009AAB26 /* MTAccount+Extensions.swift in Sources */,
+				75C3204F26FBA25D009AAB26 /* App+Injection.swift in Sources */,
+				75C3204626FB9FDB009AAB26 /* Account+CoreDataProperties.swift in Sources */,
+				75C3205526FBA842009AAB26 /* Persistence+Injection.swift in Sources */,
+				75B39ED026F3D8D80004AF82 /* BadgeView.swift in Sources */,
+				7501772C26F38E0B00A47F7D /* RootNavigationView.swift in Sources */,
+				7575A2DA26F473FD00A90CFE /* Persistence.swift in Sources */,
+				75752EFF26F3A2B1004EA6C1 /* AddAccountView.swift in Sources */,
+				7575A2B126F4713F00A90CFE /* AccountRepository.swift in Sources */,
+				75DF252826F3DBDA003F69FE /* StatusBarController.swift in Sources */,
+				75529A8126F3916B00588FEA /* InboxView.swift in Sources */,
+				75DFF7632700E77200EE4B7A /* Logger+Extensions.swift in Sources */,
+				75752F0426F3B214004EA6C1 /* InboxCell.swift in Sources */,
+				75DE87472702D8D0008C089B /* MessageFetchingService.swift in Sources */,
 				7501771626F38A9E00A47F7D /* TempBoxApp.swift in Sources */,
-				7501771826F38A9E00A47F7D /* ContentView.swift in Sources */,
+				7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */,
+				75C3202326FB4644009AAB26 /* AddAccountViewController.swift in Sources */,
+				755EB00F26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift in Sources */,
+				75C3205126FBA281009AAB26 /* Services+Injection.swift in Sources */,
+				75C3204526FB9FDB009AAB26 /* Account+CoreDataClass.swift in Sources */,
+				75529A8326F3917700588FEA /* MessageDetailView.swift in Sources */,
+				75C3202626FB5AEE009AAB26 /* String+Extensions.swift in Sources */,
+				7575A2B426F472C200A90CFE /* TempBox.xcdatamodeld in Sources */,
+				75C3205726FBA89D009AAB26 /* Respositories+Injection.swift in Sources */,
+				75752EFD26F39C3D004EA6C1 /* AppController.swift in Sources */,
+				75DF252526F3D9D9003F69FE /* WebView.swift in Sources */,
+				75C3204A26FBA1A2009AAB26 /* AccountService.swift in Sources */,
+				75752F0226F3A9BC004EA6C1 /* AddAccountWindow.swift in Sources */,
+				75B39ECE26F3CE5E0004AF82 /* QuotaView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C3202726FB5DDB009AAB26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75C3205A26FBABCC009AAB26 /* TestPersistenceManager.swift in Sources */,
+				75C3205D26FBACB2009AAB26 /* AccountRepositoryTests.swift in Sources */,
+				7584F26926FF208200C972DA /* MockAccountService.swift in Sources */,
+				753D392B27005B4300911B58 /* FakeAccountRepository.swift in Sources */,
+				75C3203B26FB5EC7009AAB26 /* MockMTDomainService.swift in Sources */,
+				75C3203D26FB7657009AAB26 /* MockDataTask.swift in Sources */,
+				7584F26526FF009300C972DA /* AccountServiceTests.swift in Sources */,
+				753D3929270050C600911B58 /* FakeMTDomainService.swift in Sources */,
+				7584F26726FF01D600C972DA /* MockAccountRepository.swift in Sources */,
+				75C3203F26FB76A1009AAB26 /* MockMTAccountService.swift in Sources */,
+				758050542700DE0C00C71EA6 /* AppControllerTests.swift in Sources */,
+				75C3203826FB5EA3009AAB26 /* AddAccountControllerTests.swift in Sources */,
+				753D392D2700603400911B58 /* FakeMTAccountService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75C3203026FB5DDB009AAB26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7501770E26F38A9E00A47F7D /* TempBox (macOS) */;
+			targetProxy = 75C3202F26FB5DDB009AAB26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7501771D26F38A9E00A47F7D /* Debug */ = {
@@ -327,59 +698,18 @@
 			};
 			name = Release;
 		};
-		7501772026F38A9E00A47F7D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.waseem.TempBox;
-				PRODUCT_NAME = TempBox;
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		7501772126F38A9E00A47F7D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.waseem.TempBox;
-				PRODUCT_NAME = TempBox;
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		7501772326F38A9E00A47F7D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = macOS/Info.plist;
+				INFOPLIST_FILE = "macOS/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -397,11 +727,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = macOS/Info.plist;
+				INFOPLIST_FILE = "macOS/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -411,6 +743,59 @@
 				PRODUCT_NAME = TempBox;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		75C3203226FB5DDB009AAB26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waseem.TempBoxTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TempBox.app/Contents/MacOS/TempBox";
+			};
+			name = Debug;
+		};
+		75C3203326FB5DDB009AAB26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waseem.TempBoxTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TempBox.app/Contents/MacOS/TempBox";
 			};
 			name = Release;
 		};
@@ -426,15 +811,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7501771F26F38A9E00A47F7D /* Build configuration list for PBXNativeTarget "TempBox (iOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7501772026F38A9E00A47F7D /* Debug */,
-				7501772126F38A9E00A47F7D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		7501772226F38A9E00A47F7D /* Build configuration list for PBXNativeTarget "TempBox (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -444,15 +820,47 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		75C3203126FB5DDB009AAB26 /* Build configuration list for PBXNativeTarget "TempBoxTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75C3203226FB5DDB009AAB26 /* Debug */,
+				75C3203326FB5DDB009AAB26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		75752EFA26F39C19004EA6C1 /* MailTMSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MailTMSwift;
+		};
+		75C3204C26FBA229009AAB26 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCVersionGroup section */
-		750176FD26F38A9D00A47F7D /* TempBox.xcdatamodeld */ = {
+		7575A2B226F472C200A90CFE /* TempBox.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				750176FE26F38A9D00A47F7D /* Shared.xcdatamodel */,
+				7575A2B326F472C200A90CFE /* TempBox.xcdatamodel */,
 			);
-			currentVersion = 750176FE26F38A9D00A47F7D /* Shared.xcdatamodel */;
+			currentVersion = 7575A2B326F472C200A90CFE /* TempBox.xcdatamodel */;
 			path = TempBox.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

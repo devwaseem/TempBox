@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Resolver",
+        "repositoryURL": "https://github.com/hmlongco/Resolver",
+        "state": {
+          "branch": null,
+          "revision": "609908e0b67911ebf7386609552a48d4ec07958e",
+          "version": "1.4.4"
+        }
+      },
+      {
+        "package": "LDSwiftEventSource",
+        "repositoryURL": "https://github.com/LaunchDarkly/swift-eventsource.git",
+        "state": {
+          "branch": null,
+          "revision": "7c40adad054c9737afadffe42a2ce0bbcfa02f48",
+          "version": "1.2.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
