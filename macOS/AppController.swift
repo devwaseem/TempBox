@@ -31,12 +31,14 @@ class AppController: ObservableObject {
     var accountService: AccountServiceProtocol
     var messageListenerService: MessagesListenerService
     var subscriptions = Set<AnyCancellable>()
+    
+    var showError = false
+    var errorMessage = ""
 
     init(
         accountService: AccountServiceProtocol = Resolver.resolve(),
         messageListenerService: MessagesListenerService = Resolver.resolve()
     ) {
-        Logger.persistence.info("Helooooo")
         self.accountService = accountService
         self.messageListenerService = messageListenerService
         accountService
@@ -56,6 +58,31 @@ class AppController: ObservableObject {
     
     func activateAccount(account: Account) {
         accountService.activateAccount(account: account)
+    }
+    
+    func removeAccount(account: Account) {
+        accountService.removeAccount(account: account)
+    }
+    
+    func deleteAccount(account: Account) {
+        accountService.deleteAndRemoveAccount(account: account)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.showError = false
+                if case let .failure(error) = completion {
+                    print(error)
+                    switch error {
+                        case .mtError(let apiError):
+                            self.showError = true
+                            self.errorMessage = apiError
+                        default:
+                            break
+                    }
+                }
+            } receiveValue: { _ in
+                // Deleted successfully
+            }
+            .store(in: &subscriptions)
     }
     
 }

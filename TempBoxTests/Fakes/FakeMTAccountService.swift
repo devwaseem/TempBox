@@ -84,24 +84,21 @@ class FakeMTAccountService: MTAccountService {
         return MockDataTask()
     }
 
-    override func deleteAccount(id: String, token: String, completion: @escaping (Result<MTAccount, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
+    override func deleteAccount(id: String, token: String, completion: @escaping (Result<EmptyResult, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
         
         guard !forceError else {
             completion(.failure(error!))
             return MockDataTask()
         }
-           
-        let account = accounts.first { $0.id == token }
-        if let account = account {
-            accounts = accounts.filter { $0.id != token }
-            completion(.success(account))
-        } else {
-            guard let error = error else {
-                fatalError("Error occured but error not passed")
-            }
-
+                
+        if let error = error {
             completion(.failure(error))
+            return MockDataTask()
         }
+        
+        accounts = accounts.filter { $0.id != token }
+        completion(.success(EmptyResult()))
+        
         return MockDataTask()
     }
     
@@ -187,26 +184,23 @@ class FakeMTAccountService: MTAccountService {
         .eraseToAnyPublisher()
     }
 
-    override func deleteAccount(id: String, token: String) -> AnyPublisher<MTAccount, MTError> {
+    override func deleteAccount(id: String, token: String) -> AnyPublisher<EmptyResult, MTError> {
         guard !forceError else {
-            return Future<MTAccount, MTError> { promise in
+            return Future<EmptyResult, MTError> { promise in
                 promise(.failure(self.error!))
             }
             .eraseToAnyPublisher()
         }
            
         return Future { promise in
-            let account = self.accounts.first { $0.id == token }
-            if let account = account {
-                self.accounts = self.accounts.filter { $0.id != token }
-                promise(.success(account))
-            } else {
-                guard let error = self.error else {
-                    fatalError("Error occured but error not passed")
-                }
-
+            if let error = self.error {
                 promise(.failure(error))
+                return
             }
+            
+            self.accounts = self.accounts.filter { $0.id != token }
+            promise(.success(EmptyResult()))
+           
         }
         .eraseToAnyPublisher()
         

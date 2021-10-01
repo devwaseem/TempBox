@@ -134,9 +134,8 @@ class AddAccountViewController: ObservableObject {
                         self.errorMessage = "Something went wrong while creating a new address"
                     }
                 }
-            } receiveValue: { [weak self] account in
+            } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                print(account)
                 self.closeAddAccountWindow()
             }
             .store(in: &subscriptions)

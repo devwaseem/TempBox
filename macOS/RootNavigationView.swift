@@ -24,6 +24,11 @@ struct RootNavigationView: View {
 
         }
         .frame(minWidth: 1000, minHeight: 600, idealHeight: 800)
+        .alert(isPresented: $appController.showError, content: {
+            Alert(title: Text(appController.errorMessage), message: nil, dismissButton: .default(Text("OK"), action: {
+                appController.showError = false
+            }))
+        })
         .environmentObject(appController)
     }
 }

@@ -23,6 +23,8 @@ protocol AccountServiceProtocol {
     
     func archiveAccount(account: Account)
     func activateAccount(account: Account)
+    func removeAccount(account: Account)
+    func deleteAndRemoveAccount(account: Account) -> AnyPublisher<Never, MTError>
 }
 
 class AccountService: NSObject, AccountServiceProtocol {
@@ -53,8 +55,12 @@ class AccountService: NSObject, AccountServiceProtocol {
         
     private var persistenceManager: PersistenceManager
     private var repository: AccountRepositoryProtocol
-    private var accountService: MTAccountService
+    private var mtAccountService: MTAccountService
     private var domainService: MTDomainService
+    
+    var subscriptions = Set<AnyCancellable>()
+    
+    private let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
     
     var fetchController: NSFetchedResultsController<Account>
     
@@ -65,39 +71,26 @@ class AccountService: NSObject, AccountServiceProtocol {
         domainService: MTDomainService = Resolver.resolve(),
         fetchController: NSFetchedResultsController<Account>? = nil) {
             
-            let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
-            fetchRequest.sortDescriptors = []
+            fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Account.createdAt, ascending: false)]
             if let fetchController = fetchController {
                 self.fetchController = fetchController
             } else {
                 self.fetchController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                                   managedObjectContext: persistenceManager.mainContext,
                                                                   sectionNameKeyPath: nil,
-                                                                  cacheName: "TempBox-Account")
+                                                                  cacheName: nil)
             }
-            
             self.repository = repository
             self.domainService = domainService
-            self.accountService = accountService
+            self.mtAccountService = accountService
             self.persistenceManager = persistenceManager
             super.init()
             
-            runInitialSetup()
-            
-            do {
-                try fetchController?.performFetch()
-                accountsdidChange()
-            } catch {
-                print(error)
-            }
+            self.getDomains()
+            self.fetchController.delegate = self
+            try? self.fetchController.performFetch()
+            accountsdidChange()
         }
-    
-    private func runInitialSetup() {
-        self.getDomains()
-        self.fetchController.delegate = self
-    }
-    
-    var subscriptions = Set<AnyCancellable>()
     
     private func getDomains() {
         isDomainsLoading = true
@@ -122,7 +115,7 @@ class AccountService: NSObject, AccountServiceProtocol {
             }.eraseToAnyPublisher()
         }
         
-        return self.accountService.createAccount(using: auth)
+        return self.mtAccountService.createAccount(using: auth)
             .flatMap { account in
                 Publishers.Zip(
                     Deferred {
@@ -131,11 +124,10 @@ class AccountService: NSObject, AccountServiceProtocol {
                         }
                     },
                     
-                    self.accountService.login(using: auth)
+                    self.mtAccountService.login(using: auth)
                 )
             }
             .eraseToAnyPublisher()
-            .print()
             .map { (account, token) -> Account in
                 self.repository.create(account: account, password: auth.password, token: token)
             }
@@ -157,6 +149,20 @@ class AccountService: NSObject, AccountServiceProtocol {
     
     func removeAccount(account: Account) {
         repository.delete(account: account)
+    }
+    
+    func deleteAndRemoveAccount(account: Account) -> AnyPublisher<Never, MTError> {
+        self.mtAccountService.deleteAccount(id: account.id, token: account.token)
+            .share()
+            .ignoreOutput()
+            .print()
+            .handleEvents(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+                if case .finished = completion {
+                    self.removeAccount(account: account)
+                }
+            })
+            .eraseToAnyPublisher()
     }
     
     private func accountsdidChange() {

@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
+import Combine
+import Resolver
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    @Injected var persistenceManager: PersistenceManager
 
     var popover = NSPopover.init()
     var statusBar: StatusBarController?
-
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
+        
 //        popover.contentSize = NSSize(width: 360, height: 360)
 //        popover.contentViewController = NSHostingController(rootView:
 //                                                                VStack{
@@ -23,10 +28,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 //                                                                    .listStyle(SidebarListStyle())
 //                                                                })
 //        statusBar = StatusBarController(popover)
+        print(persistenceManager.mainContext)
     }
-
+    
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         true
+    }
+    
+    func applicationWillTerminate(_ notification: Notification) {
+        persistenceManager.saveMainContext()
     }
 
 }

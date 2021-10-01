@@ -76,4 +76,15 @@ class FakeAccountService: AccountServiceProtocol {
         archivedAccounts = archivedAccounts.filter { $0.id != account.id }
     }
     
+    func removeAccount(account: Account) {
+        activeAccounts = activeAccounts.filter { $0.id != account.id }
+        archivedAccounts = archivedAccounts.filter { $0.id != account.id }
+    }
+    
+    func deleteAndRemoveAccount(account: Account) -> AnyPublisher<Never, MTError> {
+        removeAccount(account: account)
+        return Future { _ in }.eraseToAnyPublisher()
+        
+    }
+    
 }
