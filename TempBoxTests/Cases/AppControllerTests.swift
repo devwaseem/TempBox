@@ -16,7 +16,7 @@ class AppControllerTests: XCTestCase {
     var mtDomainService: FakeMTDomainService!
     var mtAccountService: FakeMTAccountService!
     var accountRepo: FakeAccountRepository!
-    var accountService: AccountService!
+    var accountService: FakeAccountService!
     var sut: AppController!
     
     override func setUp() {
@@ -25,10 +25,7 @@ class AppControllerTests: XCTestCase {
         mtDomainService = FakeMTDomainService()
         mtAccountService = FakeMTAccountService()
         accountRepo = FakeAccountRepository()
-        accountService = AccountService(persistenceManager: persistenceManager,
-                                        repository: accountRepo,
-                                        accountService: mtAccountService,
-                                        domainService: mtDomainService)
+        accountService = FakeAccountService()
         sut = AppController(accountService: accountService)
     }
     

@@ -11,8 +11,39 @@ import Combine
 import MailTMSwift
 import CoreData
 
-class AccountService: NSObject {
+protocol AccountServiceProtocol {
+    var activeAccountsPublisher: AnyPublisher<[Account], Never> { get }
+    var archivedAccountsPublisher: AnyPublisher<[Account], Never> { get }
+    var availableDomainsPublisher: AnyPublisher<[MTDomain], Never> { get }
+    
+    var activeAccounts: [Account] { get }
+    var archivedAccounts: [Account] { get }
+    var availableDomains: [MTDomain] { get }
+    var isDomainsLoading: Bool { get }
+    
+    func archiveAccount(account: Account)
+    func activateAccount(account: Account)
+}
+
+class AccountService: NSObject, AccountServiceProtocol {
     // MARK: Account properties
+    
+    var activeAccountsPublisher: AnyPublisher<[Account], Never> {
+        $activeAccounts.eraseToAnyPublisher()
+    }
+    
+    var archivedAccountsPublisher: AnyPublisher<[Account], Never> {
+        $archivedAccounts.eraseToAnyPublisher()
+    }
+    
+    var availableDomainsPublisher: AnyPublisher<[MTDomain], Never> {
+        $availableDomains.eraseToAnyPublisher()
+    }
+    
+    var isDomainsLoadingPublisher: AnyPublisher<Bool, Never> {
+        $isDomainsLoading.eraseToAnyPublisher()
+    }
+    
     @Published var activeAccounts: [Account] = []
     @Published var archivedAccounts: [Account] = []
     
@@ -25,20 +56,25 @@ class AccountService: NSObject {
     private var accountService: MTAccountService
     private var domainService: MTDomainService
     
-    private var fetchController: NSFetchedResultsController<Account>
+    var fetchController: NSFetchedResultsController<Account>
     
     init(
         persistenceManager: PersistenceManager = Resolver.resolve(),
         repository: AccountRepositoryProtocol = Resolver.resolve(),
         accountService: MTAccountService = Resolver.resolve(),
-        domainService: MTDomainService = Resolver.resolve()) {
+        domainService: MTDomainService = Resolver.resolve(),
+        fetchController: NSFetchedResultsController<Account>? = nil) {
             
             let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
             fetchRequest.sortDescriptors = []
-            self.fetchController = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                              managedObjectContext: persistenceManager.mainContext,
-                                                              sectionNameKeyPath: nil,
-                                                              cacheName: "TempBox-Account")
+            if let fetchController = fetchController {
+                self.fetchController = fetchController
+            } else {
+                self.fetchController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                  managedObjectContext: persistenceManager.mainContext,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: "TempBox-Account")
+            }
             
             self.repository = repository
             self.domainService = domainService
@@ -49,7 +85,7 @@ class AccountService: NSObject {
             runInitialSetup()
             
             do {
-                try fetchController.performFetch()
+                try fetchController?.performFetch()
                 accountsdidChange()
             } catch {
                 print(error)
@@ -65,18 +101,6 @@ class AccountService: NSObject {
     
     private func getDomains() {
         isDomainsLoading = true
-//        getAllDomainTask = domainService.getAllDomains { [weak self] result in
-//            guard let self = self else { return }
-//            self.isDomainsLoading = false
-//            switch result {
-//                case .success(let domains):
-//                    self.availableDomains = domains
-//                        .filter { $0.isActive && !$0.isPrivate }
-//                case .failure(let error):
-//                    print("Error \(error.localizedDescription)")
-//            }
-//        }
-        
         domainService.getAllDomains()
             .sink { completion in
                 self.isDomainsLoading = false
@@ -91,30 +115,6 @@ class AccountService: NSObject {
 
     }
     
-//    func createAccount(using auth: MTAuth) -> AnyPublisher<Account, MTError> {
-//        Future { [weak self] promise in
-//            guard let self = self else { return }
-//            guard !self.repository.isAccountExists(forAddress: auth.address) else {
-//                promise(.failure(.mtError("This account already exists! Please choose a different address")))
-//                return
-//            }
-//            self.accountService.createAccount(using: auth) { [weak self] result in
-//                guard let self = self else { return }
-//                switch result {
-//                    case .success(let account):
-//                        print(account)
-//                        let createdAccount = self.repository.create(account: account, password: auth.password, token: <#String#>)
-//                        self.activeAccounts.append(createdAccount)
-//                        promise(.success(createdAccount))
-//                    case .failure(let error):
-//                        promise(.failure(error))
-//                }
-//            }
-//
-//        }
-//        .eraseToAnyPublisher()
-//    }
-    
     func createAccount(using auth: MTAuth) -> AnyPublisher<Account, MTError> {
         guard !self.repository.isAccountExists(forAddress: auth.address) else {
             return Future { promise in
@@ -125,17 +125,20 @@ class AccountService: NSObject {
         return self.accountService.createAccount(using: auth)
             .flatMap { account in
                 Publishers.Zip(
-                    Future<MTAccount, MTError> { promise in
-                        promise(.success(account))
+                    Deferred {
+                        Future<MTAccount, MTError> { promise in
+                            promise(.success(account))
+                        }
                     },
                     
                     self.accountService.login(using: auth)
                 )
             }
+            .eraseToAnyPublisher()
+            .print()
             .map { (account, token) -> Account in
                 self.repository.create(account: account, password: auth.password, token: token)
             }
-            .print()
             .handleEvents(receiveOutput: { account in
                 self.activeAccounts.append(account)
             })
@@ -145,27 +148,33 @@ class AccountService: NSObject {
     func archiveAccount(account: Account) {
         account.isArchived = true
         repository.update(account: account)
-        archivedAccounts.append(account)
-        activeAccounts = activeAccounts.filter { $0.id != account.id }
     }
     
     func activateAccount(account: Account) {
         account.isArchived = false
         repository.update(account: account)
-        activeAccounts.append(account)
-        archivedAccounts = archivedAccounts.filter { $0.id != account.id }
+    }
+    
+    func removeAccount(account: Account) {
+        repository.delete(account: account)
     }
     
     private func accountsdidChange() {
         guard let results = fetchController.fetchedObjects else {
             return
         }
-        self.activeAccounts = results.filter {
-            !$0.isArchived
+        var tempActiveAccounts = [Account]()
+        var tempArchivedAccounts = [Account]()
+        for result in results where !result.isDeleted {
+            if result.isArchived {
+                tempArchivedAccounts.append(result)
+            } else {
+                tempActiveAccounts.append(result)
+            }
         }
-        self.archivedAccounts = results.filter {
-            $0.isArchived
-        }
+        
+        activeAccounts = tempActiveAccounts
+        archivedAccounts = tempArchivedAccounts
     }
 
 }

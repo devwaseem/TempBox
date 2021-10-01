@@ -28,19 +28,24 @@ class AppController: ObservableObject {
         return []
     }
     
-    var accountService: AccountService
+    var accountService: AccountServiceProtocol
+    var messageListenerService: MessagesListenerService
     var subscriptions = Set<AnyCancellable>()
 
-    init(accountService: AccountService = Resolver.resolve()) {
+    init(
+        accountService: AccountServiceProtocol = Resolver.resolve(),
+        messageListenerService: MessagesListenerService = Resolver.resolve()
+    ) {
         Logger.persistence.info("Helooooo")
         self.accountService = accountService
+        self.messageListenerService = messageListenerService
         accountService
-            .$activeAccounts
+            .activeAccountsPublisher
             .assign(to: \.activeAccounts, on: self)
             .store(in: &subscriptions)
         
         accountService
-            .$archivedAccounts
+            .archivedAccountsPublisher
             .assign(to: \.archivedAccounts, on: self)
             .store(in: &subscriptions)
     }
@@ -54,3 +59,8 @@ class AppController: ObservableObject {
     }
     
 }
+
+//{
+//    "address": "randommmmm@uniromax.com",
+//    "password": "helo12312312"
+//}

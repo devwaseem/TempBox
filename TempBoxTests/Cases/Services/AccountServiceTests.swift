@@ -16,7 +16,8 @@ class AccountServiceTests: XCTestCase {
     var peristenceManager: TestPersistenceManager!
     var mockDomainService: MockMTDomainService!
     var accountService: FakeMTAccountService!
-    var accountRepo: FakeAccountRepository!
+    var accountRepo: AccountRepository!
+    var fetchController: NSFetchedResultsController<Account>!
     var sut: AccountService!
     
     var givenDomain: MTDomain!
@@ -31,9 +32,16 @@ class AccountServiceTests: XCTestCase {
         super.setUp()
         subscriptions = []
         peristenceManager = TestPersistenceManager()
-        accountRepo = FakeAccountRepository()
+        accountRepo = AccountRepository(persistenceManager: peristenceManager)
         accountService = FakeMTAccountService()
         mockDomainService = MockMTDomainService()
+        
+        let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
+        fetchRequest.sortDescriptors = []
+        fetchController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                     managedObjectContext: peristenceManager.mainContext,
+                                                     sectionNameKeyPath: nil,
+                                                     cacheName: nil)
 
         givenDomainId = UUID().uuidString
         givenDomainAddress = "test@example.com"
@@ -54,26 +62,29 @@ class AccountServiceTests: XCTestCase {
         mockDomainService = nil
         sut = nil
         subscriptions = nil
+        fetchController = nil
     }
     
     // MARK: - Helpers
     
     func initSut(withSucccessfulDomains domains: [MTDomain], accounts: [Account] = []) {
         mockDomainService.givenGetAllDomainsPubliserResult = .success(domains)
-        accountRepo.setAccounts(accounts: accounts)
+        peristenceManager.saveMainContext()
         sut = AccountService(persistenceManager: peristenceManager,
                              repository: accountRepo,
                              accountService: accountService,
-                             domainService: mockDomainService)
+                             domainService: mockDomainService,
+                             fetchController: fetchController)
     }
     
     func initSut(withDomainsError domainError: MTError, accounts: [Account] = []) {
         mockDomainService.givenGetAllDomainsPubliserResult = .failure(domainError)
-        accountRepo.setAccounts(accounts: accounts)
+        peristenceManager.saveMainContext()
         sut = AccountService(persistenceManager: peristenceManager,
                              repository: accountRepo,
                              accountService: accountService,
-                             domainService: mockDomainService)
+                             domainService: mockDomainService,
+                             fetchController: fetchController)
     }
     
     // MARK: - Initializer test cases
@@ -283,10 +294,78 @@ class AccountServiceTests: XCTestCase {
         
         // When
         sut.archiveAccount(account: givenAccount)
-          
+        peristenceManager.saveContext(peristenceManager.mainContext)
+        // swiftlint:disable force_cast
+        sut.fetchController.delegate!.controllerDidChangeContent!(sut.fetchController as! NSFetchedResultsController<NSFetchRequestResult>)
+        // swiftlint:enable force_cast
+        
         // Then
+        XCTAssertTrue(givenAccount.isArchived)
+        XCTAssertEqual(self.sut.activeAccounts.count, 0)
+        XCTAssertEqual(self.sut.archivedAccounts.count, 1)
+    }
+    
+    func test_activateAccount_setsAccountArchivedProperyToFalse() {
+        
+        let mtAccount = MTAccount(id: "id123",
+                                  address: "test@domain.com",
+                                  quotaLimit: 100,
+                                  quotaUsed: 10,
+                                  isDisabled: false,
+                                  isDeleted: false,
+                                  createdAt: .init(),
+                                  updatedAt: .init())
+        let givenAccount = Account(context: peristenceManager.mainContext)
+        givenAccount.set(from: mtAccount, password: "12345", token: "12345", isArchived: true)
+        initSut(withSucccessfulDomains: givenDomains, accounts: [givenAccount])
+        
+        // Initially
+        XCTAssertTrue(givenAccount.isArchived)
         XCTAssertEqual(sut.activeAccounts.count, 0)
         XCTAssertEqual(sut.archivedAccounts.count, 1)
+        
+        // When
+        sut.activateAccount(account: givenAccount)
+        
+        // swiftlint:disable force_cast
+        sut.fetchController.delegate!.controllerDidChangeContent!(sut.fetchController as! NSFetchedResultsController<NSFetchRequestResult>)
+        // swiftlint:enable force_cast
+        
+        // Then
+        XCTAssertFalse(givenAccount.isArchived)
+        XCTAssertEqual(self.sut.activeAccounts.count, 1)
+        XCTAssertEqual(self.sut.archivedAccounts.count, 0)
+    }
+    
+    func test_removeAccount_removesAccountFromAnyList() {
+        let mtAccount = MTAccount(id: "id123",
+                                  address: "test@domain.com",
+                                  quotaLimit: 100,
+                                  quotaUsed: 10,
+                                  isDisabled: false,
+                                  isDeleted: false,
+                                  createdAt: .init(),
+                                  updatedAt: .init())
+        let givenAccount = Account(context: peristenceManager.mainContext)
+        givenAccount.set(from: mtAccount, password: "12345", token: "12345", isArchived: true)
+        initSut(withSucccessfulDomains: givenDomains, accounts: [givenAccount])
+        
+        // Initially
+        XCTAssertTrue(givenAccount.isArchived)
+        XCTAssertEqual(sut.activeAccounts.count, 0)
+        XCTAssertEqual(sut.archivedAccounts.count, 1)
+        
+        // When
+        sut.removeAccount(account: givenAccount)
+        peristenceManager.mainContext.delete(givenAccount)
+        peristenceManager.saveMainContext()
+        // swiftlint:disable force_cast
+        sut.fetchController.delegate!.controllerDidChangeContent!(sut.fetchController as! NSFetchedResultsController<NSFetchRequestResult>)
+        // swiftlint:enable force_cast
+        
+        // Then
+        XCTAssertEqual(self.sut.activeAccounts.count, 0)
+        XCTAssertEqual(self.sut.archivedAccounts.count, 0)
     }
     
  }

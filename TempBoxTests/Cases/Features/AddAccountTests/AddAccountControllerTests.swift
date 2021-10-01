@@ -67,6 +67,15 @@ class AddAccountViewControllerTests: XCTestCase {
     }
 
     // MARK: - Other tests cases
+    
+    func test_addressText_whenAddressEntered_convertsToLowerCase() {
+        let givenAddress = "123abcDEF"
+        
+        sut.addressText = givenAddress
+        
+        XCTAssertEqual(sut.addressText, "123abcdef")
+        
+    }
 
     func test_canCreate_whenValidSituation_returnsTrue() {
         // when

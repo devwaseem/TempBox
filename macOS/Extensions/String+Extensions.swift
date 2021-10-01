@@ -9,10 +9,17 @@ import Foundation
 
 extension String {
 
-    static func random(length: Int = 8, allowsSpecialCharacters: Bool = false) -> String {
+    static func random(length: Int = 8, allowsUpperCaseCharacters: Bool = true, allowsSpecialCharacters: Bool = false) -> String {
 
-        let specialChars = allowsSpecialCharacters ? "$@#!&()[]" : ""
-        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" + specialChars
+        var allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789"
+        
+        if allowsUpperCaseCharacters {
+            allowedChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        }
+        
+        if allowsSpecialCharacters {
+            allowedChars += "$@#!&()[]"
+        }
         let allowedCharsCount = UInt32(allowedChars.count)
         var randomString = ""
 

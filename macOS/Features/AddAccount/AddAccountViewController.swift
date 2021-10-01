@@ -11,6 +11,16 @@ import Combine
 import AppKit
 import MailTMSwift
 
+struct LowercasedString: ExpressibleByStringLiteral {
+    
+    var value: String
+    
+    init(stringLiteral value: StringLiteralType) {
+        self.value = value.lowercased()
+    }
+    
+}
+
 class AddAccountViewController: ObservableObject {
     @Published var isAddAccountWindowOpen = false
     
@@ -26,7 +36,13 @@ class AddAccountViewController: ObservableObject {
     @Published var isDomainsLoading = true
     
     // MARK: Address properties
-    @Published var addressText = ""
+    @Published var addressText = "" {
+        didSet {
+            if addressText != oldValue {
+                addressText = addressText.lowercased()
+            }
+        }
+    }
 
     // MARK: Password properties
     @Published var passwordText = ""
@@ -52,11 +68,11 @@ class AddAccountViewController: ObservableObject {
     init(accountService: AccountService = Resolver.resolve()) {
         self.accountService = accountService
         
-        self.accountService.$isDomainsLoading
+        self.accountService.isDomainsLoadingPublisher
             .assign(to: \.isDomainsLoading, on: self)
             .store(in: &subscriptions)
         
-        self.accountService.$availableDomains
+        self.accountService.availableDomainsPublisher
             .map {
                 $0.map(\.domain)
             }
@@ -81,7 +97,7 @@ class AddAccountViewController: ObservableObject {
     }
 
     func generateRandomAddress() {
-        addressText = String.random(length: 8)
+        addressText = String.random(length: 8, allowsUpperCaseCharacters: false)
     }
 
     func createNewAddress() {

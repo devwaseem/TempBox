@@ -28,14 +28,16 @@ extension Account {
     @NSManaged public var token: String
 
     func set(from mtAccount: MTAccount, password: String, token: String, isArchived: Bool = false) {
-        id = mtAccount.id
-        address = mtAccount.address
-        quotaLimit = Int32(mtAccount.quotaLimit)
-        quotaUsed = Int32(mtAccount.quotaUsed)
-        isDisabled = mtAccount.isDisabled
-        createdAt = mtAccount.createdAt
-        updatedAt = mtAccount.updatedAt
+        self.id = mtAccount.id
+        self.address = mtAccount.address
+        self.quotaLimit = Int32(mtAccount.quotaLimit)
+        self.quotaUsed = Int32(mtAccount.quotaUsed)
+        self.isDisabled = mtAccount.isDisabled
+        self.createdAt = mtAccount.createdAt
+        self.updatedAt = mtAccount.updatedAt
         self.isArchived = isArchived
+        self.token = token
+        self.password = password
     }
     
 }

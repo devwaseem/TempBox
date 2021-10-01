@@ -11,6 +11,10 @@ extension Resolver {
     public static func registerServices() {
         register {
             AccountService()
+        }.implements(AccountServiceProtocol.self)
+        
+        register {
+            MessagesListenerService(accountService: resolve())
         }
     }
 }

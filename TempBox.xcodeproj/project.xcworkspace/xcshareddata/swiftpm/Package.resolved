@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "MailTMSwift",
-        "repositoryURL": "https://github.com/devwaseem/MailTMSwift.git",
-        "state": {
-          "branch": "main",
-          "revision": "729dda65b92cdb76a226e20881c11dddb9ae9cca",
-          "version": null
-        }
-      },
-      {
         "package": "Resolver",
         "repositoryURL": "https://github.com/hmlongco/Resolver",
         "state": {
