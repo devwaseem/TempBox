@@ -30,10 +30,6 @@
 		7575A2B426F472C200A90CFE /* TempBox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7575A2B226F472C200A90CFE /* TempBox.xcdatamodeld */; };
 		7575A2DA26F473FD00A90CFE /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7575A2D926F473FD00A90CFE /* Persistence.swift */; };
 		758050542700DE0C00C71EA6 /* AppControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758050532700DE0C00C71EA6 /* AppControllerTests.swift */; };
-		7583658B27077FA9003C76E1 /* User_Interface.docc in Sources */ = {isa = PBXBuildFile; fileRef = 7583658A27077FA9003C76E1 /* User_Interface.docc */; };
-		7583658C27077FA9003C76E1 /* User_Interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 7583658927077FA9003C76E1 /* User_Interface.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7583658F27077FA9003C76E1 /* User_Interface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7583658727077FA9003C76E1 /* User_Interface.framework */; };
-		7583659027077FA9003C76E1 /* User_Interface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7583658727077FA9003C76E1 /* User_Interface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7584F26526FF009300C972DA /* AccountServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26426FF009300C972DA /* AccountServiceTests.swift */; };
 		7584F26726FF01D600C972DA /* MockAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26626FF01D600C972DA /* MockAccountRepository.swift */; };
 		7584F26926FF208200C972DA /* MockAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26826FF208200C972DA /* MockAccountService.swift */; };
@@ -79,21 +75,6 @@
 			remoteInfo = "TempBox (macOS)";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		7583659127077FA9003C76E1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7583659027077FA9003C76E1 /* User_Interface.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		750176FF26F38A9D00A47F7D /* TempBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBoxApp.swift; sourceTree = "<group>"; };
 		7501770226F38A9E00A47F7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,9 +101,6 @@
 		7575A2B326F472C200A90CFE /* TempBox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TempBox.xcdatamodel; sourceTree = "<group>"; };
 		7575A2D926F473FD00A90CFE /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		758050532700DE0C00C71EA6 /* AppControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppControllerTests.swift; sourceTree = "<group>"; };
-		7583658727077FA9003C76E1 /* User_Interface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = User_Interface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7583658927077FA9003C76E1 /* User_Interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User_Interface.h; sourceTree = "<group>"; };
-		7583658A27077FA9003C76E1 /* User_Interface.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = User_Interface.docc; sourceTree = "<group>"; };
 		7584F26426FF009300C972DA /* AccountServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceTests.swift; sourceTree = "<group>"; };
 		7584F26626FF01D600C972DA /* MockAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountRepository.swift; sourceTree = "<group>"; };
 		7584F26826FF208200C972DA /* MockAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountService.swift; sourceTree = "<group>"; };
@@ -151,7 +129,6 @@
 		75DFF7622700E77200EE4B7A /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		75E03951270635B200650675 /* FakeMTLiveMessagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTLiveMessagesService.swift; sourceTree = "<group>"; };
 		75E039562706369200650675 /* MailTMSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MailTMSwift; path = ../../work/personal/ios/MailTMSwift; sourceTree = "<group>"; };
-		75E94B5627077EF40088F99A /* UI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +137,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				75640F26270636CC00C7BCF6 /* MailTMSwift in Frameworks */,
-				7583658F27077FA9003C76E1 /* User_Interface.framework in Frameworks */,
 				75C3204D26FBA229009AAB26 /* Resolver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,8 +190,6 @@
 			children = (
 				7501770F26F38A9E00A47F7D /* TempBox.app */,
 				75C3202B26FB5DDB009AAB26 /* TempBoxTests.xctest */,
-				75E94B5627077EF40088F99A /* UI.framework */,
-				7583658727077FA9003C76E1 /* User_Interface.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -340,15 +314,6 @@
 				75C3205426FBA841009AAB26 /* Persistence+Injection.swift */,
 			);
 			path = Persistence;
-			sourceTree = "<group>";
-		};
-		7583658827077FA9003C76E1 /* User Interface */ = {
-			isa = PBXGroup;
-			children = (
-				7583658927077FA9003C76E1 /* User_Interface.h */,
-				7583658A27077FA9003C76E1 /* User_Interface.docc */,
-			);
-			path = "User Interface";
 			sourceTree = "<group>";
 		};
 		7584F26326FF008700C972DA /* Services */ = {
@@ -478,24 +443,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		7583658227077FA9003C76E1 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7583658C27077FA9003C76E1 /* User_Interface.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75E94B5127077EF40088F99A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		7501770E26F38A9E00A47F7D /* TempBox (macOS) */ = {
 			isa = PBXNativeTarget;
@@ -521,24 +468,6 @@
 			productReference = 7501770F26F38A9E00A47F7D /* TempBox.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7583658627077FA9003C76E1 /* User Interface */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7583659427077FA9003C76E1 /* Build configuration list for PBXNativeTarget "User Interface" */;
-			buildPhases = (
-				7583658227077FA9003C76E1 /* Headers */,
-				7583658327077FA9003C76E1 /* Sources */,
-				7583658427077FA9003C76E1 /* Frameworks */,
-				7583658527077FA9003C76E1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "User Interface";
-			productName = "User Interface";
-			productReference = 7583658727077FA9003C76E1 /* User_Interface.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		75C3202A26FB5DDB009AAB26 /* TempBoxTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75C3203126FB5DDB009AAB26 /* Build configuration list for PBXNativeTarget "TempBoxTests" */;
@@ -556,24 +485,6 @@
 			productName = TempBoxTests;
 			productReference = 75C3202B26FB5DDB009AAB26 /* TempBoxTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		75E94B5527077EF40088F99A /* UI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 75E94B5E27077EF40088F99A /* Build configuration list for PBXNativeTarget "UI" */;
-			buildPhases = (
-				75E94B5127077EF40088F99A /* Headers */,
-				75E94B5227077EF40088F99A /* Sources */,
-				75E94B5327077EF40088F99A /* Frameworks */,
-				75E94B5427077EF40088F99A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = UI;
-			productName = UI;
-			productReference = 75E94B5627077EF40088F99A /* UI.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -711,14 +622,6 @@
 				75C3204A26FBA1A2009AAB26 /* AccountService.swift in Sources */,
 				75752F0226F3A9BC004EA6C1 /* AddAccountWindow.swift in Sources */,
 				75B39ECE26F3CE5E0004AF82 /* QuotaView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7583658327077FA9003C76E1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7583658B27077FA9003C76E1 /* User_Interface.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
