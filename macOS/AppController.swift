@@ -10,6 +10,7 @@ import MailTMSwift
 import Resolver
 import Combine
 import os
+import AppKit
 
 class AppController: ObservableObject {
     @Published var filterNotSeen = false
@@ -17,6 +18,7 @@ class AppController: ObservableObject {
     @Published private(set) var activeAccounts: [Account] = []
     @Published private(set) var archivedAccounts: [Account] = []
     @Published private(set) var accountMessages: [Account: MessageStore] = [:]
+    @Published private var accountStatus: [Account: MTLiveMailService.State] = [:]
             
     @Published var selectedAccount: Account?
     @Published var selectedMessage: Message? {
@@ -49,6 +51,14 @@ class AppController: ObservableObject {
         }
         
         return []
+    }
+    
+    var selectedAccountConnectionIsActive: Bool {
+        guard let selectedAccount = selectedAccount else {
+            return false
+        }
+
+        return accountStatus[selectedAccount, default: .closed] == .opened
     }
         
     var mtMessageService: MTMessageService
@@ -110,6 +120,11 @@ class AppController: ObservableObject {
             }
             .store(in: &subscriptions)
         
+        messageListenerService
+            .$channelsStatus
+            .assign(to: \.accountStatus, on: self)
+            .store(in: &subscriptions)
+        
     }
     
     private func upsertMessage(message: Message, for account: Account) {
@@ -127,7 +142,6 @@ class AppController: ObservableObject {
             if let selectedMessage = selectedMessage, selectedMessage.id == message.id {
                 self.selectedMessage = message
             }
-            self.objectWillChange.send()
         }
     }
     
@@ -147,14 +161,14 @@ class AppController: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    private func markMessageAsSeen(message: Message, for account: Account) {
+    func markMessageAsSeen(message: Message, for account: Account) {
         guard
             let message = self.accountMessages[account]?.messages.first(where: { $0.data.id == message.data.id }),
             !message.data.seen
         else {
             return
         }
-        mtMessageService.markMessageAs(seen: true, token: account.token, id: message.data.id)
+        mtMessageService.markMessageAs(id: message.data.id, seen: true, token: account.token)
             .sink { completion in
                 if case let .failure(error) = completion {
                     print(error)
@@ -174,14 +188,30 @@ class AppController: ObservableObject {
         else {
             return
         }
-        mtMessageService.getMessage(token: account.token, id: message.data.id)
+        let token = account.token
+        let messageId = message.data.id
+        mtMessageService.getMessage(id: messageId, token: token)
+            .flatMap { message in
+                Publishers.Zip(
+                    Deferred {
+                        Future<MTMessage, MTError> { promise in
+                            promise(.success(message))
+                        }
+                    },
+                    self.mtMessageService.getSource(id: messageId, token: token)
+                )
+            }
             .sink { completion in
                 if case let .failure(error) = completion {
                     print(error)
                 }
-            } receiveValue: { [weak self] completeMessage in
+            } receiveValue: { [weak self] (completeMessage, source) in
                 guard let self = self else { return }
-                self.upsertMessage(message: Message(isComplete: true, data: completeMessage), for: account)
+                self.upsertMessage(message: Message(isComplete: true,
+                                                    data: completeMessage,
+                                                    isSourceDownloaded: true,
+                                                    source: source.data),
+                                   for: account)
             }
             .store(in: &subscriptions)
     }
@@ -230,9 +260,56 @@ class AppController: ObservableObject {
             .store(in: &subscriptions)
     }
     
+    func deleteMessage(message: Message, for account: Account) {
+        
+        // remove the message first then delete it
+        if let messages = self.accountMessages[account]?.messages, let index = messages.firstIndex(of: message) {
+            self.accountMessages[account]?.messages.remove(at: index)
+        } else {
+            return
+        }
+        
+        if self.selectedMessage == message {
+            self.selectedMessage = nil
+        }
+        
+        mtMessageService.deleteMessage(id: message.id, token: account.token)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    print(error)
+                }
+            } receiveValue: { _ in
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func downloadMessage(message: Message, for account: Account) {
+        guard message.isSourceDownloaded, let source = message.source else {
+            return
+        }
+        let subject = message.data.subject
+        var fileName: String
+        if subject.isEmpty {
+            fileName = "message.eml"
+        } else {
+            fileName = "\(subject).eml"
+        }
+        let panel = NSSavePanel()
+        panel.directoryURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+        panel.nameFieldLabel = "Save file as:"
+        panel.nameFieldStringValue = fileName
+        panel.canCreateDirectories = true
+        panel.showsTagField = false
+        
+        panel.begin { response in
+            if response == NSApplication.ModalResponse.OK, let fileUrl = panel.url {
+                do {
+                    try source.write(to: fileUrl, atomically: true, encoding: .utf8)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+        
 }
-
-//{
-//    "address": "randommmmm@uniromax.com",
-//    "password": "helo12312312"
-//}

@@ -20,7 +20,7 @@ class MessagesListenerService {
     private var accountService: AccountServiceProtocol
     private var accountRepository: AccountRepository
     private var channels: [Account: MTLiveMessageProtocol] = [:]
-    var channelsStatus: [Account: MTLiveMailService.State] = [:]
+    @Published var channelsStatus: [Account: MTLiveMailService.State] = [:]
     
     private var subscriptions = Set<AnyCancellable>()
     

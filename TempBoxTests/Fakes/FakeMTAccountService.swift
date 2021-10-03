@@ -84,7 +84,9 @@ class FakeMTAccountService: MTAccountService {
         return MockDataTask()
     }
 
-    override func deleteAccount(id: String, token: String, completion: @escaping (Result<EmptyResult, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
+    override func deleteAccount(id: String,
+                                token: String,
+                                completion: @escaping (Result<MTEmptyResult, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
         
         guard !forceError else {
             completion(.failure(error!))
@@ -97,7 +99,7 @@ class FakeMTAccountService: MTAccountService {
         }
         
         accounts = accounts.filter { $0.id != token }
-        completion(.success(EmptyResult()))
+        completion(.success(MTEmptyResult()))
         
         return MockDataTask()
     }
@@ -184,9 +186,9 @@ class FakeMTAccountService: MTAccountService {
         .eraseToAnyPublisher()
     }
 
-    override func deleteAccount(id: String, token: String) -> AnyPublisher<EmptyResult, MTError> {
+    override func deleteAccount(id: String, token: String) -> AnyPublisher<MTEmptyResult, MTError> {
         guard !forceError else {
-            return Future<EmptyResult, MTError> { promise in
+            return Future<MTEmptyResult, MTError> { promise in
                 promise(.failure(self.error!))
             }
             .eraseToAnyPublisher()
@@ -199,7 +201,7 @@ class FakeMTAccountService: MTAccountService {
             }
             
             self.accounts = self.accounts.filter { $0.id != token }
-            promise(.success(EmptyResult()))
+            promise(.success(MTEmptyResult()))
            
         }
         .eraseToAnyPublisher()

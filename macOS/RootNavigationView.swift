@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RootNavigationView: View {
-
-    @StateObject var appController = AppController()
+    
+    @EnvironmentObject var appController: AppController
 
     var body: some View {
         NavigationView {
@@ -29,7 +29,7 @@ struct RootNavigationView: View {
                 appController.showError = false
             }))
         })
-        .environmentObject(appController)
+        
     }
 }
 

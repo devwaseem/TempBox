@@ -96,7 +96,7 @@ class AddAccountViewControllerTests: XCTestCase {
 
         // then
         XCTAssertNotEqual(sut.addressText, "")
-        XCTAssertEqual(sut.addressText.count, 8)
+        XCTAssertEqual(sut.addressText.count, 10)
     }
 
     func test_isPasswordValid_shouldReturnTrueForValidPassword() {

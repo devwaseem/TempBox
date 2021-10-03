@@ -49,8 +49,14 @@ struct SidebarView: View {
             Spacer()
             
             if let selectedAccount = appController.selectedAccount {
-                QuotaView(value: selectedAccount.quotaUsed, total: selectedAccount.quotaLimit)
-                    .padding()
+                VStack {
+                    AccountInfoView(isActive: appController.selectedAccountConnectionIsActive,
+                                    address: selectedAccount.address,
+                                    password: selectedAccount.password)
+                        .padding(.horizontal)
+                    QuotaView(value: selectedAccount.quotaUsed, total: selectedAccount.quotaLimit)
+                        .padding()
+                }
             }
             Divider()
             
@@ -124,16 +130,6 @@ struct AddressItemView: View {
         .padding(.vertical, 8)
         .padding(.horizontal, 3)
         .contextMenu(menuItems: {
-            
-            Menu("Copy") {
-                Button(action: {}, label: {
-                    Label("Address: \(account.address)", systemImage: "tray")
-                })
-                Button(action: {}, label: {
-                    Label("Password", systemImage: "tray")
-                })
-            }
-            Divider()
             Button(action: {
                 if account.isArchived {
                     appController.activateAccount(account: account)
@@ -146,13 +142,13 @@ struct AddressItemView: View {
             Button(action: {
                 showConfirmationForRemove = true
             }, label: {
-                Label("Remove", systemImage: "tray")
+                Label("Remove", systemImage: "trash")
             })
             
             Button(action: {
                 showConfirmationForDelete = true
             }, label: {
-                Label("Delete", systemImage: "tray")
+                Label("Delete", systemImage: "trash")
             })
         })
         .background(

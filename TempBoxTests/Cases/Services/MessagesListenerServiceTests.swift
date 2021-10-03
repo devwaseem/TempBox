@@ -45,7 +45,9 @@ class MessagesListenerServiceTests: XCTestCase {
         accountRepository = AccountRepository(persistenceManager: persistenceManager)
         accountService = FakeAccountService()
         messageListenerService = FakeMTLiveMessagesService()
-        sut = TestableMessagesListenerService(accountService: accountService, mtLiveMessageService: messageListenerService, accountRepository: accountRepository)
+        sut = TestableMessagesListenerService(accountService: accountService,
+                                              mtLiveMessageService: messageListenerService,
+                                              accountRepository: accountRepository)
     }
     
     override func tearDown() {

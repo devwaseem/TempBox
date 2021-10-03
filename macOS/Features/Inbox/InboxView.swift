@@ -43,6 +43,25 @@ struct InboxView: View {
                                   excerpt: message.data.textExcerpt,
                                   isSeen: message.data.seen,
                                   date: message.data.createdAt)
+                            .contextMenu {
+                                if !message.data.seen {
+                                    Button {
+                                        if let selectedAccount = appController.selectedAccount {
+                                            appController.markMessageAsSeen(message: message, for: selectedAccount)
+                                        }
+                                    } label: {
+                                        Label("Mark as seen", systemImage: "eyes.inverse")
+                                    }
+                                }
+                                Button {
+                                    if let selectedAccount = appController.selectedAccount {
+                                        appController.deleteMessage(message: message, for: selectedAccount)
+                                    }
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                                
+                            }
                             .tag(message)
                     }
                 }
@@ -53,14 +72,14 @@ struct InboxView: View {
         .navigationSubtitle(messagesCount)
         .toolbar(content: {
             ToolbarItem(placement: .primaryAction) {
-                Button(action: {
+                Button {
                     appController.filterNotSeen.toggle()
-                }, label: {
+                } label: {
                     Label("Filter",
                           systemImage: "line.horizontal.3.decrease.circle\(isFilterBySeenEnabled ? ".fill" : "")")
+                        .foregroundColor(isFilterBySeenEnabled ? Color.accentColor : Color.primary)
                         .help("Filter by Unreads")
-                            .foregroundColor(isFilterBySeenEnabled ? Color.accentColor : Color.primary)
-                })
+                }
             }
         })
         
@@ -72,7 +91,7 @@ struct InboxView: View {
     }
     
     var noMessagesView: some View {
-        Text("No Messages")
+        Text(isFilterBySeenEnabled ? "No Unread Messages" : "No Messages")
             .opacity(0.6)
     }
 }

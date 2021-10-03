@@ -11,16 +11,6 @@ import Combine
 import AppKit
 import MailTMSwift
 
-struct LowercasedString: ExpressibleByStringLiteral {
-    
-    var value: String
-    
-    init(stringLiteral value: StringLiteralType) {
-        self.value = value.lowercased()
-    }
-    
-}
-
 class AddAccountViewController: ObservableObject {
     @Published var isAddAccountWindowOpen = false
     
@@ -97,7 +87,7 @@ class AddAccountViewController: ObservableObject {
     }
 
     func generateRandomAddress() {
-        addressText = String.random(length: 8, allowsUpperCaseCharacters: false)
+        addressText = String.random(length: 10, allowsUpperCaseCharacters: false)
     }
 
     func createNewAddress() {

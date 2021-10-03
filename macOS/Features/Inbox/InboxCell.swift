@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InboxCell: View {
-    
+        
     var username: String
     var subject: String
     var excerpt: String

@@ -34,6 +34,11 @@
 		7584F26526FF009300C972DA /* AccountServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26426FF009300C972DA /* AccountServiceTests.swift */; };
 		7584F26726FF01D600C972DA /* MockAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26626FF01D600C972DA /* MockAccountRepository.swift */; };
 		7584F26926FF208200C972DA /* MockAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26826FF208200C972DA /* MockAccountService.swift */; };
+		7586016F2709A60D0071BAB2 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586016E2709A60D0071BAB2 /* AccountInfoView.swift */; };
+		758601722709D6710071BAB2 /* AccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758601712709D6710071BAB2 /* AccountInfoViewController.swift */; };
+		75860174270A0AAF0071BAB2 /* ToolbarDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75860173270A0AAF0071BAB2 /* ToolbarDivider.swift */; };
+		75860177270A2D420071BAB2 /* SourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75860176270A2D420071BAB2 /* SourceView.swift */; };
+		75860179270A2DD00071BAB2 /* SourceWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75860178270A2DD00071BAB2 /* SourceWindowManager.swift */; };
 		75A3C4CD2708BF3A004ED1AB /* MessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */; };
 		75A3C4CF2708BF51004ED1AB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4CE2708BF51004ED1AB /* Message.swift */; };
 		75A3C4D12708CC99004ED1AB /* MessageDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */; };
@@ -110,6 +115,11 @@
 		7584F26426FF009300C972DA /* AccountServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceTests.swift; sourceTree = "<group>"; };
 		7584F26626FF01D600C972DA /* MockAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountRepository.swift; sourceTree = "<group>"; };
 		7584F26826FF208200C972DA /* MockAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountService.swift; sourceTree = "<group>"; };
+		7586016E2709A60D0071BAB2 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
+		758601712709D6710071BAB2 /* AccountInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewController.swift; sourceTree = "<group>"; };
+		75860173270A0AAF0071BAB2 /* ToolbarDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarDivider.swift; sourceTree = "<group>"; };
+		75860176270A2D420071BAB2 /* SourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceView.swift; sourceTree = "<group>"; };
+		75860178270A2DD00071BAB2 /* SourceWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceWindowManager.swift; sourceTree = "<group>"; };
 		75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageStore.swift; sourceTree = "<group>"; };
 		75A3C4CE2708BF51004ED1AB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailHeader.swift; sourceTree = "<group>"; };
@@ -211,6 +221,7 @@
 		7501772526F38C1700A47F7D /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				75860175270A2D1E0071BAB2 /* SourceView */,
 				75752F0026F3A96E004EA6C1 /* AddAccount */,
 				75529A7E26F3914800588FEA /* Inbox */,
 				75529A7F26F3914F00588FEA /* MessageDetail */,
@@ -224,6 +235,7 @@
 			children = (
 				75B39ECF26F3D8D80004AF82 /* BadgeView.swift */,
 				75DF252426F3D9D9003F69FE /* WebView.swift */,
+				75860173270A0AAF0071BAB2 /* ToolbarDivider.swift */,
 			);
 			path = "Shared Views";
 			sourceTree = "<group>";
@@ -233,6 +245,7 @@
 			children = (
 				7501772E26F38E4200A47F7D /* SidebarView.swift */,
 				75B39ECD26F3CE5E0004AF82 /* QuotaView.swift */,
+				758601702709D6630071BAB2 /* AccountInfoView */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -319,6 +332,24 @@
 				75640F2927063C3700C7BCF6 /* MessagesListenerServiceTests.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		758601702709D6630071BAB2 /* AccountInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				7586016E2709A60D0071BAB2 /* AccountInfoView.swift */,
+				758601712709D6710071BAB2 /* AccountInfoViewController.swift */,
+			);
+			path = AccountInfoView;
+			sourceTree = "<group>";
+		};
+		75860175270A2D1E0071BAB2 /* SourceView */ = {
+			isa = PBXGroup;
+			children = (
+				75860176270A2D420071BAB2 /* SourceView.swift */,
+				75860178270A2DD00071BAB2 /* SourceWindowManager.swift */,
+			);
+			path = SourceView;
 			sourceTree = "<group>";
 		};
 		75A3C4CB2708BDCE004ED1AB /* Models */ = {
@@ -577,6 +608,7 @@
 			files = (
 				75C3205326FBA4E5009AAB26 /* MTAccount+Extensions.swift in Sources */,
 				75C3204F26FBA25D009AAB26 /* App+Injection.swift in Sources */,
+				758601722709D6710071BAB2 /* AccountInfoViewController.swift in Sources */,
 				75C3204626FB9FDB009AAB26 /* Account+CoreDataProperties.swift in Sources */,
 				75C3205526FBA842009AAB26 /* Persistence+Injection.swift in Sources */,
 				75B39ED026F3D8D80004AF82 /* BadgeView.swift in Sources */,
@@ -588,6 +620,9 @@
 				75DF252826F3DBDA003F69FE /* StatusBarController.swift in Sources */,
 				75529A8126F3916B00588FEA /* InboxView.swift in Sources */,
 				75DFF7632700E77200EE4B7A /* Logger+Extensions.swift in Sources */,
+				7586016F2709A60D0071BAB2 /* AccountInfoView.swift in Sources */,
+				75860177270A2D420071BAB2 /* SourceView.swift in Sources */,
+				75860174270A0AAF0071BAB2 /* ToolbarDivider.swift in Sources */,
 				75752F0426F3B214004EA6C1 /* InboxCell.swift in Sources */,
 				75DE87472702D8D0008C089B /* MessagesListenerService.swift in Sources */,
 				75640F2827063A1B00C7BCF6 /* MTLiveMessagesService+Extensions.swift in Sources */,
@@ -603,6 +638,7 @@
 				7575A2B426F472C200A90CFE /* TempBox.xcdatamodeld in Sources */,
 				75C3205726FBA89D009AAB26 /* Respositories+Injection.swift in Sources */,
 				75752EFD26F39C3D004EA6C1 /* AppController.swift in Sources */,
+				75860179270A2DD00071BAB2 /* SourceWindowManager.swift in Sources */,
 				75DF252526F3D9D9003F69FE /* WebView.swift in Sources */,
 				75C3204A26FBA1A2009AAB26 /* AccountService.swift in Sources */,
 				75752F0226F3A9BC004EA6C1 /* AddAccountWindow.swift in Sources */,
@@ -768,10 +804,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "macOS/Supporting files/macOS.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "macOS/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -792,10 +829,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "macOS/Supporting files/macOS.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "macOS/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

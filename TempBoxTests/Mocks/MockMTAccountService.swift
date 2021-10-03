@@ -14,7 +14,8 @@ class MockMTAccountService: MTAccountService {
     var loginCallCount = 0
     var loginAuth: MTAuth?
     var givenLoginResult: Result<String, MTError>!
-    override func login(using auth: MTAuth, completion: @escaping (Result<String, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
+    override func login(using auth: MTAuth,
+                        completion: @escaping (Result<String, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
         loginCallCount += 1
         self.loginAuth = auth
         completion(givenLoginResult)
@@ -24,7 +25,8 @@ class MockMTAccountService: MTAccountService {
     var createAccountCallCount = 0
     var createAccountAuth: MTAuth?
     var givenCreateAccountResult: Result<MTAccount, MTError>!
-    override func createAccount(using auth: MTAuth, completion: @escaping (Result<MTAccount, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
+    override func createAccount(using auth: MTAuth,
+                                completion: @escaping (Result<MTAccount, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
         createAccountCallCount += 1
         self.createAccountAuth = auth
         completion(givenCreateAccountResult)
@@ -34,7 +36,8 @@ class MockMTAccountService: MTAccountService {
     var getMyAccountCallCount = 0
     var getMyAccountToken: String?
     var givenGetMyAccountResult: Result<MTAccount, MTError>!
-    override func getMyAccount(token: String, completion: @escaping (Result<MTAccount, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
+    override func getMyAccount(token: String,
+                               completion: @escaping (Result<MTAccount, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
         getMyAccountCallCount += 1
         getMyAccountToken = token
         completion(givenGetMyAccountResult)
@@ -43,8 +46,10 @@ class MockMTAccountService: MTAccountService {
 
     var deleteAccountCallCount = 0
     var deleteAccountToken: String?
-    var deleteAccountResult: Result<EmptyResult, MTError>!
-    override func deleteAccount(id: String, token: String, completion: @escaping (Result<EmptyResult, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
+    var deleteAccountResult: Result<MTEmptyResult, MTError>!
+    override func deleteAccount(id: String,
+                                token: String,
+                                completion: @escaping (Result<MTEmptyResult, MTError>) -> Void) -> MTAPIServiceTaskProtocol {
         deleteAccountCallCount += 1
         deleteAccountToken = token
         completion(deleteAccountResult)
@@ -79,7 +84,7 @@ class MockMTAccountService: MTAccountService {
         fatalError()
     }
     
-    override func deleteAccount(id: String, token: String) -> AnyPublisher<EmptyResult, MTError> {
+    override func deleteAccount(id: String, token: String) -> AnyPublisher<MTEmptyResult, MTError> {
         fatalError()
     }
 }

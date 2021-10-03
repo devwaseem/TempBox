@@ -11,6 +11,7 @@ import MailTMSwift
 struct MessageDetailView: View {
     
     @EnvironmentObject var appController: AppController
+    @EnvironmentObject var sourceViewWindowManger: SourceWindowManager
         
     var isLoading: Bool {
         !(selectedMessage?.isComplete ?? false)
@@ -53,11 +54,48 @@ struct MessageDetailView: View {
                 
             }
             .toolbar(content: {
+                
                 ToolbarItem(placement: .destructiveAction) {
-                    Button(action: {}, label: {
+                    Button {
+                        if let selectedMessage = self.selectedMessage, let selectedAccount = appController.selectedAccount {
+                            appController.deleteMessage(message: selectedMessage, for: selectedAccount)
+                        }
+                    } label: {
                         Label("Delete", systemImage: "trash")
-                    })
+                    }
+                    .help("Delete selected message")
                 }
+                
+                ToolbarDivider()
+                
+                ToolbarItem(placement: .automatic) {
+                    Button {
+                        if let selectedMessage = self.selectedMessage, let selectedAccount = appController.selectedAccount {
+                            appController.downloadMessage(message: selectedMessage, for: selectedAccount)
+                        }
+                    } label: {
+                        Label("Download", systemImage: "icloud.and.arrow.down")
+                    }
+                    .help("Download message")
+                    .disabled(!(self.selectedMessage?.isSourceDownloaded ?? true))
+                }
+                
+                ToolbarDivider()
+                
+                ToolbarItem(placement: .automatic) {
+                    Button {
+                        if let selectedMessage = self.selectedMessage,
+                           selectedMessage.isSourceDownloaded,
+                           let source = selectedMessage.source {
+                            sourceViewWindowManger.openWindow(with: source)
+                        }
+                    } label: {
+                        Label("Source", systemImage: "chevron.left.slash.chevron.right")
+                    }
+                    .help("View Source")
+                    .disabled(!(self.selectedMessage?.isSourceDownloaded ?? true))
+                }
+                
             })
         } else {
             notSelectedView

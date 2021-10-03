@@ -30,10 +30,10 @@
             filePath = "../../work/personal/ios/MailTMSwift/Sources/MailTMSwift/APIService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "handleAPIOutput(data:response:error:completion:)"
-            landmarkType = "7">
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -65,22 +65,6 @@
             startingLineNumber = "71"
             endingLineNumber = "71"
             landmarkName = "addChannelAndStartListening(account:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8D6F755A-D4AE-4FCE-80D6-D2CAA6B93722"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "macOS/AppController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "fetchCompleteMessageAndUpdate(message:for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
