@@ -12,18 +12,23 @@ import Combine
 
 class FakeMTLiveMessagesService: MTLiveMessageProtocol {
     
-    var messagePublisher: AnyPublisher<Result<MTMessage, MTError>, Never> {
-        _messagePublihser.eraseToAnyPublisher()
+    var accountPublisher: AnyPublisher<MTAccount, Never> {
+        _accountPublisher.eraseToAnyPublisher()
     }
     
-    var statePublisher: AnyPublisher<MTLiveMessagesService.State, Never> {
+    var messagePublisher: AnyPublisher<MTMessage, Never> {
+        _messagePublisher.eraseToAnyPublisher()
+    }
+    
+    var statePublisher: AnyPublisher<MTLiveMailService.State, Never> {
         $state.eraseToAnyPublisher()
     }
     
-    private var _messagePublihser = PassthroughSubject<Result<MTMessage, MTError>, Never>()
+    private var _messagePublisher = PassthroughSubject<MTMessage, Never>()
+    private var _accountPublisher = PassthroughSubject<MTAccount, Never>()
     
     @Published
-    var state: MTLiveMessagesService.State = .closed
+    var state: MTLiveMailService.State = .closed
     
     var isStarted = false
 
@@ -42,11 +47,11 @@ class FakeMTLiveMessagesService: MTLiveMessageProtocol {
     }
     
     func emulate(message: MTMessage) {
-        self._messagePublihser.send(.success(message))
+        self._messagePublisher.send(message)
     }
     
-    func emulate(error: MTError) {
-        self._messagePublihser.send(.failure(error))
+    func emulate(account: MTAccount) {
+        self._accountPublisher.send(account)
     }
     
 }

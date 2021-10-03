@@ -6,60 +6,81 @@
 //
 
 import SwiftUI
+import MailTMSwift
 
 struct MessageDetailView: View {
+    
+    @EnvironmentObject var appController: AppController
+        
+    var isLoading: Bool {
+        !(selectedMessage?.isComplete ?? false)
+    }
+    
+    var html: String {
+        selectedMessageData?.html?.joined(separator: "") ?? ""
+    }
+    
+    var selectedMessageData: MTMessage? {
+        appController.selectedMessage?.data
+    }
+    
+    var selectedMessage: Message? {
+        appController.selectedMessage
+    }
+    
     var body: some View {
-//        Text("No Message Selected")
-//            .font(.largeTitle)
-//            .opacity(0.4)
-        VStack(alignment: .leading) {
-            HStack {
-                MessageDetailHeader()
+        if let selectedMessage = selectedMessageData {
+            VStack(alignment: .leading) {
+                HStack {
+                    MessageDetailHeader(viewModel: .init(from: selectedMessage.from,
+                                                         cc: selectedMessage.cc,
+                                                         bcc: selectedMessage.bcc,
+                                                         subject: selectedMessage.subject,
+                                                         date: selectedMessage.createdAt
+                                                        ))
+                    Spacer()
+                }
+                .padding()
+                if isLoading {
+                    loadingView
+                } else {
+                    WebView(html: html)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .cornerRadius(12)
+                        .padding(24)
+                        .padding(.top, -24)
+                }
+                
+            }
+            .toolbar(content: {
+                ToolbarItem(placement: .destructiveAction) {
+                    Button(action: {}, label: {
+                        Label("Delete", systemImage: "trash")
+                    })
+                }
+            })
+        } else {
+            notSelectedView
+        }
+    }
+    
+    var notSelectedView: some View {
+        Text("No Message Selected")
+            .font(.largeTitle)
+            .opacity(0.4)
+    }
+    
+    var loadingView: some View {
+        VStack(alignment: .center) {
+            HStack(alignment: .center) {
+                Spacer()
+                ProgressView()
+                    .controlSize(.regular)
                 Spacer()
             }
-            .padding()
-            WebView(html: "<p>Soon there will be content here</p>")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-        }
-        .toolbar(content: {
-            ToolbarItem(placement: .destructiveAction) {
-                Button(action: {}, label: {
-                    Label("Delete", systemImage: "trash")
-                })
-            }
-        })
-    }
-}
-
-private struct MessageDetailHeader: View {
-
-    var body: some View {
-        HStack {
-            Color.blue
-                .clipShape(Circle())
-                .frame(width: 40, height: 40)
-                .overlay(
-                    Text("W")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                )
-                .padding()
-            VStack(alignment: .leading, spacing: 6.0) {
-                Text("Swiggy (noreply@swiggy.in)")
-                    .font(.system(size: 16))
-                Text("Your Swiggy order was delivered superfast!")
-                    .font(.system(size: 12))
-                HStack(spacing: 2.0) {
-                    Text("To:")
-                    Text("Waseem Akram")
-                        .opacity(0.8)
-                }
-                .font(.system(size: 12))
-            }
+            Spacer()
         }
     }
-
 }
 
 struct MessageDetailView_Previews: PreviewProvider {

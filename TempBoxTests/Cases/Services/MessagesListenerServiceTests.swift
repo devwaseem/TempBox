@@ -15,9 +15,12 @@ class TestableMessagesListenerService: MessagesListenerService {
     
     var mtLiveMessageService: FakeMTLiveMessagesService
     
-    init(accountService: AccountServiceProtocol, mtLiveMessageService: FakeMTLiveMessagesService) {
+    init(accountService: AccountServiceProtocol,
+         mtLiveMessageService: FakeMTLiveMessagesService,
+         accountRepository: AccountRepository
+    ) {
         self.mtLiveMessageService = mtLiveMessageService
-        super.init(accountService: accountService)
+        super.init(accountService: accountService, accountRepository: accountRepository)
     }
     
     override func createListener(withToken token: String, accountId: String) -> MTLiveMessageProtocol {
@@ -29,6 +32,7 @@ class TestableMessagesListenerService: MessagesListenerService {
 class MessagesListenerServiceTests: XCTestCase {
     
     var persistenceManager: TestPersistenceManager!
+    var accountRepository: AccountRepository!
     var accountService: FakeAccountService!
     var messageListenerService: FakeMTLiveMessagesService!
     var sut: TestableMessagesListenerService!
@@ -38,17 +42,19 @@ class MessagesListenerServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         persistenceManager = TestPersistenceManager()
+        accountRepository = AccountRepository(persistenceManager: persistenceManager)
         accountService = FakeAccountService()
         messageListenerService = FakeMTLiveMessagesService()
-        sut = TestableMessagesListenerService(accountService: accountService, mtLiveMessageService: messageListenerService)
+        sut = TestableMessagesListenerService(accountService: accountService, mtLiveMessageService: messageListenerService, accountRepository: accountRepository)
     }
     
     override func tearDown() {
         super.tearDown()
-        accountService = nil
-        sut = nil
         persistenceManager = nil
+        accountRepository = nil
+        accountService = nil
         messageListenerService = nil
+        sut = nil
     }
     
     func getFakeMTAccount() -> MTAccount {
@@ -74,6 +80,7 @@ class MessagesListenerServiceTests: XCTestCase {
                   isDeleted: false,
                   retention: false,
                   retentionDate: .init(),
+                  intro: "test-intro",
                   text: "",
                   html: [],
                   hasAttachments: false,
@@ -131,7 +138,7 @@ class MessagesListenerServiceTests: XCTestCase {
         let messageExpectation = expectation(description: "Message not received")
         var optionalMessageReceived: MessageReceived?
         
-        sut.messagesReceivedPublisher.sink { _ in
+        sut.onMessageReceivedPublisher.sink { _ in
             XCTFail("Should not receive completion")
         } receiveValue: { messageReceived in
             messageExpectation.fulfill()

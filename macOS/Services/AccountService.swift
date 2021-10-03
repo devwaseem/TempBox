@@ -65,10 +65,10 @@ class AccountService: NSObject, AccountServiceProtocol {
     var fetchController: NSFetchedResultsController<Account>
     
     init(
-        persistenceManager: PersistenceManager = Resolver.resolve(),
-        repository: AccountRepositoryProtocol = Resolver.resolve(),
-        accountService: MTAccountService = Resolver.resolve(),
-        domainService: MTDomainService = Resolver.resolve(),
+        persistenceManager: PersistenceManager,
+        repository: AccountRepositoryProtocol,
+        accountService: MTAccountService,
+        domainService: MTDomainService,
         fetchController: NSFetchedResultsController<Account>? = nil) {
             
             fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Account.createdAt, ascending: false)]

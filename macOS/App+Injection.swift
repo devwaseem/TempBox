@@ -28,6 +28,11 @@ extension Resolver: ResolverRegistering {
             MTAccountService()
         }
         .scope(.graph)
+        
+        register {
+            MTMessageService()
+        }
+        .scope(.graph)
     }
 
 }

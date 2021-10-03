@@ -11,14 +11,15 @@ import MailTMSwift
 
 protocol MTLiveMessageProtocol {
     
-    var messagePublisher: AnyPublisher<Result<MTMessage, MTError>, Never> { get }
-    var statePublisher: AnyPublisher<MTLiveMessagesService.State, Never> { get }
+    var messagePublisher: AnyPublisher<MTMessage, Never> { get }
+    var accountPublisher: AnyPublisher<MTAccount, Never> { get }
+    var statePublisher: AnyPublisher<MTLiveMailService.State, Never> { get }
     func start()
     func stop()
     func restart()
     
 }
 
-extension MTLiveMessagesService: MTLiveMessageProtocol {
+extension MTLiveMailService: MTLiveMessageProtocol {
     
 }

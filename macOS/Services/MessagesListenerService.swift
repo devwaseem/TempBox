@@ -18,18 +18,25 @@ struct MessageReceived {
 class MessagesListenerService {
     
     private var accountService: AccountServiceProtocol
+    private var accountRepository: AccountRepository
     private var channels: [Account: MTLiveMessageProtocol] = [:]
-    var channelsStatus: [Account: MTLiveMessagesService.State] = [:]
+    var channelsStatus: [Account: MTLiveMailService.State] = [:]
     
     private var subscriptions = Set<AnyCancellable>()
     
-    var messagesReceivedPublisher: AnyPublisher<MessageReceived, Never> {
-        _messagesReceivedPublisher.eraseToAnyPublisher()
+    var onMessageReceivedPublisher: AnyPublisher<MessageReceived, Never> {
+        _messageReceivedPublisher.eraseToAnyPublisher()
     }
     
-    private let _messagesReceivedPublisher = PassthroughSubject<MessageReceived, Never>()
+    var onMessageDeletedPublisher: AnyPublisher<MessageReceived, Never> {
+        _onMessageDeletedPublisher.eraseToAnyPublisher()
+    }
+    
+    private let _messageReceivedPublisher = PassthroughSubject<MessageReceived, Never>()
+    private let _onMessageDeletedPublisher = PassthroughSubject<MessageReceived, Never>()
         
-    init(accountService: AccountServiceProtocol) {
+    init(accountService: AccountServiceProtocol, accountRepository: AccountRepository) {
+        self.accountRepository = accountRepository
         self.accountService = accountService
         listenToAccounts()
     }
@@ -60,17 +67,25 @@ class MessagesListenerService {
         channels[account] = messageListener
         channelsStatus[account] = .closed
         
-        messageListener.messagePublisher.sink { [weak self] result in
+        messageListener.messagePublisher.sink { [weak self] message in
             guard let self = self else { return }
-            if case let .success(message) =  result {
-                self._messagesReceivedPublisher.send(MessageReceived(account: account, message: message))
-            }
-            
-            if case let .failure(error) =  result {
-                print(error)
+            if message.isDeleted {
+                self._onMessageDeletedPublisher.send(MessageReceived(account: account, message: message))
+            } else {
+                self._messageReceivedPublisher.send(MessageReceived(account: account, message: message))
             }
         }
         .store(in: &subscriptions)
+        
+        messageListener.accountPublisher.sink { [weak self] mtAccount in
+            guard let self = self else { return }
+            if let account = self.accountRepository.getAccount(fromId: mtAccount.id) {
+                account.set(from: mtAccount, password: account.password, token: account.token)
+                self.accountRepository.update(account: account)
+            }
+        }
+        .store(in: &subscriptions)
+        
         messageListener.statePublisher
             .sink { [weak self] state in
                 guard let self = self else { return }
@@ -97,7 +112,7 @@ class MessagesListenerService {
     
     internal func createListener(withToken token: String, accountId: String) -> MTLiveMessageProtocol {
         // NOTE: When testing, This class is replaced with Fake
-        return MTLiveMessagesService(token: token, accountId: accountId)
+        return MTLiveMailService(token: token, accountId: accountId)
     }
     
 }

@@ -93,13 +93,33 @@ struct AddressItemView: View {
     @State var showConfirmationForRemove = false
     @State var showConfirmationForDelete = false
     
+    var isMessagesFetching: Bool {
+        appController.accountMessages[account]?.isFetching ?? false
+    }
+    
+    var isMessagesFetchingFailed: Bool {
+        appController.accountMessages[account]?.error != nil
+    }
+    
+    var unreadMessagesCount: Int {
+        appController.accountMessages[account]?.unreadMessagesCount ?? 0
+    }
+    
     var body: some View {
         HStack {
             Label(account.address, systemImage: "tray")
             Spacer()
             if !account.isArchived {
-                BadgeView(model: .init(title: "1", color: .secondary.opacity(0.5)))
+                if isMessagesFetching {
+                    ProgressView()
+                        .controlSize(.small)
+                } else if isMessagesFetchingFailed {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                } else if unreadMessagesCount != 0 {
+                    BadgeView(model: .init(title: "\(unreadMessagesCount)", color: .secondary.opacity(0.5)))
+                }
             }
+
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 3)

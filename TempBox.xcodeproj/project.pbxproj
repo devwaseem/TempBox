@@ -11,6 +11,7 @@
 		7501771C26F38A9E00A47F7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7501770226F38A9E00A47F7D /* Assets.xcassets */; };
 		7501772C26F38E0B00A47F7D /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772B26F38E0B00A47F7D /* RootNavigationView.swift */; };
 		7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772E26F38E4200A47F7D /* SidebarView.swift */; };
+		7535D98F2708663300D39FAB /* MTMessage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535D98E2708663300D39FAB /* MTMessage+Extensions.swift */; };
 		753D3929270050C600911B58 /* FakeMTDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D3928270050C600911B58 /* FakeMTDomainService.swift */; };
 		753D392B27005B4300911B58 /* FakeAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392A27005B4300911B58 /* FakeAccountRepository.swift */; };
 		753D392D2700603400911B58 /* FakeMTAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392C2700603400911B58 /* FakeMTAccountService.swift */; };
@@ -33,6 +34,9 @@
 		7584F26526FF009300C972DA /* AccountServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26426FF009300C972DA /* AccountServiceTests.swift */; };
 		7584F26726FF01D600C972DA /* MockAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26626FF01D600C972DA /* MockAccountRepository.swift */; };
 		7584F26926FF208200C972DA /* MockAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584F26826FF208200C972DA /* MockAccountService.swift */; };
+		75A3C4CD2708BF3A004ED1AB /* MessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */; };
+		75A3C4CF2708BF51004ED1AB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4CE2708BF51004ED1AB /* Message.swift */; };
+		75A3C4D12708CC99004ED1AB /* MessageDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */; };
 		75B39ECE26F3CE5E0004AF82 /* QuotaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B39ECD26F3CE5E0004AF82 /* QuotaView.swift */; };
 		75B39ED026F3D8D80004AF82 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B39ECF26F3D8D80004AF82 /* BadgeView.swift */; };
 		75C3202326FB4644009AAB26 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C3202226FB4644009AAB26 /* AddAccountViewController.swift */; };
@@ -84,6 +88,7 @@
 		7501771226F38A9E00A47F7D /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		7501772B26F38E0B00A47F7D /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
 		7501772E26F38E4200A47F7D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		7535D98E2708663300D39FAB /* MTMessage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MTMessage+Extensions.swift"; sourceTree = "<group>"; };
 		753D3928270050C600911B58 /* FakeMTDomainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTDomainService.swift; sourceTree = "<group>"; };
 		753D392A27005B4300911B58 /* FakeAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAccountRepository.swift; sourceTree = "<group>"; };
 		753D392C2700603400911B58 /* FakeMTAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTAccountService.swift; sourceTree = "<group>"; };
@@ -105,6 +110,9 @@
 		7584F26426FF009300C972DA /* AccountServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceTests.swift; sourceTree = "<group>"; };
 		7584F26626FF01D600C972DA /* MockAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountRepository.swift; sourceTree = "<group>"; };
 		7584F26826FF208200C972DA /* MockAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAccountService.swift; sourceTree = "<group>"; };
+		75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageStore.swift; sourceTree = "<group>"; };
+		75A3C4CE2708BF51004ED1AB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailHeader.swift; sourceTree = "<group>"; };
 		75B39ECD26F3CE5E0004AF82 /* QuotaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotaView.swift; sourceTree = "<group>"; };
 		75B39ECF26F3D8D80004AF82 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		75C3202226FB4644009AAB26 /* AddAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
@@ -183,10 +191,11 @@
 		7501771026F38A9E00A47F7D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				75C3204E26FBA25D009AAB26 /* App+Injection.swift */,
 				75752EFC26F39C3D004EA6C1 /* AppController.swift */,
 				7501772B26F38E0B00A47F7D /* RootNavigationView.swift */,
 				750176FF26F38A9D00A47F7D /* TempBoxApp.swift */,
+				75C3204E26FBA25D009AAB26 /* App+Injection.swift */,
+				75A3C4CB2708BDCE004ED1AB /* Models */,
 				75C3202426FB5AE0009AAB26 /* Extensions */,
 				7501772526F38C1700A47F7D /* Features */,
 				7575A2D826F473EB00A90CFE /* Persistence */,
@@ -253,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				75529A8226F3917700588FEA /* MessageDetailView.swift */,
+				75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */,
 			);
 			path = MessageDetail;
 			sourceTree = "<group>";
@@ -311,6 +321,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		75A3C4CB2708BDCE004ED1AB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */,
+				75A3C4CE2708BF51004ED1AB /* Message.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		75C3202426FB5AE0009AAB26 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,6 +338,7 @@
 				75C3205226FBA4E5009AAB26 /* MTAccount+Extensions.swift */,
 				755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */,
 				75640F2727063A1B00C7BCF6 /* MTLiveMessagesService+Extensions.swift */,
+				7535D98E2708663300D39FAB /* MTMessage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -561,6 +581,7 @@
 				75C3205526FBA842009AAB26 /* Persistence+Injection.swift in Sources */,
 				75B39ED026F3D8D80004AF82 /* BadgeView.swift in Sources */,
 				7501772C26F38E0B00A47F7D /* RootNavigationView.swift in Sources */,
+				75A3C4CF2708BF51004ED1AB /* Message.swift in Sources */,
 				7575A2DA26F473FD00A90CFE /* Persistence.swift in Sources */,
 				75752EFF26F3A2B1004EA6C1 /* AddAccountView.swift in Sources */,
 				7575A2B126F4713F00A90CFE /* AccountRepository.swift in Sources */,
@@ -571,6 +592,7 @@
 				75DE87472702D8D0008C089B /* MessagesListenerService.swift in Sources */,
 				75640F2827063A1B00C7BCF6 /* MTLiveMessagesService+Extensions.swift in Sources */,
 				7501771626F38A9E00A47F7D /* TempBoxApp.swift in Sources */,
+				75A3C4D12708CC99004ED1AB /* MessageDetailHeader.swift in Sources */,
 				7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */,
 				75C3202326FB4644009AAB26 /* AddAccountViewController.swift in Sources */,
 				755EB00F26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift in Sources */,
@@ -585,6 +607,8 @@
 				75C3204A26FBA1A2009AAB26 /* AccountService.swift in Sources */,
 				75752F0226F3A9BC004EA6C1 /* AddAccountWindow.swift in Sources */,
 				75B39ECE26F3CE5E0004AF82 /* QuotaView.swift in Sources */,
+				7535D98F2708663300D39FAB /* MTMessage+Extensions.swift in Sources */,
+				75A3C4CD2708BF3A004ED1AB /* MessageStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
