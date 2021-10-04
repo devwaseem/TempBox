@@ -66,6 +66,7 @@
 		75DF252826F3DBDA003F69FE /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DF252726F3DBDA003F69FE /* StatusBarController.swift */; };
 		75DFF7632700E77200EE4B7A /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DFF7622700E77200EE4B7A /* Logger+Extensions.swift */; };
 		75E03952270635B200650675 /* FakeMTLiveMessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E03951270635B200650675 /* FakeMTLiveMessagesService.swift */; };
+		75ED42AC270B83AE002161D3 /* AttachmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ED42AB270B83AE002161D3 /* AttachmentsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,7 @@
 		75DFF7622700E77200EE4B7A /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		75E03951270635B200650675 /* FakeMTLiveMessagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTLiveMessagesService.swift; sourceTree = "<group>"; };
 		75E039562706369200650675 /* MailTMSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MailTMSwift; path = ../../work/personal/ios/MailTMSwift; sourceTree = "<group>"; };
+		75ED42AB270B83AE002161D3 /* AttachmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +278,7 @@
 			children = (
 				75529A8226F3917700588FEA /* MessageDetailView.swift */,
 				75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */,
+				75ED42AB270B83AE002161D3 /* AttachmentsView.swift */,
 			);
 			path = MessageDetail;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				75B39ECE26F3CE5E0004AF82 /* QuotaView.swift in Sources */,
 				7535D98F2708663300D39FAB /* MTMessage+Extensions.swift in Sources */,
 				75A3C4CD2708BF3A004ED1AB /* MessageStore.swift in Sources */,
+				75ED42AC270B83AE002161D3 /* AttachmentsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

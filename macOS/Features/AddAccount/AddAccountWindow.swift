@@ -122,6 +122,11 @@ private struct PasswordView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
         }
         Toggle("Generate random password", isOn: $randomPassword)
+        HStack(alignment: .firstTextBaseline) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .renderingMode(.original)
+            Text("The password once set cannot be reset or changed.")
+        }
     }
 
 }

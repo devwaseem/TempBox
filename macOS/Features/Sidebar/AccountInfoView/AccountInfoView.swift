@@ -8,22 +8,38 @@
 import SwiftUI
 
 struct AccountInfoView: View {
-    
-    @StateObject var controller = AccountInfoViewController()
-    @State var isPasswordVisible = false
-    
+        
     var isActive: Bool
     var address: String
     var password: String
     
+    @StateObject var controller = AccountInfoViewController()
+    @State var isPasswordVisible = false
+    @State var isHintShowing = false
+    
     var body: some View {
         VStack(alignment: .leading) {
+            HStack {
+                Spacer()
+                Button {
+                    isHintShowing = true
+                } label: {
+                    Image(systemName: "info.circle")
+                        .foregroundColor(isHintShowing ? Color.accentColor : Color.primary)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .popover(isPresented: $isHintShowing) {
+                    Text("If you wish to use this account on Web browser, "
+                         + "You can copy the credentials to use on Mail.tm official website. "
+                         + "Please note, the password cannot be reset or changed."
+                    )
+                        .frame(width: 400)
+                        .padding()
+                }
+            }
             
             HStack {
-                Text("Status: ")
-                    .fixedSize()
-                    .lineLimit(1)
-                    .font(.headline)
+                KeyView(key: "Status")
                 Circle()
                     .frame(width: 10, height: 10)
                     .foregroundColor(isActive ? .green : .red)
@@ -32,10 +48,7 @@ struct AccountInfoView: View {
             }
             
             HStack {
-                Text("Address: ")
-                    .fixedSize()
-                    .lineLimit(1)
-                    .font(.headline)
+                KeyView(key: "Address")
                 Text(address)
                     .lineLimit(1)
                 
@@ -48,19 +61,15 @@ struct AccountInfoView: View {
             }
             
             HStack {
-                Text("Password: ")
-                    .fixedSize()
-                    .lineLimit(1)
-                    .font(.headline)
+                KeyView(key: "Password")
                 Text(password)
                     .blur(radius: isPasswordVisible ? 0 : 3)
                     .lineLimit(1)
-                    .onTapGesture {
+                    .onHover { isHovering in
                         withAnimation {
-                            isPasswordVisible.toggle()
+                            isPasswordVisible = isHovering
                         }
                     }
-                
                 Button {
                     controller.copyStringToPasteboard(value: password)
                 } label: {
@@ -73,6 +82,19 @@ struct AccountInfoView: View {
         .frame(maxWidth: .infinity)
         .background(Color.secondary.opacity(0.2))
         .cornerRadius(6)
+    }
+}
+
+fileprivate struct KeyView: View {
+    
+    var key: String
+    
+    var body: some View {
+        Text("\(key):")
+            .fixedSize()
+            .lineLimit(1)
+            .font(.headline)
+            
     }
 }
 

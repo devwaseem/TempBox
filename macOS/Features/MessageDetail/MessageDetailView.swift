@@ -28,6 +28,10 @@ struct MessageDetailView: View {
     var selectedMessage: Message? {
         appController.selectedMessage
     }
+        
+    var attachments: [MTAttachment] {
+        selectedMessage?.data.attachments ?? []
+    }
     
     var body: some View {
         if let selectedMessage = selectedMessageData {
@@ -45,11 +49,17 @@ struct MessageDetailView: View {
                 if isLoading {
                     loadingView
                 } else {
-                    WebView(html: html)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .cornerRadius(12)
-                        .padding(24)
-                        .padding(.top, -24)
+                    VStack {
+                        WebView(html: html)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .cornerRadius(12)
+                            .padding(24)
+                            .padding(.top, -24)
+                        if !attachments.isEmpty {
+                            AttachmentsView(attachments: attachments)
+                                .padding(.horizontal)
+                        }
+                    }
                 }
                 
             }

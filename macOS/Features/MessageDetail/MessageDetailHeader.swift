@@ -32,6 +32,7 @@ struct MessageDetailHeader: View {
                 Text(viewModel.subject)
                     .font(.system(size: 12))
                 CCView(viewModel: viewModel)
+                BCCView(viewModel: viewModel)
             }
         }
     }
@@ -43,11 +44,13 @@ fileprivate struct CCView: View {
     
     let viewModel: MessageDetailHeaderViewModel
     
+    @State var showCCList = false
+    
     var body: some View {
         if viewModel.ccList.isEmpty {
            EmptyView()
         } else {
-            HStack(spacing: 2.0) {
+            HStack(alignment: .firstTextBaseline, spacing: 2.0) {
                 Text("CC: ")
                 HStack {
                     ForEach(viewModel.viewableCCList, id: \.self) { cc in
@@ -57,10 +60,62 @@ fileprivate struct CCView: View {
                 }
                 if viewModel.isCCListBig {
                     Button {
-
+                        showCCList = true
                     } label: {
-                        Text("Show All CC")
+                        Text("Show All")
+                            .foregroundColor(.accentColor)
+                            .font(.caption2)
+                            .padding(.leading, 2)
                     }
+                    .popover(isPresented: $showCCList) {
+                        Text(viewModel.ccList.joined(separator: "\n"))
+                            .fixedSize()
+                            .padding()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                }
+            }
+            .font(.system(size: 12))
+        }
+    }
+    
+}
+
+fileprivate struct BCCView: View {
+    
+    let viewModel: MessageDetailHeaderViewModel
+    
+    @State var showBCCList = false
+    
+    var body: some View {
+        if viewModel.bccList.isEmpty {
+           EmptyView()
+        } else {
+            HStack(alignment: .firstTextBaseline, spacing: 2.0) {
+                Text("CC: ")
+                HStack {
+                    ForEach(viewModel.viewableBCCList, id: \.self) { bcc in
+                        Text("\(bcc),")
+                            .opacity(0.8)
+                    }
+                }
+                if viewModel.isCCListBig {
+                    Button {
+                        showBCCList = true
+                    } label: {
+                        Text("Show All")
+                            .foregroundColor(.accentColor)
+                            .font(.caption2)
+                            .padding(.leading, 2)
+                    }
+                    .popover(isPresented: $showBCCList) {
+                        Text(viewModel.bccList.joined(separator: "\n"))
+                            .fixedSize()
+                            .padding()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
                 }
             }
             .font(.system(size: 12))
@@ -91,20 +146,24 @@ struct MessageDetailHeaderViewModel {
         cc?.map(\.address) ?? []
     }
     
+    var bccList: [String] {
+        bcc?.map(\.address) ?? []
+    }
+    
     var isCCListBig: Bool {
         ccList.count > maxAccountListCount
     }
     
     var isBCCListBig: Bool {
-        ccList.count > maxAccountListCount
+        bccList.count > maxAccountListCount
     }
     
     var viewableCCList: [String] {
         return Array(ccList[..<min(ccList.count, maxAccountListCount)])
     }
     
-    var bccList: [String] {
-        bcc?.map(\.address) ?? []
+    var viewableBCCList: [String] {
+        return Array(bccList[..<min(bccList.count, maxAccountListCount)])
     }
     
     var imageCharacter: String {

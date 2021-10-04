@@ -22,9 +22,11 @@ struct InboxView: View {
             return "\(count) Unread"
         }
         if unreadCount == 0 {
-            return "\(count) Messages"
+            return "\(count) " + (count == 1 ? "Message" : "Messages")
         } else {
-            return "\(count) Messages, \(unreadCount) unread"
+            let unread = "\(unreadCount) unread"
+            let messages = "\(count) " + (count == 1 ? "Message" : "Messages")
+            return "\(messages), \(unread)"
         }
         
     }
