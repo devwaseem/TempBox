@@ -28,24 +28,27 @@ struct AttachmentsView: View {
                 Text(title)
                     .opacity(0.7)
             }
-            .padding(.vertical)
+            .padding(.horizontal)
             
-            LazyHGrid(rows: [.init(.fixed(50), spacing: 24, alignment: .leading)]) {
-                ForEach(attachments, id: \.id) { attachment in
-                    HStack(alignment: .firstTextBaseline) {
-                        Image(systemName: "photo")
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(attachment.filename)
-                            Text(humanReadableFileSize(sizeInBytes: attachment.size))
-                                .opacity(0.6)
-                                .font(.caption)
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(attachments, id: \.id) { attachment in
+                        HStack(alignment: .firstTextBaseline) {
+                            Image(systemName: "photo")
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(attachment.filename)
+                                Text(humanReadableFileSize(sizeInBytes: attachment.size))
+                                    .opacity(0.6)
+                                    .font(.caption)
+                            }
                         }
+                        .padding()
+                        .frame(minWidth: 140, alignment: .leading)
+                        .background(Color.primary.opacity(0.1))
+                        .cornerRadius(8)
                     }
-                    .padding()
-                    .frame(minWidth: 140, alignment: .leading)
-                    .background(Color.primary.opacity(0.1))
-                    .cornerRadius(8)
                 }
+                .padding()
             }
         }
     }
@@ -85,5 +88,6 @@ struct AttachmentsView_Previews: PreviewProvider {
                                               downloadURL: "")
                                      ])
             .padding()
+            .previewLayout(.fixed(width: 500, height: 500))
     }
 }
