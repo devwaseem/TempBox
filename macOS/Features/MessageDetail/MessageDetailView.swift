@@ -11,113 +11,63 @@ import MailTMSwift
 struct MessageDetailView: View {
     
     @EnvironmentObject var appController: AppController
-    @EnvironmentObject var sourceViewWindowManger: SourceWindowManager
-        
+    @ObservedObject var controller: MessageDetailViewController
+    
     var isLoading: Bool {
-        !(selectedMessage?.isComplete ?? false)
+        !selectedMessage.isComplete
     }
     
     var html: String {
-        selectedMessageData?.html?.joined(separator: "") ?? ""
+        selectedMessageData.html?.joined(separator: "") ?? ""
     }
     
-    var selectedMessageData: MTMessage? {
-        appController.selectedMessage?.data
+    var selectedMessageData: MTMessage {
+        selectedMessage.data
     }
     
-    var selectedMessage: Message? {
-        appController.selectedMessage
+    var selectedMessage: Message {
+        controller.message
     }
-        
-    var attachments: [MTAttachment] {
-        selectedMessage?.data.attachments ?? []
+            
+    var selectedAccount: Account {
+        controller.account
     }
     
     var body: some View {
-        if let selectedMessage = selectedMessageData {
-            VStack(alignment: .leading) {
-                HStack {
-                    MessageDetailHeader(viewModel: .init(from: selectedMessage.from,
-                                                         cc: selectedMessage.cc,
-                                                         bcc: selectedMessage.bcc,
-                                                         subject: selectedMessage.subject,
-                                                         date: selectedMessage.createdAt
-                                                        ))
-                    Spacer()
-                }
-                .padding()
-                if isLoading {
-                    loadingView
-                } else {
-                    VStack {
-                        WebView(html: html)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .cornerRadius(12)
-                            .padding(24)
-                            .padding(.top, -24)
-                        if !attachments.isEmpty {
-                            AttachmentsView(attachments: attachments)
-                                .padding(.horizontal)
-                        }
-                    }
-                }
-                
+        VStack(alignment: .leading) {
+            HStack {
+                MessageDetailHeader(viewModel: .init(from: selectedMessageData.from,
+                                                     cc: selectedMessageData.cc,
+                                                     bcc: selectedMessageData.bcc,
+                                                     subject: selectedMessageData.subject,
+                                                     date: selectedMessageData.createdAt
+                                                    ))
+                Spacer()
             }
-            .toolbar(content: {
-                
-                ToolbarItem(placement: .destructiveAction) {
-                    Button {
-                        if let selectedMessage = self.selectedMessage, let selectedAccount = appController.selectedAccount {
-                            appController.deleteMessage(message: selectedMessage, for: selectedAccount)
-                        }
-                    } label: {
-                        Label("Delete", systemImage: "trash")
+            .padding([.top, .horizontal])
+            if isLoading {
+                loadingView
+            } else {
+                VStack {
+                    WebView(html: html)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .cornerRadius(12)
+                        .padding(24)
+                    if let account = selectedAccount, let attachments = selectedMessage.data.attachments, !attachments.isEmpty {
+                        AttachmentsView(controller: AttachmentsViewController(account: account, attachments: attachments))
+                            .padding(.horizontal)
                     }
-                    .help("Delete selected message")
                 }
-                
-                ToolbarDivider()
-                
-                ToolbarItem(placement: .automatic) {
-                    Button {
-                        if let selectedMessage = self.selectedMessage, let selectedAccount = appController.selectedAccount {
-                            appController.downloadMessage(message: selectedMessage, for: selectedAccount)
-                        }
-                    } label: {
-                        Label("Download", systemImage: "icloud.and.arrow.down")
-                    }
-                    .help("Download message")
-                    .disabled(!(self.selectedMessage?.isSourceDownloaded ?? true))
-                }
-                
-                ToolbarDivider()
-                
-                ToolbarItem(placement: .automatic) {
-                    Button {
-                        if let selectedMessage = self.selectedMessage,
-                           selectedMessage.isSourceDownloaded,
-                           let source = selectedMessage.source {
-                            sourceViewWindowManger.openWindow(with: source)
-                        }
-                    } label: {
-                        Label("Source", systemImage: "chevron.left.slash.chevron.right")
-                    }
-                    .help("View Source")
-                    .disabled(!(self.selectedMessage?.isSourceDownloaded ?? true))
-                }
-                
-            })
-        } else {
-            notSelectedView
+            }
         }
+        .alert(isPresented: $controller.showError, content: {
+            Alert(title: Text(controller.errorMessage), message: nil, dismissButton: .default(Text("OK"), action: {
+                controller.errorMessage = ""
+            }))
+        })
+        .toolbar { toolbar }
     }
-    
-    var notSelectedView: some View {
-        Text("No Message Selected")
-            .font(.largeTitle)
-            .opacity(0.4)
-    }
-    
+        
     var loadingView: some View {
         VStack(alignment: .center) {
             HStack(alignment: .center) {
@@ -129,11 +79,59 @@ struct MessageDetailView: View {
             Spacer()
         }
     }
+    
+    @ToolbarContentBuilder
+    var toolbar: some ToolbarContent {
+        ToolbarItem(placement: .automatic) {
+            Spacer()
+        }
+
+        ToolbarItem(placement: .automatic) {
+            if let progress = controller.downloadProgress, controller.isDownloading {
+                MessageDetailDownloadView(progress: progress)
+            } else {
+                Button {
+                    controller.downloadMessage(message: selectedMessage, for: selectedAccount)
+                } label: {
+                    Label("Download", systemImage: "icloud.and.arrow.down")
+                }
+                .help("Download message")
+            }
+        }
+        
+        ToolbarDivider()
+        
+        ToolbarItem(placement: .destructiveAction) {
+            Button {
+                appController.deleteMessage(message: selectedMessage, for: selectedAccount)
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+            .help("Delete selected message")
+        }
+    }
 }
 
-struct MessageDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        MessageDetailView()
-            .previewLayout(.fixed(width: 600, height: 800))
+fileprivate struct MessageDetailDownloadView: View {
+    
+    @State var fractionComplete: Double = 0
+    
+    var progress: Progress
+    
+    var body: some View {
+        ProgressView(value: fractionComplete, total: 100) {
+            HStack(alignment: .firstTextBaseline) {
+                Image(systemName: "icloud.and.arrow.down")
+                Text("\(Int(fractionComplete))% completed")
+            }
+        }
+        .controlSize(.small)
+        .onReceive(progress
+                    .publisher(for: \.fractionCompleted)
+                    .receive(on: DispatchQueue.main),
+                   perform: { value in
+            self.fractionComplete = value * 100
+        })
+        .progressViewStyle(LinearProgressViewStyle())
     }
 }

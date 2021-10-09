@@ -19,8 +19,14 @@ struct RootNavigationView: View {
             InboxView()
                 .frame(minWidth: 500)
 
-            MessageDetailView()
-                .frame(minWidth: 500)
+            if let selectedMessage = appController.selectedMessage, let selectedAccount = appController.selectedAccount {
+                MessageDetailView(controller: MessageDetailViewController(message: selectedMessage, account: selectedAccount))
+                    .frame(minWidth: 500)
+            } else {
+                Text("No Message Selected")
+                    .font(.largeTitle)
+                    .opacity(0.4)
+            }
 
         }
         .frame(minWidth: 1000, minHeight: 600, idealHeight: 800)

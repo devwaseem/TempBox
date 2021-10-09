@@ -19,7 +19,7 @@ class AppController: ObservableObject {
     @Published private(set) var archivedAccounts: [Account] = []
     @Published private(set) var accountMessages: [Account: MessageStore] = [:]
     @Published private var accountStatus: [Account: MTLiveMailService.State] = [:]
-            
+    
     @Published var selectedAccount: Account?
     @Published var selectedMessage: Message? {
         didSet {
@@ -29,7 +29,7 @@ class AppController: ObservableObject {
             else {
                 return
             }
-
+            
             markMessageAsSeen(message: selectedMessage, for: selectedAccount)
             fetchCompleteMessageAndUpdate(message: selectedMessage, for: selectedAccount)
         }
@@ -57,10 +57,10 @@ class AppController: ObservableObject {
         guard let selectedAccount = selectedAccount else {
             return false
         }
-
+        
         return accountStatus[selectedAccount, default: .closed] == .opened
     }
-        
+    
     var mtMessageService: MTMessageService
     var accountService: AccountServiceProtocol
     var messageListenerService: MessagesListenerService
@@ -68,7 +68,7 @@ class AppController: ObservableObject {
     
     var showError = false
     var errorMessage = ""
-
+    
     init(
         accountService: AccountServiceProtocol = Resolver.resolve(),
         messageService: MTMessageService = Resolver.resolve(),
@@ -178,7 +178,7 @@ class AppController: ObservableObject {
                 self.upsertMessage(message: Message(data: updatedMessage), for: account)
             }
             .store(in: &subscriptions)
-
+        
     }
     
     private func fetchCompleteMessageAndUpdate(message: Message, for account: Account) {
@@ -191,26 +191,14 @@ class AppController: ObservableObject {
         let token = account.token
         let messageId = message.data.id
         mtMessageService.getMessage(id: messageId, token: token)
-            .flatMap { message in
-                Publishers.Zip(
-                    Deferred {
-                        Future<MTMessage, MTError> { promise in
-                            promise(.success(message))
-                        }
-                    },
-                    self.mtMessageService.getSource(id: messageId, token: token)
-                )
-            }
             .sink { completion in
                 if case let .failure(error) = completion {
                     print(error)
                 }
-            } receiveValue: { [weak self] (completeMessage, source) in
+            } receiveValue: { [weak self] completeMessage in
                 guard let self = self else { return }
                 self.upsertMessage(message: Message(isComplete: true,
-                                                    data: completeMessage,
-                                                    isSourceDownloaded: true,
-                                                    source: source.data),
+                                                    data: completeMessage),
                                    for: account)
             }
             .store(in: &subscriptions)
@@ -226,7 +214,7 @@ class AppController: ObservableObject {
             accountMessages.removeValue(forKey: account)
         }
     }
-     
+    
     func archiveAccount(account: Account) {
         accountService.archiveAccount(account: account)
     }
@@ -281,35 +269,6 @@ class AppController: ObservableObject {
             } receiveValue: { _ in
             }
             .store(in: &subscriptions)
-    }
-    
-    func downloadMessage(message: Message, for account: Account) {
-        guard message.isSourceDownloaded, let source = message.source else {
-            return
-        }
-        let subject = message.data.subject
-        var fileName: String
-        if subject.isEmpty {
-            fileName = "message.eml"
-        } else {
-            fileName = "\(subject).eml"
-        }
-        let panel = NSSavePanel()
-        panel.directoryURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-        panel.nameFieldLabel = "Save file as:"
-        panel.nameFieldStringValue = fileName
-        panel.canCreateDirectories = true
-        panel.showsTagField = false
-        
-        panel.begin { response in
-            if response == NSApplication.ModalResponse.OK, let fileUrl = panel.url {
-                do {
-                    try source.write(to: fileUrl, atomically: true, encoding: .utf8)
-                } catch {
-                    print(error)
-                }
-            }
-        }
     }
         
 }

@@ -12,18 +12,14 @@ struct Message: Hashable, Identifiable {
     
     var isComplete: Bool = false
     var data: MTMessage
-    var source: String?
-    var isSourceDownloaded: Bool
         
     var id: String {
         data.id
     }
     
-    init(isComplete: Bool = false, data: MTMessage, isSourceDownloaded: Bool = false, source: String? = nil) {
+    init(isComplete: Bool = false, data: MTMessage) {
         self.isComplete = isComplete
         self.data = data
-        self.isSourceDownloaded = isSourceDownloaded
-        self.source = source
     }
     
 }

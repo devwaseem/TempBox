@@ -19,5 +19,17 @@ extension Resolver {
         register {
             MessagesListenerService(accountService: resolve(), accountRepository: resolve())
         }
+        
+        register {
+            FileDownloadManager()
+        }
+        
+        register {
+            AttachmentDownloadManager(fileDownloadManger: resolve())
+        }
+        
+        register {
+            MessageDownloadManager(fileDownloadManger: resolve())
+        }
     }
 }
