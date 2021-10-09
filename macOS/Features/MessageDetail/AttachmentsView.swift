@@ -33,8 +33,8 @@ struct AttachmentsView: View {
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(controller.attachments, id: \.id) { attachment in
-                        if let downloadTask = controller.attachmentDownloadTasks[attachment.id] {
-                            AttachmentCell(attachment: attachment, downloadTask: downloadTask, controller: controller)
+                        if let downloadTask = controller.attachmentDownloadTasks[attachment] {
+                            AttachmentCell(attachment: attachment, downloadTask: downloadTask, controller: _controller)
                         }
                     }
                 }
@@ -53,10 +53,10 @@ fileprivate struct AttachmentCell: View {
     
     var attachment: MTAttachment
     
-    init(attachment: MTAttachment, downloadTask: FileDownloadTask, controller: AttachmentsViewController) {
+    init(attachment: MTAttachment, downloadTask: FileDownloadTask, controller: ObservedObject<AttachmentsViewController>) {
         self.attachment = attachment
         self.downloadTask = downloadTask
-        self.controller = controller
+        self._controller = controller
     }
 
     var isDownloading: Bool {

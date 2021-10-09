@@ -15,7 +15,7 @@ final class AttachmentsViewController: ObservableObject {
     
     var account: Account
     @Published var attachments: [MTAttachment]
-    @Published var attachmentDownloadTasks: [MTAttachment.ID: FileDownloadTask] = [:]
+    @Published var attachmentDownloadTasks: [MTAttachment: FileDownloadTask] = [:]
     
     private var downloadManager: AttachmentDownloadManager = Resolver.resolve()
     
@@ -29,10 +29,9 @@ final class AttachmentsViewController: ObservableObject {
     }
     
     func restoreDownloadTasks() {
-        attachmentDownloadTasks = attachments.reduce(into: [MTAttachment.ID: FileDownloadTask]()) { dict, attachment in
-            let id = attachment.id
+        attachmentDownloadTasks = attachments.reduce(into: [MTAttachment: FileDownloadTask]()) { dict, attachment in
             if let file = downloadManager.file(for: attachment) {
-                dict[id] = file
+                dict[attachment] = file
             }
         }
         
@@ -51,7 +50,7 @@ final class AttachmentsViewController: ObservableObject {
     }
     
     func onAttachmentTap(attachment: MTAttachment) {
-        guard let task = attachmentDownloadTasks[attachment.id], task.state != .downloading else {
+        guard let task = attachmentDownloadTasks[attachment], task.state != .downloading else {
             return
         }
         
@@ -63,7 +62,7 @@ final class AttachmentsViewController: ObservableObject {
     }
     
     func openAttachment(attachment: MTAttachment) {
-        guard let task = attachmentDownloadTasks[attachment.id], task.state == .saved else {
+        guard let task = attachmentDownloadTasks[attachment], task.state == .saved else {
             return
         }
         NSWorkspace.shared.open(task.savedFileLocation)
@@ -72,7 +71,7 @@ final class AttachmentsViewController: ObservableObject {
     func download(attachment: MTAttachment) {
         downloadManager.download(attachment: attachment, onRenew: { [weak self] newFileTask in
             guard let self = self else { return }
-            self.attachmentDownloadTasks[attachment.id] = newFileTask
+            self.attachmentDownloadTasks[attachment] = newFileTask
             self.objectWillChange.send()
         })
     }
