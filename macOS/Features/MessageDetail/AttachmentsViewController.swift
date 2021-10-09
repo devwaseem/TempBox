@@ -36,7 +36,8 @@ final class AttachmentsViewController: ObservableObject {
         }
         
         attachmentDownloadTasks.values.forEach { file in
-            file.$state.sink { _ in
+            file.$state.sink { [weak self] _ in
+                guard let self = self else { return }
                 self.objectWillChange.send()
             }
             .store(in: &subscriptions)

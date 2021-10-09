@@ -111,7 +111,8 @@ class AppController: ObservableObject {
         
         messageListenerService
             .onMessageDeletedPublisher
-            .sink { messageReceived in
+            .sink { [weak self] messageReceived in
+                guard let self = self else { return }
                 if self.accountMessages[messageReceived.account] != nil {
                     self.accountMessages[messageReceived.account]?.messages.removeAll(where: {
                         $0.data.id == messageReceived.message.id
@@ -148,11 +149,13 @@ class AppController: ObservableObject {
     private func fetchInitialMessagesAndSave(forAccount account: Account) {
         accountMessages[account]?.isFetching = true
         mtMessageService.getAllMessages(token: account.token)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.accountMessages[account] = MessageStore(isFetching: false, error: error, messages: [])
                 }
-            } receiveValue: { messages in
+            } receiveValue: { [weak self] messages in
+                guard let self = self else { return }
                 let messages = messages.map {
                     Message(data: $0)
                 }
@@ -262,7 +265,7 @@ class AppController: ObservableObject {
         }
         
         mtMessageService.deleteMessage(id: message.id, token: account.token)
-            .sink { completion in
+            .sink { completion in                
                 if case let .failure(error) = completion {
                     print(error)
                 }

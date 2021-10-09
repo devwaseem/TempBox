@@ -66,7 +66,8 @@ class AddAccountViewController: ObservableObject {
             .map {
                 $0.map(\.domain)
             }
-            .handleEvents(receiveOutput: { domains in
+            .handleEvents(receiveOutput: { [weak self] domains in
+                guard let self = self else { return }
                 self.selectedDomain = domains.first ?? ""
             })
             .assign(to: \.availableDomains, on: self)

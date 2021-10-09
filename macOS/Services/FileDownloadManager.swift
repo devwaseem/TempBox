@@ -32,8 +32,6 @@ class FileDownloadTask: ObservableObject {
     var progress: Progress {
         task.progress
     }
-
-    var progressSubscription: AnyCancellable?
     
     init (task: URLSessionDownloadTask, fileName: String, savedFileLocation: URL) {
         self.task = task

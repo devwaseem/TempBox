@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import MailTMSwift
 
 struct MessageDetailView: View {
@@ -88,7 +89,7 @@ struct MessageDetailView: View {
 
         ToolbarItem(placement: .automatic) {
             if let progress = controller.downloadProgress, controller.isDownloading {
-                MessageDetailDownloadView(progress: progress)
+                MessageDetailDownloadView(viewModel: .init(progress: progress))
             } else {
                 Button {
                     controller.downloadMessage(message: selectedMessage, for: selectedAccount)
@@ -114,24 +115,41 @@ struct MessageDetailView: View {
 
 fileprivate struct MessageDetailDownloadView: View {
     
-    @State var fractionComplete: Double = 0
-    
-    var progress: Progress
+    @ObservedObject var viewModel: MessageDetailDownloadViewModel
     
     var body: some View {
-        ProgressView(value: fractionComplete, total: 100) {
+        ProgressView(value: viewModel.fractionCompleted, total: 100) {
             HStack(alignment: .firstTextBaseline) {
                 Image(systemName: "icloud.and.arrow.down")
-                Text("\(Int(fractionComplete))% completed")
+                Text(viewModel.downloadText)
             }
         }
         .controlSize(.small)
-        .onReceive(progress
-                    .publisher(for: \.fractionCompleted)
-                    .receive(on: DispatchQueue.main),
-                   perform: { value in
-            self.fractionComplete = value * 100
-        })
         .progressViewStyle(LinearProgressViewStyle())
     }
+}
+
+fileprivate class MessageDetailDownloadViewModel: ObservableObject {
+    
+    @Published var fractionCompleted: Double = 0
+    
+    let progress: Progress
+    
+    var downloadText: String {
+        "\(Int(fractionCompleted))% completed"
+    }
+    
+    var progressSubscription: AnyCancellable?
+    
+    init(progress: Progress) {
+        self.progress = progress
+        self.progressSubscription = progress
+            .publisher(for: \.fractionCompleted)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] fractionCompleted in
+                guard let self = self else { return }
+                self.fractionCompleted = fractionCompleted
+            }
+    }
+   
 }

@@ -44,7 +44,8 @@ class MessagesListenerService {
     func listenToAccounts() {
         accountService
             .activeAccountsPublisher
-            .sink { accounts in
+            .sink { [weak self] accounts in
+                guard let self = self else { return }
                 let exisitingChannels = Array(self.channels.keys)
                 let difference = accounts.difference(from: exisitingChannels)
                 difference.insertions.forEach { change in

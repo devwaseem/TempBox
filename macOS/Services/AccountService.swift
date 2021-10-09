@@ -95,12 +95,14 @@ class AccountService: NSObject, AccountServiceProtocol {
     private func getDomains() {
         isDomainsLoading = true
         domainService.getAllDomains()
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self = self else { return }
                 self.isDomainsLoading = false
                 if case let .failure(error) = completion {
                     print("Error \(error.localizedDescription)")
                 }
-            } receiveValue: { [unowned self] domains in
+            } receiveValue: { [weak self] domains in
+                guard let self = self else { return }
                 self.availableDomains = domains
                     .filter { $0.isActive && !$0.isPrivate }
             }
@@ -128,10 +130,12 @@ class AccountService: NSObject, AccountServiceProtocol {
                 )
             }
             .eraseToAnyPublisher()
-            .map { (account, token) -> Account in
-                self.repository.create(account: account, password: auth.password, token: token)
+            .compactMap { [weak self] (account, token) -> Account? in
+                guard let self = self else { return nil }
+                return self.repository.create(account: account, password: auth.password, token: token)
             }
-            .handleEvents(receiveOutput: { account in
+            .handleEvents(receiveOutput: { [weak self] account in
+                guard let self = self else { return }
                 self.activeAccounts.append(account)
             })
             .eraseToAnyPublisher()

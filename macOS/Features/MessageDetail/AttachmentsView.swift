@@ -84,7 +84,7 @@ fileprivate struct AttachmentCell: View {
         .frame(minWidth: 140, alignment: .leading)
         .background(Color.primary.opacity(0.2))
         .background(
-            Color.accentColor.opacity(0.1)
+            Color.accentColor.opacity(0.4)
                 .animation(.easeOut)
                 .scaleEffect(x: downloadPercentage, y: 1, anchor: .leading)
                 .opacity(isDownloading ? 1 : 0)
