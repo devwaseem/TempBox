@@ -13,6 +13,8 @@
 		7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772E26F38E4200A47F7D /* SidebarView.swift */; };
 		752D57072711C61C0015D26D /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D57062711C61C0015D26D /* MessageDetailViewController.swift */; };
 		752D57092711D7730015D26D /* MessageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D57082711D7730015D26D /* MessageDownloadManager.swift */; };
+		752D570C27121DD40015D26D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 752D570B27121DD40015D26D /* Defaults */; };
+		752D570E27121DFD0015D26D /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D570D27121DFD0015D26D /* Defaults.swift */; };
 		7535D98F2708663300D39FAB /* MTMessage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535D98E2708663300D39FAB /* MTMessage+Extensions.swift */; };
 		753D3929270050C600911B58 /* FakeMTDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D3928270050C600911B58 /* FakeMTDomainService.swift */; };
 		753D392B27005B4300911B58 /* FakeAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392A27005B4300911B58 /* FakeAccountRepository.swift */; };
@@ -99,6 +101,7 @@
 		7501772E26F38E4200A47F7D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		752D57062711C61C0015D26D /* MessageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		752D57082711D7730015D26D /* MessageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDownloadManager.swift; sourceTree = "<group>"; };
+		752D570D27121DFD0015D26D /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		7535D98E2708663300D39FAB /* MTMessage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MTMessage+Extensions.swift"; sourceTree = "<group>"; };
 		753D3928270050C600911B58 /* FakeMTDomainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTDomainService.swift; sourceTree = "<group>"; };
 		753D392A27005B4300911B58 /* FakeAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAccountRepository.swift; sourceTree = "<group>"; };
@@ -163,6 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				752D570C27121DD40015D26D /* Defaults in Frameworks */,
 				75640F26270636CC00C7BCF6 /* MailTMSwift in Frameworks */,
 				75C3204D26FBA229009AAB26 /* Resolver in Frameworks */,
 			);
@@ -212,6 +216,7 @@
 				75752EFC26F39C3D004EA6C1 /* AppController.swift */,
 				7501772B26F38E0B00A47F7D /* RootNavigationView.swift */,
 				750176FF26F38A9D00A47F7D /* TempBoxApp.swift */,
+				752D570D27121DFD0015D26D /* Defaults.swift */,
 				75C3204E26FBA25D009AAB26 /* App+Injection.swift */,
 				75A3C4CB2708BDCE004ED1AB /* Models */,
 				75C3202426FB5AE0009AAB26 /* Extensions */,
@@ -503,6 +508,7 @@
 			packageProductDependencies = (
 				75C3204C26FBA229009AAB26 /* Resolver */,
 				75640F25270636CC00C7BCF6 /* MailTMSwift */,
+				752D570B27121DD40015D26D /* Defaults */,
 			);
 			productName = "TempBox (macOS)";
 			productReference = 7501770F26F38A9E00A47F7D /* TempBox.app */;
@@ -556,6 +562,7 @@
 			mainGroup = 750176F726F38A9C00A47F7D;
 			packageReferences = (
 				75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */,
+				752D570A27121DD40015D26D /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			productRefGroup = 7501770826F38A9E00A47F7D /* Products */;
 			projectDirPath = "";
@@ -631,6 +638,7 @@
 				752D57092711D7730015D26D /* MessageDownloadManager.swift in Sources */,
 				75B7C976270F50C50010FC5E /* AttachmentsViewController.swift in Sources */,
 				75752F0426F3B214004EA6C1 /* InboxCell.swift in Sources */,
+				752D570E27121DFD0015D26D /* Defaults.swift in Sources */,
 				75DE87472702D8D0008C089B /* MessagesListenerService.swift in Sources */,
 				75640F2827063A1B00C7BCF6 /* MTLiveMessagesService+Extensions.swift in Sources */,
 				7501771626F38A9E00A47F7D /* TempBoxApp.swift in Sources */,
@@ -942,6 +950,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		752D570A27121DD40015D26D /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Resolver";
@@ -953,6 +969,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		752D570B27121DD40015D26D /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 752D570A27121DD40015D26D /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
 		75640F25270636CC00C7BCF6 /* MailTMSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MailTMSwift;

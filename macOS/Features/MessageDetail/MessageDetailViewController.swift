@@ -10,6 +10,7 @@ import Resolver
 import MailTMSwift
 import AppKit
 import Combine
+import UserNotifications
 
 class MessageDetailViewController: ObservableObject {
     
@@ -33,6 +34,8 @@ class MessageDetailViewController: ObservableObject {
                         self.currentDownloadingFileState = state
                         if state == .saved {
                             self.currentDownloadingFile = nil
+                            self.triggerNotificationForDownloadedMessage(fileName: currentDownloadingFile.fileName,
+                                                                         savedLocation: currentDownloadingFile.savedFileLocation)
                         }
                     })
                     .store(in: &subscriptions)
@@ -104,6 +107,28 @@ class MessageDetailViewController: ObservableObject {
                 } catch {
                     print(error)
                 }
+            }
+        }
+    }
+    
+    func triggerNotificationForDownloadedMessage(fileName: String, savedLocation: URL) {
+        let center = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.body = "\(fileName) downloaded."
+        content.sound = .default
+        content.userInfo = ["location": savedLocation.absoluteString]
+        
+        let openAction = UNNotificationAction(identifier: "Open", title: "Open", options: [.foreground, .authenticationRequired])
+        let category = UNNotificationCategory(identifier: "Message",
+                                              actions: [openAction],
+                                              intentIdentifiers: [],
+                                              options: [.hiddenPreviewsShowSubtitle])
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        center.setNotificationCategories([category])
+        center.add(request) { error in
+            if let error = error {
+                print("Message Notification:", error)
             }
         }
     }

@@ -10,6 +10,7 @@ import Combine
 import Resolver
 import MailTMSwift
 import AppKit
+import UserNotifications
 
 final class AttachmentsViewController: ObservableObject {
     
@@ -35,10 +36,13 @@ final class AttachmentsViewController: ObservableObject {
             }
         }
         
-        attachmentDownloadTasks.values.forEach { file in
-            file.$state.sink { [weak self] _ in
+        attachmentDownloadTasks.forEach { (attachment: MTAttachment, file: FileDownloadTask) in
+            file.$state.sink { [weak self] state in
                 guard let self = self else { return }
                 self.objectWillChange.send()
+                if state == .saved {
+                    self.triggerNotificationForDownloadedAttachment(fileName: attachment.filename, savedLocation: file.savedFileLocation)
+                }
             }
             .store(in: &subscriptions)
         }
@@ -75,6 +79,28 @@ final class AttachmentsViewController: ObservableObject {
             self.attachmentDownloadTasks[attachment] = newFileTask
             self.objectWillChange.send()
         })
+    }
+    
+    func triggerNotificationForDownloadedAttachment(fileName: String, savedLocation: URL) {
+        let center = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.body = "Attachment \(fileName) downloaded."
+        content.sound = .default
+        content.userInfo = ["location": savedLocation.absoluteString]
+        
+        let openAction = UNNotificationAction(identifier: "Open", title: "Open", options: [.foreground, .authenticationRequired])
+        let category = UNNotificationCategory(identifier: "Attachment",
+                                              actions: [openAction],
+                                              intentIdentifiers: [],
+                                              options: [.hiddenPreviewsShowSubtitle])
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        center.setNotificationCategories([category])
+        center.add(request) { error in
+            if let error = error {
+                print("Attachment Notification:", error)
+            }
+        }
     }
     
 }

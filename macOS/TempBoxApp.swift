@@ -8,8 +8,10 @@
 import SwiftUI
 import Combine
 import Resolver
+import Defaults
+import UserNotifications
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     
     @Injected var persistenceManager: PersistenceManager
 
@@ -28,7 +30,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 //                                                                    .listStyle(SidebarListStyle())
 //                                                                })
 //        statusBar = StatusBarController(popover)
+        registerNotifications()
         
+    }
+    
+    func registerNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert, .sound]
+        ) { accepted, error in
+            print(accepted, error)
+            Defaults[.isNotificationsEnabled] = accepted
+            if !accepted {
+                print("Notification access denied.")
+            }
+        }
+        UNUserNotificationCenter.current().delegate = self
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -38,7 +54,28 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ notification: Notification) {
         persistenceManager.saveMainContext()
     }
-
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.banner, .list])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let fileLocation = userInfo["location"] as? String, let fileUrl = URL(string: fileLocation) {
+            print(fileLocation)
+            NSWorkspace.shared.open(fileUrl)
+        }
+        
+        print(response)
+        completionHandler()
+    }
+    
 }
 
 @main
