@@ -28,6 +28,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 //                                                                    .listStyle(SidebarListStyle())
 //                                                                })
 //        statusBar = StatusBarController(popover)
+        
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -48,34 +49,29 @@ struct TempBoxApp: App {
     // swiftlint:enable weak_delegate
     
     @StateObject var appController = AppController()
-    @StateObject var sourceViewController = SourceWindowManager()
 
     var body: some Scene {
         WindowGroup {
             RootNavigationView()
                 .environmentObject(appController)
-                .environmentObject(sourceViewController)
         }
-        .handlesExternalEvents(matching: [WindowManager.mainView.rawValue])
+        .commands {
+            SidebarCommands()
+            CommandGroup(replacing: .help) {
+                Button("API") {
+                    NSWorkspace.shared.open(URL(string: "https://docs.mail.tm")!)
+                }
+                Button("FAQ") {
+                    NSWorkspace.shared.open(URL(string: "https://mail.tm/en/faq/")!)
+                }
+                Button("Privacy policy") {
+                    NSWorkspace.shared.open(URL(string: "https://mail.tm/en/privacy/")!)
+                }
+                Button("Contact Mail.tm") {
+                    NSWorkspace.shared.open(URL(string: "https://mail.tm/en/contact/")!)
+                }
+            }
+        }
         
-        WindowGroup {
-            SourceView()
-                .frame(minWidth: 800, maxWidth: .infinity, minHeight: 800, maxHeight: .infinity)
-                .environmentObject(sourceViewController)
-        }
-        .handlesExternalEvents(matching: [WindowManager.sourceView.rawValue])
-        .windowToolbarStyle(UnifiedWindowToolbarStyle(showsTitle: true))
-    }
-}
-
-enum WindowManager: String, CaseIterable {
-    case sourceView = "com-tempbox-source-window"
-    case mainView = "com-tempbox-main-window"
-    
-    func open() {
-        if let url = URL(string: "tempbox://\(self.rawValue)") {
-            print("opening \(self.rawValue)")
-            NSWorkspace.shared.open(url)
-        }
     }
 }
