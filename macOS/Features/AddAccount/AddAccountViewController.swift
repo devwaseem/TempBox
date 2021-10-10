@@ -72,6 +72,13 @@ class AddAccountViewController: ObservableObject {
             })
             .assign(to: \.availableDomains, on: self)
             .store(in: &subscriptions)
+        
+        NotificationCenter.default.publisher(for: .newAddress)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.isAddAccountWindowOpen = true
+            }
+            .store(in: &subscriptions)
     }
     
     func openAddAccountWindow() {

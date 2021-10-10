@@ -64,7 +64,8 @@ final class FileDownloadManager: NSObject {
         FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
     }
   
-    func schedule(with request: URLRequest, fileName: String, saveLocation: URL? = nil, afterDownload: ((FileDownloadTask) -> Void)? = nil) -> FileDownloadTask {
+    func schedule(with request: URLRequest, fileName: String, saveLocation: URL? = nil,
+                  afterDownload: ((FileDownloadTask) -> Void)? = nil) -> FileDownloadTask {
         let downloadTask = session.downloadTask(with: request)
         let fileURL: URL
         if let saveLocation = saveLocation {
