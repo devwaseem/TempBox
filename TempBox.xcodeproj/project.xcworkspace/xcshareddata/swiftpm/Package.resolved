@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "MailTMSwift",
+        "repositoryURL": "https://github.com/devwaseem/MailTMSwift.git",
+        "state": {
+          "branch": "main",
+          "revision": "5432a08489b6a34cc6ce8e354592e2a83674aed5",
+          "version": null
+        }
+      },
+      {
         "package": "Resolver",
         "repositoryURL": "https://github.com/hmlongco/Resolver",
         "state": {
