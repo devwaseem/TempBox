@@ -36,15 +36,13 @@ struct MessageDetailView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                MessageDetailHeader(viewModel: .init(from: selectedMessageData.from,
-                                                     cc: selectedMessageData.cc,
-                                                     bcc: selectedMessageData.bcc,
-                                                     subject: selectedMessageData.subject,
-                                                     date: selectedMessageData.createdAt
-                                                    ))
-                Spacer()
-            }
+            MessageDetailHeader(viewModel: .init(
+                from: selectedMessageData.from,
+                cc: selectedMessageData.cc,
+                bcc: selectedMessageData.bcc,
+                subject: selectedMessageData.subject,
+                date: selectedMessageData.createdAt
+            ))
             .padding([.top, .horizontal])
             if isLoading {
                 loadingView
@@ -52,7 +50,7 @@ struct MessageDetailView: View {
                 VStack {
                     WebView(html: html)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .cornerRadius(12)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                         .padding(24)
                     if let account = selectedAccount, let attachments = selectedMessage.data.attachments, !attachments.isEmpty {
                         AttachmentsView(controller: AttachmentsViewController(account: account, attachments: attachments))

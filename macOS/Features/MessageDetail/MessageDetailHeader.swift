@@ -27,8 +27,15 @@ struct MessageDetailHeader: View {
                 .padding()
             
             VStack(alignment: .leading, spacing: 6.0) {
-                Text("\(viewModel.fromName) (\(viewModel.fromAddress))")
-                    .font(.system(size: 16))
+                HStack {
+                    Text("\(viewModel.fromName) (\(viewModel.fromAddress))")
+                        .font(.system(size: 16))
+                        .lineLimit(1)
+                    Spacer()
+                    Text(viewModel.createdAtDate)
+                        .layoutPriority(1)
+                        .font(.caption)
+                }
                 Text(viewModel.subject)
                     .font(.system(size: 12))
                 CCView(viewModel: viewModel)
