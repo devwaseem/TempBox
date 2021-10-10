@@ -35,14 +35,11 @@ final class AttachmentsViewController: ObservableObject {
                 dict[attachment] = file
             }
         }
-        
-        attachmentDownloadTasks.forEach { (attachment: MTAttachment, file: FileDownloadTask) in
-            file.$state.sink { [weak self] state in
+
+        attachmentDownloadTasks.values.forEach { file in
+            file.$state.sink { [weak self] _ in
                 guard let self = self else { return }
                 self.objectWillChange.send()
-                if state == .saved {
-                    self.triggerNotificationForDownloadedAttachment(fileName: attachment.filename, savedLocation: file.savedFileLocation)
-                }
             }
             .store(in: &subscriptions)
         }
@@ -50,7 +47,10 @@ final class AttachmentsViewController: ObservableObject {
     
     func registerAttachments() {
         for attachment in attachments {
-            try? downloadManager.add(attachment: attachment, for: account)
+            try? downloadManager.add(attachment: attachment, for: account, afterDownload: { [weak self] task in
+                guard let self = self else { return }
+                self.triggerNotificationForDownloadedAttachment(fileName: task.fileName, savedLocation: task.savedFileLocation)
+            })
         }
     }
     
@@ -84,7 +84,8 @@ final class AttachmentsViewController: ObservableObject {
     func triggerNotificationForDownloadedAttachment(fileName: String, savedLocation: URL) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
-        content.body = "Attachment \(fileName) downloaded."
+        content.title = "Attachment downloaded."
+        content.subtitle = fileName
         content.sound = .default
         content.userInfo = ["location": savedLocation.absoluteString]
         

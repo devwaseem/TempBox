@@ -26,6 +26,7 @@ class FileDownloadTask: ObservableObject {
     let savedFileLocation: URL
     let fileName: String
     var error: Error?
+    var afterDownload: ((FileDownloadTask) -> Void)?
     
     @Published var state: State = .idle
     
@@ -33,11 +34,12 @@ class FileDownloadTask: ObservableObject {
         task.progress
     }
     
-    init (task: URLSessionDownloadTask, fileName: String, savedFileLocation: URL) {
+    init (task: URLSessionDownloadTask, fileName: String, savedFileLocation: URL, afterDownload: ((FileDownloadTask) -> Void)? = nil) {
         self.task = task
         self.savedFileLocation = savedFileLocation
         self.fileName = fileName
         self.error = nil
+        self.afterDownload = afterDownload
     }
     
     func download() {
@@ -62,7 +64,7 @@ final class FileDownloadManager: NSObject {
         FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
     }
   
-    func schedule(with request: URLRequest, fileName: String, saveLocation: URL? = nil) -> FileDownloadTask {
+    func schedule(with request: URLRequest, fileName: String, saveLocation: URL? = nil, afterDownload: ((FileDownloadTask) -> Void)? = nil) -> FileDownloadTask {
         let downloadTask = session.downloadTask(with: request)
         let fileURL: URL
         if let saveLocation = saveLocation {
@@ -70,7 +72,7 @@ final class FileDownloadManager: NSObject {
         } else {
             fileURL = Self.downloadDirectoryURL.appendingPathComponent(fileName)
         }
-        let fileDownloadTask = FileDownloadTask(task: downloadTask, fileName: fileName, savedFileLocation: fileURL)
+        let fileDownloadTask = FileDownloadTask(task: downloadTask, fileName: fileName, savedFileLocation: fileURL, afterDownload: afterDownload)
         tasks[fileDownloadTask.id] = fileDownloadTask
         return fileDownloadTask
     }
@@ -93,6 +95,7 @@ extension FileDownloadManager: URLSessionDownloadDelegate {
                 try FileManager.default.moveItem(at: location, to: desiredUrl)
             }
             task.state = .saved
+            task.afterDownload?(task)
         } catch {
             print(error)
             task.state = .error

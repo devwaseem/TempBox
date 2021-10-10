@@ -26,14 +26,14 @@ class MessageDownloadManager {
         return fileDownloadManager.tasks[fileTask.id]
     }
     
-    func download(message: Message, request: URLRequest, saveLocation: URL) -> FileDownloadTask {
+    func download(message: Message, request: URLRequest, saveLocation: URL, afterDownload: ((FileDownloadTask) -> Void)? = nil) -> FileDownloadTask {
         let fileName: String
         if message.data.subject.isEmpty {
             fileName = "message.eml"
         } else {
             fileName = "\(message.data.subject).eml"
         }
-        let task = fileDownloadManager.schedule(with: request, fileName: fileName, saveLocation: saveLocation)
+        let task = fileDownloadManager.schedule(with: request, fileName: fileName, saveLocation: saveLocation, afterDownload: afterDownload)
         messageDownloadTasks[message.id] = task
         task.download()
         return task

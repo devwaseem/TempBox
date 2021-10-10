@@ -30,7 +30,7 @@ class AttachmentDownloadManager {
         return fileDownloadManager.tasks[fileTask.id]
     }
     
-    func add(attachment: MTAttachment, for account: Account) throws {
+    func add(attachment: MTAttachment, for account: Account, afterDownload: ((FileDownloadTask) -> Void)? = nil) throws {
         guard attachmentTasks[attachment.id] == nil else {
             throw Error.alreadyScheduled
         }
@@ -48,9 +48,8 @@ class AttachmentDownloadManager {
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = ["Authorization": "Bearer \(account.token)"]
         request.httpMethod = "GET"
-        let task = fileDownloadManager.schedule(with: request, fileName: attachment.filename)
+        let task = fileDownloadManager.schedule(with: request, fileName: attachment.filename, afterDownload: afterDownload)
         attachmentTasks[attachment.id] = task
-        
     }
         
     func download(attachment: MTAttachment, onRenew: ((FileDownloadTask) -> Void)?) {
@@ -72,7 +71,8 @@ class AttachmentDownloadManager {
             return nil
         }
         
-        let task = fileDownloadManager.schedule(with: request, fileName: attachment.filename)
+        let afterDownload = task.afterDownload
+        let task = fileDownloadManager.schedule(with: request, fileName: attachment.filename, afterDownload: afterDownload)
         attachmentTasks[attachment.id] = task
         return task
     }

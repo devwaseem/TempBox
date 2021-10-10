@@ -32,11 +32,6 @@ class MessageDetailViewController: ObservableObject {
                     .sink(receiveValue: { [weak self] state in
                         guard let self = self else { return }
                         self.currentDownloadingFileState = state
-                        if state == .saved {
-                            self.currentDownloadingFile = nil
-                            self.triggerNotificationForDownloadedMessage(fileName: currentDownloadingFile.fileName,
-                                                                         savedLocation: currentDownloadingFile.savedFileLocation)
-                        }
                     })
                     .store(in: &subscriptions)
             } else {
@@ -86,7 +81,11 @@ class MessageDetailViewController: ObservableObject {
         panel.begin { [weak self] response in
             guard let self = self else { return }
             if response == NSApplication.ModalResponse.OK, let desiredUrl = panel.url {
-                self.currentDownloadingFile = self.downloadManager.download(message: message, request: request, saveLocation: desiredUrl)
+                self.currentDownloadingFile = self.downloadManager.download(message: message,
+                                                                            request: request,
+                                                                            saveLocation: desiredUrl, afterDownload: { _ in
+                    self.triggerNotificationForDownloadedMessage(fileName: panel.nameFieldStringValue, savedLocation: desiredUrl)
+                })
             }
         }
     }
@@ -114,7 +113,8 @@ class MessageDetailViewController: ObservableObject {
     func triggerNotificationForDownloadedMessage(fileName: String, savedLocation: URL) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
-        content.body = "\(fileName) downloaded."
+        content.title = "Message downloaded"
+        content.subtitle = fileName
         content.sound = .default
         content.userInfo = ["location": savedLocation.absoluteString]
         
