@@ -26,6 +26,7 @@ struct RootNavigationView: View {
                 Text("No Message Selected")
                     .font(.largeTitle)
                     .opacity(0.4)
+                    .frame(minWidth: 500)
             }
 
         }

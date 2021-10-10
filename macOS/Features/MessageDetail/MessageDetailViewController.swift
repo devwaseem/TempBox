@@ -119,11 +119,10 @@ class MessageDetailViewController: ObservableObject {
         content.categoryIdentifier = "openFileFromLocation"
         content.userInfo = ["location": savedLocation.absoluteString]
         
-        let openAction = UNNotificationAction(identifier: "Open", title: "Open", options: [.foreground, .authenticationRequired])
+        let openAction = UNNotificationAction(identifier: "Open", title: "Open", options: .foreground)
         let category = UNNotificationCategory(identifier: "Message",
                                               actions: [openAction],
-                                              intentIdentifiers: [],
-                                              options: [.hiddenPreviewsShowSubtitle])
+                                              intentIdentifiers: [])
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
         center.setNotificationCategories([category])

@@ -36,9 +36,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     
     func registerNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .sound]
+            options: [.alert, .sound, .badge]
         ) { accepted, error in
-            print(accepted, error)
+            if let error = error {
+                print(error)
+                return
+            }
             Defaults[.isNotificationsEnabled] = accepted
             if !accepted {
                 print("Notification access denied.")
@@ -70,7 +73,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             let userInfo = response.notification.request.content.userInfo
             
             if let fileLocation = userInfo["location"] as? String, let fileUrl = URL(string: fileLocation) {
-                NSWorkspace.shared.open(fileUrl)
+                if response.actionIdentifier == "Open" {
+                    NSWorkspace.shared.open(fileUrl)
+                }
             }
         }
         completionHandler()
