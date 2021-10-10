@@ -1,7 +1,8 @@
 # TempBox - Beta
 Instant disposable emails for Mac
 
-![Banner](https://user-images.githubusercontent.com/12982964/136702264-20a67c8e-d053-416b-a6c2-30a711d6842f.png)
+![Banner](https://user-images.githubusercontent.com/12982964/136702592-b793d676-fd61-41a9-aa61-1f459787999a.png)
+
 
 
 # WIP - Please stay tuned.
