@@ -26,6 +26,7 @@ class FileDownloadTask: ObservableObject {
     let savedFileLocation: URL
     let fileName: String
     var error: Error?
+    var beforeSave: ((URL) -> URL?)?
     var afterDownload: ((FileDownloadTask) -> Void)?
     
     @Published var state: State = .idle
@@ -34,11 +35,13 @@ class FileDownloadTask: ObservableObject {
         task.progress
     }
     
-    init (task: URLSessionDownloadTask, fileName: String, savedFileLocation: URL, afterDownload: ((FileDownloadTask) -> Void)? = nil) {
+    init (task: URLSessionDownloadTask, fileName: String, savedFileLocation: URL,
+          beforeSave: ((URL) -> URL?)? = nil, afterDownload: ((FileDownloadTask) -> Void)? = nil) {
         self.task = task
         self.savedFileLocation = savedFileLocation
         self.fileName = fileName
         self.error = nil
+        self.beforeSave = beforeSave
         self.afterDownload = afterDownload
     }
     
@@ -65,7 +68,7 @@ final class FileDownloadManager: NSObject {
     }
   
     func schedule(with request: URLRequest, fileName: String, saveLocation: URL? = nil,
-                  afterDownload: ((FileDownloadTask) -> Void)? = nil) -> FileDownloadTask {
+                  beforeSave: ((URL) -> URL?)? = nil, afterDownload: ((FileDownloadTask) -> Void)? = nil) -> FileDownloadTask {
         let downloadTask = session.downloadTask(with: request)
         let fileURL: URL
         if let saveLocation = saveLocation {
@@ -73,7 +76,11 @@ final class FileDownloadManager: NSObject {
         } else {
             fileURL = Self.downloadDirectoryURL.appendingPathComponent(fileName)
         }
-        let fileDownloadTask = FileDownloadTask(task: downloadTask, fileName: fileName, savedFileLocation: fileURL, afterDownload: afterDownload)
+        let fileDownloadTask = FileDownloadTask(task: downloadTask,
+                                                fileName: fileName,
+                                                savedFileLocation: fileURL,
+                                                beforeSave: beforeSave,
+                                                afterDownload: afterDownload)
         tasks[fileDownloadTask.id] = fileDownloadTask
         return fileDownloadTask
     }
@@ -87,13 +94,16 @@ extension FileDownloadManager: URLSessionDownloadDelegate {
             return
         }
         
-        let desiredUrl = task.savedFileLocation
+        let sourceFile = task.beforeSave?(location) ?? location
+        
+        let savingLocation = task.savedFileLocation
+        
         do {
-            let isFileExists = FileManager.default.fileExists(atPath: desiredUrl.path)
+            let isFileExists = FileManager.default.fileExists(atPath: savingLocation.path)
             if isFileExists {
-                _ = try FileManager.default.replaceItemAt(desiredUrl, withItemAt: location)
+                _ = try FileManager.default.replaceItemAt(savingLocation, withItemAt: sourceFile)
             } else {
-                try FileManager.default.moveItem(at: location, to: desiredUrl)
+                try FileManager.default.moveItem(at: sourceFile, to: savingLocation)
             }
             task.state = .saved
             task.afterDownload?(task)
