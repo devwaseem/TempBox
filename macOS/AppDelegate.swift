@@ -27,7 +27,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             }
         }
         
-        self.window = NSApplication.shared.windows.first(where: { $0 != nil })
+        self.window = NSApplication.shared.windows.first
         
     }
     
