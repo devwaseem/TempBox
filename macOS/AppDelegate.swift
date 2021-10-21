@@ -13,6 +13,7 @@ import UserNotifications
 
 final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     
+    var window: NSWindow?
     @Injected var persistenceManager: PersistenceManager
         
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -25,6 +26,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
                 }
             }
         }
+        
+        self.window = NSApplication.shared.windows.first(where: { $0 != nil })
         
     }
     
@@ -72,6 +75,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             case LocalNotificationKeys.Category.activateMessage:
                 let userInfo = response.notification.request.content.userInfo
                 NotificationCenter.default.post(name: .activateAccountAndMessage, object: nil, userInfo: userInfo)
+                NSApplication.shared.activate(ignoringOtherApps: true)
+                window?.deminiaturize(nil)
             default: break
         }
         completionHandler()
