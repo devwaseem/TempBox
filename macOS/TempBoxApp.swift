@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import Resolver
-import Defaults
 
 @main
 struct TempBoxApp: App {

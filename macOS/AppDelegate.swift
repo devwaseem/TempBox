@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 import Resolver
-import Defaults
 import UserNotifications
 
 final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -36,7 +35,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
                 print(error)
                 return
             }
-            Defaults[.isNotificationsEnabled] = accepted
             if !accepted {
                 print("Notification access denied.")
             }
