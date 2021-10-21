@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/devwaseem/MailTMSwift.git",
         "state": {
           "branch": "main",
-          "revision": "5432a08489b6a34cc6ce8e354592e2a83674aed5",
+          "revision": "35238e7d01659f055f93426d6689ad2960f8d227",
           "version": null
         }
       },
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/hmlongco/Resolver",
         "state": {
           "branch": null,
-          "revision": "609908e0b67911ebf7386609552a48d4ec07958e",
-          "version": "1.4.4"
+          "revision": "97de0b0320036607564af4a60025b48f8d041221",
+          "version": "1.5.0"
         }
       },
       {
