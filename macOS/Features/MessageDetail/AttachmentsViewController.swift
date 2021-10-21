@@ -10,10 +10,11 @@ import Combine
 import Resolver
 import MailTMSwift
 import AppKit
+import OSLog
 import UserNotifications
 
 final class AttachmentsViewController: ObservableObject {
-    
+    static let logger = Logger(subsystem: Logger.subsystem, category: String(describing: AttachmentsViewController.self))
     var account: Account
     @Published var attachments: [MTAttachment]
     @Published var attachmentDownloadTasks: [MTAttachment: FileDownloadTask] = [:]
@@ -99,7 +100,7 @@ final class AttachmentsViewController: ObservableObject {
         center.setNotificationCategories([category])
         center.add(request) { error in
             if let error = error {
-                print("Attachment Notification:", error)
+                Self.logger.error("\(#function) \(#line): Attachment Notification: \(error.localizedDescription)")
             }
         }
     }

@@ -8,9 +8,10 @@
 import Foundation
 import Resolver
 import MailTMSwift
+import OSLog
 
 class MessageDownloadManager {
-    
+    static let logger = Logger(subsystem: Logger.subsystem, category: String(describing: MessageDownloadManager.self))
     private var messageDownloadTasks: [Message.ID: FileDownloadTask] = [:]
     
     private let fileDownloadManager: FileDownloadManager
@@ -67,7 +68,7 @@ class MessageDownloadManager {
             try sourceObj.data.write(to: temporaryFileURL, atomically: true, encoding: .utf8)
             return temporaryFileURL
         } catch {
-            print(error)
+            Self.logger.error("\(#function) \(#line) \(error.localizedDescription)")
         }
         return nil
     }

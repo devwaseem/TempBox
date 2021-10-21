@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Resolver
+import OSLog
 import UserNotifications
 
 final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -32,11 +33,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             options: [.alert, .sound, .badge]
         ) { accepted, error in
             if let error = error {
-                print(error)
+                Logger.notifications.error("\(#fileID) \(#function) \(#line): \(error.localizedDescription)")
                 return
             }
             if !accepted {
-                print("Notification access denied.")
+                Logger.notifications.info("Notification access denied.")
             }
         }
         UNUserNotificationCenter.current().delegate = self

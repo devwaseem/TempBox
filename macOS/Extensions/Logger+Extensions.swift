@@ -9,10 +9,12 @@ import Foundation
 import OSLog
 
 extension Logger {
-    private static var subsystem = Bundle.main.bundleIdentifier!
+    static var subsystem = Bundle.main.bundleIdentifier!
 
+    static let notifications = Logger(subsystem: subsystem, category: "Notifications")
     static let persistence = Logger(subsystem: subsystem, category: "Persistence")
-    
+    static let fileDownloadManager = Logger(subsystem: subsystem, category: String(describing: FileDownloadManager.self))
+        
     enum Services {
         static let accountService = Logger(subsystem: subsystem, category: String(describing: AccountService.self))
     }

@@ -9,11 +9,12 @@ import Foundation
 import MailTMSwift
 import Resolver
 import Combine
-import os
+import OSLog
 import AppKit
 import UserNotifications
 
 class AppController: ObservableObject {
+    static private let logger = Logger(subsystem: Logger.subsystem, category: String(describing: AppController.self))
     @Published var filterNotSeen = false
     
     @Published private(set) var activeAccounts: [Account] = []
@@ -184,7 +185,7 @@ class AppController: ObservableObject {
         mtMessageService.markMessageAs(id: message.data.id, seen: true, token: account.token)
             .sink { completion in
                 if case let .failure(error) = completion {
-                    print(error)
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
                 }
             } receiveValue: { [weak self] updatedMessage in
                 guard let self = self else { return }
@@ -206,7 +207,7 @@ class AppController: ObservableObject {
         mtMessageService.getMessage(id: messageId, token: token)
             .sink { completion in
                 if case let .failure(error) = completion {
-                    print(error)
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
                 }
             } receiveValue: { [weak self] completeMessage in
                 guard let self = self else { return }
@@ -251,7 +252,7 @@ class AppController: ObservableObject {
                 guard let self = self else { return }
                 self.alertData = nil
                 if case let .failure(error) = completion {
-                    print(error)
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
                     switch error {
                         case .mtError(let apiError):
                             self.alertData = .init(title: apiError, message: nil)
@@ -281,7 +282,7 @@ class AppController: ObservableObject {
         mtMessageService.deleteMessage(id: message.id, token: account.token)
             .sink { completion in                
                 if case let .failure(error) = completion {
-                    print(error)
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
                 }
             } receiveValue: { _ in
             }
@@ -334,7 +335,7 @@ class AppController: ObservableObject {
         center.setNotificationCategories([category])
         center.add(request) { error in
             if let error = error {
-                print("Message Notification:", error)
+                Self.logger.error("\(#function) \(#line): Message Notification: \(error.localizedDescription)")
             }
         }
     }

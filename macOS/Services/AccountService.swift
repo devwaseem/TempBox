@@ -10,6 +10,7 @@ import Resolver
 import Combine
 import MailTMSwift
 import CoreData
+import OSLog
 
 protocol AccountServiceProtocol {
     var activeAccountsPublisher: AnyPublisher<[Account], Never> { get }
@@ -29,7 +30,7 @@ protocol AccountServiceProtocol {
 
 class AccountService: NSObject, AccountServiceProtocol {
     // MARK: Account properties
-    
+    static let logger = Logger(subsystem: Logger.subsystem, category: String(describing: AccountService.self))
     var activeAccountsPublisher: AnyPublisher<[Account], Never> {
         $activeAccounts.eraseToAnyPublisher()
     }
@@ -100,7 +101,7 @@ class AccountService: NSObject, AccountServiceProtocol {
                 guard let self = self else { return }
                 self.isDomainsLoading = false
                 if case let .failure(error) = completion {
-                    print("Error \(error.localizedDescription)")
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
                 }
             } receiveValue: { [weak self] domains in
                 guard let self = self else { return }
@@ -160,7 +161,6 @@ class AccountService: NSObject, AccountServiceProtocol {
         self.mtAccountService.deleteAccount(id: account.id, token: account.token)
             .share()
             .ignoreOutput()
-            .print()
             .handleEvents(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
                 if case .finished = completion {

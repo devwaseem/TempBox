@@ -10,8 +10,10 @@ import Resolver
 import Combine
 import AppKit
 import MailTMSwift
+import OSLog
 
 class AddAccountViewController: ObservableObject {
+    static let logger = Logger(subsystem: Logger.subsystem, category: String(describing: AddAccountViewController.self))
     @Published var isAddAccountWindowOpen = false
     
     private var accountService: AccountService
@@ -120,7 +122,7 @@ class AddAccountViewController: ObservableObject {
                 guard let self = self else { return }
                 self.isCreatingAccount = false
                 if case .failure(let error) = completion {
-                    print(error)
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
                     switch error {
                     case MTError.mtError(let errorStr):
                         if errorStr.contains("already used")

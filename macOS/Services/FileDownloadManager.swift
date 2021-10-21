@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import OSLog
 import AppKit
 
 class FileDownloadTask: ObservableObject {
@@ -82,6 +83,9 @@ final class FileDownloadManager: NSObject {
                                                 beforeSave: beforeSave,
                                                 afterDownload: afterDownload)
         tasks[fileDownloadTask.id] = fileDownloadTask
+        // swiftlint:disable line_length
+        Logger.fileDownloadManager.debug("Scheduled downloading task: \(fileDownloadTask.id) fileName: \(fileDownloadTask.fileName) fileUrl: \(fileDownloadTask.savedFileLocation)")
+        // swiftlint:enable line_length
         return fileDownloadTask
     }
     
@@ -93,7 +97,7 @@ extension FileDownloadManager: URLSessionDownloadDelegate {
         guard let task = tasks[downloadTask.taskIdentifier] else {
             return
         }
-        
+        Logger.fileDownloadManager.debug("Task downloaded: \(task.id)")
         let sourceFile = task.beforeSave?(location) ?? location
         
         let savingLocation = task.savedFileLocation
@@ -102,13 +106,15 @@ extension FileDownloadManager: URLSessionDownloadDelegate {
             let isFileExists = FileManager.default.fileExists(atPath: savingLocation.path)
             if isFileExists {
                 _ = try FileManager.default.replaceItemAt(savingLocation, withItemAt: sourceFile)
+                Logger.fileDownloadManager.debug("Task file exists: \(task.id), Replacing with \(savingLocation)")
             } else {
                 try FileManager.default.moveItem(at: sourceFile, to: savingLocation)
+                Logger.fileDownloadManager.debug("Task file saved: \(task.id), location: \(savingLocation)")
             }
             task.state = .saved
             task.afterDownload?(task)
         } catch {
-            print(error)
+            Logger.fileDownloadManager.error("\(#function) \(#line) \(error.localizedDescription)")
             task.state = .error
             task.error = error
         }
@@ -118,7 +124,9 @@ extension FileDownloadManager: URLSessionDownloadDelegate {
         guard let error = error, let file = tasks[task.taskIdentifier] else {
             return
         }
-        
+        // swiftlint:disable line_length
+        Logger.fileDownloadManager.error("Error while downloading task, taskId: \(file.id), fileName: \(file.fileName), Error: \(error.localizedDescription)")
+        // swiftlint:enable line_length
         file.state = .error
         file.error = error
         

@@ -10,10 +10,11 @@ import Resolver
 import MailTMSwift
 import AppKit
 import Combine
+import OSLog
 import UserNotifications
 
 class MessageDetailViewController: ObservableObject {
-    
+    static let logger = Logger(subsystem: Logger.subsystem, category: String(describing: MessageDetailViewController.self))
     @Published var showError = false
     @Published var errorMessage = ""
         
@@ -104,7 +105,7 @@ class MessageDetailViewController: ObservableObject {
                 do {
                     try source.data.write(to: fileUrl, atomically: true, encoding: .utf8)
                 } catch {
-                    print(error)
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
                 }
             }
         }
@@ -128,7 +129,7 @@ class MessageDetailViewController: ObservableObject {
         center.setNotificationCategories([category])
         center.add(request) { error in
             if let error = error {
-                print("Message Notification:", error)
+                Self.logger.error("\(#function) \(#line): Message Notification: \(error.localizedDescription)")
             }
         }
     }
