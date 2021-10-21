@@ -87,11 +87,11 @@ final class AttachmentsViewController: ObservableObject {
         content.title = "Attachment downloaded."
         content.subtitle = fileName
         content.sound = nil
-        content.categoryIdentifier = "openFileFromLocation"
+        content.categoryIdentifier = LocalNotificationKeys.Category.openFileFromLocation
         content.userInfo = ["location": savedLocation.absoluteString]
         
         let openAction = UNNotificationAction(identifier: "Open", title: "Open", options: .foreground)
-        let category = UNNotificationCategory(identifier: "Attachment",
+        let category = UNNotificationCategory(identifier: LocalNotificationKeys.Identifiers.attachment,
                                               actions: [openAction],
                                               intentIdentifiers: [])
         

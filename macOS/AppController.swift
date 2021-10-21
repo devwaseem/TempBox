@@ -11,6 +11,7 @@ import Resolver
 import Combine
 import os
 import AppKit
+import UserNotifications
 
 class AppController: ObservableObject {
     @Published var filterNotSeen = false
@@ -100,12 +101,18 @@ class AppController: ObservableObject {
             .archivedAccountsPublisher
             .assign(to: \.archivedAccounts, on: self)
             .store(in: &subscriptions)
-        
+          
+        listenForMessageEvents()
+        listenForActivateNotifications()
+    }
+    
+    private func listenForMessageEvents() {
         messageListenerService
             .onMessageReceivedPublisher
             .sink { [weak self] messageReceived in
                 guard let self = self else { return }
-                self.upsertMessage(message: Message(data: messageReceived.message), for: messageReceived.account)
+                self.upsertMessage(message: Message(data: messageReceived.message),
+                                   for: messageReceived.account)
             }
             .store(in: &subscriptions)
         
@@ -125,9 +132,8 @@ class AppController: ObservableObject {
             .$channelsStatus
             .assign(to: \.accountStatus, on: self)
             .store(in: &subscriptions)
-        
     }
-    
+        
     private func upsertMessage(message: Message, for account: Account) {
         if let messages = self.accountMessages[account]?.messages {
             var updatedMessages = messages
@@ -138,6 +144,7 @@ class AppController: ObservableObject {
                 updatedMessages[index] = updatedMessage
             } else {
                 updatedMessages.append(message)
+                self.triggerNotificationForReceivedMessage(message: message, for: account)
             }
             self.accountMessages[account]?.messages = updatedMessages
             if let selectedMessage = selectedMessage, selectedMessage.id == message.id {
@@ -272,6 +279,57 @@ class AppController: ObservableObject {
             } receiveValue: { _ in
             }
             .store(in: &subscriptions)
+    }
+    
+    private func listenForActivateNotifications() {
+        NotificationCenter.default
+            .publisher(for: .activateAccountAndMessage, object: nil)
+            .sink { [weak self] notification in
+                guard
+                    let self = self,
+                    let userInfo = notification.userInfo,
+                    let accountId = userInfo["account"] as? String,
+                    let messageId = userInfo["message"] as? String,
+                    let account = self.activeAccounts.first(where: { $0.id == accountId }),
+                    let message = self.accountMessages[account]?.messages.first(where: { $0.id == messageId })
+                else { return }
+                
+                self.selectedAccount = account
+                self.selectedMessage = message
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func triggerNotificationForReceivedMessage(message: Message, for account: Account) {
+        let center = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        
+        let sender: String
+        if message.data.from.name.trimmingCharacters(in: .whitespaces) != "" {
+            sender = message.data.from.name
+        } else {
+           sender = message.data.from.address
+        }
+        
+        content.title = sender
+        content.subtitle = message.data.subject
+        content.body = message.data.textExcerpt
+        content.sound = .default
+        content.categoryIdentifier = LocalNotificationKeys.Category.activateMessage
+        content.userInfo = ["account": account.id, "message": message.id]
+        
+        let openAction = UNNotificationAction(identifier: "Open", title: "Open", options: .foreground)
+        let category = UNNotificationCategory(identifier: LocalNotificationKeys.Identifiers.message,
+                                              actions: [openAction],
+                                              intentIdentifiers: [])
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        center.setNotificationCategories([category])
+        center.add(request) { error in
+            if let error = error {
+                print("Message Notification:", error)
+            }
+        }
     }
         
 }

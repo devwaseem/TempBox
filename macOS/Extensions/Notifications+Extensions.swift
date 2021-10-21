@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let newAddress = Notification.Name("NewAddress")
+    static let activateAccountAndMessage = Notification.Name("activateAccountAndMessage")
 }

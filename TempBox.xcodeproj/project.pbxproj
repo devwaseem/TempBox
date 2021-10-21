@@ -19,6 +19,7 @@
 		753D3929270050C600911B58 /* FakeMTDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D3928270050C600911B58 /* FakeMTDomainService.swift */; };
 		753D392B27005B4300911B58 /* FakeAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392A27005B4300911B58 /* FakeAccountRepository.swift */; };
 		753D392D2700603400911B58 /* FakeMTAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392C2700603400911B58 /* FakeMTAccountService.swift */; };
+		75444DA42721352D00AAF867 /* LocalNotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75444DA32721352D00AAF867 /* LocalNotificationKeys.swift */; };
 		75529A8126F3916B00588FEA /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8026F3916B00588FEA /* InboxView.swift */; };
 		75529A8326F3917700588FEA /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8226F3917700588FEA /* MessageDetailView.swift */; };
 		755EB00F26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */; };
@@ -107,6 +108,7 @@
 		753D3928270050C600911B58 /* FakeMTDomainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTDomainService.swift; sourceTree = "<group>"; };
 		753D392A27005B4300911B58 /* FakeAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAccountRepository.swift; sourceTree = "<group>"; };
 		753D392C2700603400911B58 /* FakeMTAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTAccountService.swift; sourceTree = "<group>"; };
+		75444DA32721352D00AAF867 /* LocalNotificationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationKeys.swift; sourceTree = "<group>"; };
 		75529A8026F3916B00588FEA /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		75529A8226F3917700588FEA /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
 		755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 			children = (
 				75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */,
 				75A3C4CE2708BF51004ED1AB /* Message.swift */,
+				75444DA32721352D00AAF867 /* LocalNotificationKeys.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				7575A2B126F4713F00A90CFE /* AccountRepository.swift in Sources */,
 				75529A8126F3916B00588FEA /* InboxView.swift in Sources */,
 				75DFF7632700E77200EE4B7A /* Logger+Extensions.swift in Sources */,
+				75444DA42721352D00AAF867 /* LocalNotificationKeys.swift in Sources */,
 				7586016F2709A60D0071BAB2 /* AccountInfoView.swift in Sources */,
 				75860174270A0AAF0071BAB2 /* ToolbarDivider.swift in Sources */,
 				752D57092711D7730015D26D /* MessageDownloadManager.swift in Sources */,

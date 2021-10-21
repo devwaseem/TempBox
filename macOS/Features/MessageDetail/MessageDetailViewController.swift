@@ -116,11 +116,11 @@ class MessageDetailViewController: ObservableObject {
         content.title = "Message downloaded"
         content.subtitle = fileName
         content.sound = nil
-        content.categoryIdentifier = "openFileFromLocation"
+        content.categoryIdentifier = LocalNotificationKeys.Category.openFileFromLocation
         content.userInfo = ["location": savedLocation.absoluteString]
         
         let openAction = UNNotificationAction(identifier: "Open", title: "Open", options: .foreground)
-        let category = UNNotificationCategory(identifier: "Message",
+        let category = UNNotificationCategory(identifier: LocalNotificationKeys.Identifiers.message,
                                               actions: [openAction],
                                               intentIdentifiers: [])
         

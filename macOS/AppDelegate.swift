@@ -63,12 +63,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let categoryIdentifier = response.notification.request.content.categoryIdentifier
-        if categoryIdentifier == "openFileFromLocation" {
-            let userInfo = response.notification.request.content.userInfo
-            
-            if let fileLocation = userInfo["location"] as? String, let fileUrl = URL(string: fileLocation) {
-                NSWorkspace.shared.open(fileUrl)
-            }
+        switch categoryIdentifier {
+            case LocalNotificationKeys.Category.openFileFromLocation:
+                let userInfo = response.notification.request.content.userInfo
+                
+                if let fileLocation = userInfo["location"] as? String, let fileUrl = URL(string: fileLocation) {
+                    NSWorkspace.shared.open(fileUrl)
+                }
+            case LocalNotificationKeys.Category.activateMessage:
+                let userInfo = response.notification.request.content.userInfo
+                NotificationCenter.default.post(name: .activateAccountAndMessage, object: nil, userInfo: userInfo)
+            default: break
         }
         completionHandler()
     }
