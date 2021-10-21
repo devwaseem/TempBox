@@ -7,5 +7,5 @@
 
 enum AppConfig {
     static let maxAccountsAllowed = 30
-    static let maxActiveAccountsAllowed = 2
+    static let maxActiveAccountsAllowed = 6
 }
