@@ -62,13 +62,16 @@ class AppController: ObservableObject {
         return accountStatus[selectedAccount, default: .closed] == .opened
     }
     
+    var canActivateAccounts: Bool {
+        activeAccounts.count < AppConfig.maxActiveAccountsAllowed
+    }
+    
     var mtMessageService: MTMessageService
     var accountService: AccountServiceProtocol
     var messageListenerService: MessagesListenerService
     var subscriptions = Set<AnyCancellable>()
     
-    var showError = false
-    var errorMessage = ""
+    @Published var alertData: SimpleAlertData?
     
     init(
         accountService: AccountServiceProtocol = Resolver.resolve(),
@@ -230,7 +233,12 @@ class AppController: ObservableObject {
     }
     
     func activateAccount(account: Account) {
-        accountService.activateAccount(account: account)
+        if canActivateAccounts {
+            accountService.activateAccount(account: account)
+        } else {
+            alertData = .init(title: "Max Active Account limit reached",
+                              message: "You cannot activate more than \(AppConfig.maxActiveAccountsAllowed) accounts")
+        }
     }
     
     func removeAccount(account: Account) {
@@ -241,13 +249,12 @@ class AppController: ObservableObject {
         accountService.deleteAndRemoveAccount(account: account)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.showError = false
+                self.alertData = nil
                 if case let .failure(error) = completion {
                     print(error)
                     switch error {
                         case .mtError(let apiError):
-                            self.showError = true
-                            self.errorMessage = apiError
+                            self.alertData = .init(title: apiError, message: nil)
                         default:
                             break
                     }

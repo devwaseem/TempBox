@@ -46,6 +46,7 @@ class AccountService: NSObject, AccountServiceProtocol {
         $isDomainsLoading.eraseToAnyPublisher()
     }
     
+    var totalAccountsCount = 0
     @Published var activeAccounts: [Account] = []
     @Published var archivedAccounts: [Account] = []
     
@@ -185,6 +186,7 @@ class AccountService: NSObject, AccountServiceProtocol {
         
         activeAccounts = tempActiveAccounts
         archivedAccounts = tempArchivedAccounts
+        self.totalAccountsCount = results.count
     }
 
 }

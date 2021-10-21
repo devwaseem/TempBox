@@ -65,11 +65,6 @@ struct AddAccountWindow: View {
             }
             .padding()
         }
-        .alert(isPresented: $controller.showErrorAlert, content: {
-            Alert(title: Text(controller.errorMessage), message: nil, dismissButton: .default(Text("OK"), action: {
-                controller.showErrorAlert = false
-            }))
-        })
         .padding()
         .frame(width: 600)
 

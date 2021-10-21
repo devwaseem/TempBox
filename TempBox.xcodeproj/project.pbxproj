@@ -20,6 +20,7 @@
 		753D392B27005B4300911B58 /* FakeAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392A27005B4300911B58 /* FakeAccountRepository.swift */; };
 		753D392D2700603400911B58 /* FakeMTAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D392C2700603400911B58 /* FakeMTAccountService.swift */; };
 		75444DA42721352D00AAF867 /* LocalNotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75444DA32721352D00AAF867 /* LocalNotificationKeys.swift */; };
+		75444DA627213D8000AAF867 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75444DA527213D8000AAF867 /* AppConfig.swift */; };
 		75529A8126F3916B00588FEA /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8026F3916B00588FEA /* InboxView.swift */; };
 		75529A8326F3917700588FEA /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75529A8226F3917700588FEA /* MessageDetailView.swift */; };
 		755EB00F26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */; };
@@ -45,6 +46,7 @@
 		7586016F2709A60D0071BAB2 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586016E2709A60D0071BAB2 /* AccountInfoView.swift */; };
 		758601722709D6710071BAB2 /* AccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758601712709D6710071BAB2 /* AccountInfoViewController.swift */; };
 		75860174270A0AAF0071BAB2 /* ToolbarDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75860173270A0AAF0071BAB2 /* ToolbarDivider.swift */; };
+		7593C4A3272140D000D30FEF /* SimpleAlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593C4A2272140D000D30FEF /* SimpleAlertData.swift */; };
 		75A3C4CD2708BF3A004ED1AB /* MessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */; };
 		75A3C4CF2708BF51004ED1AB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4CE2708BF51004ED1AB /* Message.swift */; };
 		75A3C4D12708CC99004ED1AB /* MessageDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */; };
@@ -109,6 +111,7 @@
 		753D392A27005B4300911B58 /* FakeAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAccountRepository.swift; sourceTree = "<group>"; };
 		753D392C2700603400911B58 /* FakeMTAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMTAccountService.swift; sourceTree = "<group>"; };
 		75444DA32721352D00AAF867 /* LocalNotificationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationKeys.swift; sourceTree = "<group>"; };
+		75444DA527213D8000AAF867 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		75529A8026F3916B00588FEA /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		75529A8226F3917700588FEA /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
 		755EB00E26FC4B8200846114 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 		7586016E2709A60D0071BAB2 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
 		758601712709D6710071BAB2 /* AccountInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewController.swift; sourceTree = "<group>"; };
 		75860173270A0AAF0071BAB2 /* ToolbarDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarDivider.swift; sourceTree = "<group>"; };
+		7593C4A2272140D000D30FEF /* SimpleAlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlertData.swift; sourceTree = "<group>"; };
 		75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageStore.swift; sourceTree = "<group>"; };
 		75A3C4CE2708BF51004ED1AB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		75A3C4D02708CC99004ED1AB /* MessageDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailHeader.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 				7501772B26F38E0B00A47F7D /* RootNavigationView.swift */,
 				752D570D27121DFD0015D26D /* Defaults.swift */,
 				75C3204E26FBA25D009AAB26 /* App+Injection.swift */,
+				75444DA527213D8000AAF867 /* AppConfig.swift */,
 				75A3C4CB2708BDCE004ED1AB /* Models */,
 				75C3202426FB5AE0009AAB26 /* Extensions */,
 				7501772526F38C1700A47F7D /* Features */,
@@ -358,6 +363,7 @@
 				75A3C4CC2708BF3A004ED1AB /* MessageStore.swift */,
 				75A3C4CE2708BF51004ED1AB /* Message.swift */,
 				75444DA32721352D00AAF867 /* LocalNotificationKeys.swift */,
+				7593C4A2272140D000D30FEF /* SimpleAlertData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -618,6 +624,7 @@
 				75A3C4CF2708BF51004ED1AB /* Message.swift in Sources */,
 				7575A2DA26F473FD00A90CFE /* Persistence.swift in Sources */,
 				75752EFF26F3A2B1004EA6C1 /* AddAccountView.swift in Sources */,
+				7593C4A3272140D000D30FEF /* SimpleAlertData.swift in Sources */,
 				752D57072711C61C0015D26D /* MessageDetailViewController.swift in Sources */,
 				7575A2B126F4713F00A90CFE /* AccountRepository.swift in Sources */,
 				75529A8126F3916B00588FEA /* InboxView.swift in Sources */,
@@ -651,6 +658,7 @@
 				75B39ECE26F3CE5E0004AF82 /* QuotaView.swift in Sources */,
 				7535D98F2708663300D39FAB /* MTMessage+Extensions.swift in Sources */,
 				75A3C4CD2708BF3A004ED1AB /* MessageStore.swift in Sources */,
+				75444DA627213D8000AAF867 /* AppConfig.swift in Sources */,
 				75ED42AC270B83AE002161D3 /* AttachmentsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

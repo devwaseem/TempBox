@@ -33,6 +33,15 @@ struct AddAccountView: View {
         .sheet(isPresented: $controller.isAddAccountWindowOpen) {
             AddAccountWindow(controller: controller)
         }
+        .alert(item: $controller.alertMessage) { alertData in
+            var messageText: Text?
+            if let message = alertData.message {
+                messageText = Text(message)
+            }
+            return Alert(title: Text(alertData.title), message: messageText, dismissButton: .default(Text("OK"), action: {
+                controller.alertMessage = nil
+            }))
+        }
     }
 }
 

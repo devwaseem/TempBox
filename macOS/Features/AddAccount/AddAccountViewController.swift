@@ -17,8 +17,7 @@ class AddAccountViewController: ObservableObject {
     private var accountService: AccountService
 
     // MARK: Error properties
-    @Published var errorMessage = ""
-    @Published var showErrorAlert = false
+    @Published var alertMessage: SimpleAlertData?
 
     // MARK: Domain properties
     var availableDomains: [String] = []
@@ -82,13 +81,16 @@ class AddAccountViewController: ObservableObject {
     }
     
     func openAddAccountWindow() {
-        isAddAccountWindowOpen = true
+        if accountService.totalAccountsCount < AppConfig.maxAccountsAllowed {
+            isAddAccountWindowOpen = true
+        } else {
+            alertMessage = .init(title: "Max Account limit reached", message: "You cannot create more than \(AppConfig.maxAccountsAllowed) accounts")
+        }
     }
     
     func closeAddAccountWindow() {
         isAddAccountWindowOpen = false
-        showErrorAlert = false
-        errorMessage = ""
+        alertMessage = nil
         addressText = ""
         passwordText = ""
         NSApp.mainWindow?.endSheet(NSApp.keyWindow!)
@@ -119,17 +121,16 @@ class AddAccountViewController: ObservableObject {
                 self.isCreatingAccount = false
                 if case .failure(let error) = completion {
                     print(error)
-                    self.showErrorAlert = true
                     switch error {
                     case MTError.mtError(let errorStr):
                         if errorStr.contains("already used")
                             || errorStr.contains("not valid") {
-                            self.errorMessage = "This address already exists! Please choose a different address"
+                            self.alertMessage = "This address already exists! Please choose a different address"
                         } else {
-                            self.errorMessage = errorStr
+                            self.alertMessage = .init(title: errorStr, message: nil)
                         }
                     default:
-                        self.errorMessage = "Something went wrong while creating a new address"
+                        self.alertMessage = "Something went wrong while creating a new address"
                     }
                 }
             } receiveValue: { [weak self] _ in
