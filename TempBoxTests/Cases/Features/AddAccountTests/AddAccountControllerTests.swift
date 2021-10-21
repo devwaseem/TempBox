@@ -128,8 +128,7 @@ class AddAccountViewControllerTests: XCTestCase {
         sut.createNewAddress()
 
         // then
-        XCTAssertFalse(sut.showErrorAlert)
-        XCTAssertEqual(sut.errorMessage, "")
+        XCTAssertNil(sut.alertMessage)
         XCTAssertFalse(sut.isAddAccountWindowOpen)
     }
 
@@ -145,8 +144,7 @@ class AddAccountViewControllerTests: XCTestCase {
         sut.createNewAddress()
 
         // then
-        XCTAssertFalse(sut.showErrorAlert)
-        XCTAssertEqual(sut.errorMessage, "")
+        XCTAssertNil(sut.alertMessage)
         XCTAssertFalse(sut.isAddAccountWindowOpen)
     }
     
@@ -179,8 +177,8 @@ class AddAccountViewControllerTests: XCTestCase {
         sut.createNewAddress()
 
         XCTAssertFalse(sut.isCreatingAccount)
-        XCTAssertEqual(sut.showErrorAlert, true)
-        XCTAssertEqual(sut.errorMessage, "This address already exists! Please choose a different address")
+        XCTAssertNotNil(sut.alertMessage)
+        XCTAssertEqual(sut.alertMessage?.title, "This address already exists! Please choose a different address")
         XCTAssertTrue(sut.isAddAccountWindowOpen, "The window is closed. The window should stay open if an error is occured")
     }
 
@@ -197,8 +195,8 @@ class AddAccountViewControllerTests: XCTestCase {
         sut.createNewAddress()
 
         XCTAssertFalse(sut.isCreatingAccount)
-        XCTAssertEqual(sut.showErrorAlert, true)
-        XCTAssertEqual(sut.errorMessage, givenErrorMessage)
+        XCTAssertNotNil(sut.alertMessage)
+        XCTAssertEqual(sut.alertMessage?.title, givenErrorMessage)
         XCTAssertTrue(sut.isAddAccountWindowOpen, "The window is closed. The window should stay open if an error is occured")
     }
 
@@ -215,8 +213,8 @@ class AddAccountViewControllerTests: XCTestCase {
         sut.createNewAddress()
 
         XCTAssertFalse(sut.isCreatingAccount)
-        XCTAssertEqual(sut.showErrorAlert, true)
-        XCTAssertEqual(sut.errorMessage, "Something went wrong while creating a new address")
+        XCTAssertNotNil(sut.alertMessage)
+        XCTAssertEqual(sut.alertMessage?.title, "Something went wrong while creating a new address")
         XCTAssertTrue(sut.isAddAccountWindowOpen, "The window is closed. The window should stay open if an error is occured")
     }
 }
