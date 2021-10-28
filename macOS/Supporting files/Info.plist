@@ -34,7 +34,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>SUFeedURL</key>
-	<string>https://tempbox.waseem.works/updates/appcast.xml</string>
+	<string>https://tempbox.waseem.works/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>PT4SSsorf7XqzStOwHacUK94e0TYMueytNvSQWfvPgQ=</string>
 </dict>
