@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-let placeholderAddresses = [
-    "something1@example.com",
-    "something2@example.com",
-    "something3@example.com"
-]
-
-let placeholderArchivedAddresses = [
-    "something4@example.com",
-    "something5@example.com",
-    "something6@example.com"
-]
-
 struct SidebarView: View {
     
     @EnvironmentObject var appController: AppController
