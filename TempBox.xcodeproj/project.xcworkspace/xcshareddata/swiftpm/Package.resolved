@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "Sparkle",
+        "repositoryURL": "https://github.com/sparkle-project/Sparkle",
+        "state": {
+          "branch": "2.x",
+          "revision": "0d43f88a83698e57d93789831318b053767d1560",
+          "version": null
+        }
+      },
+      {
         "package": "LDSwiftEventSource",
         "repositoryURL": "https://github.com/LaunchDarkly/swift-eventsource.git",
         "state": {

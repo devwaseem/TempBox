@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import Resolver
+import Sparkle
 
 @main
 struct TempBoxApp: App {
@@ -17,6 +18,7 @@ struct TempBoxApp: App {
     // swiftlint:enable weak_delegate
     
     @StateObject var appController = AppController()
+    @StateObject var updaterViewController = UpdaterViewController()
 
     var body: some Scene {
         WindowGroup {
@@ -26,6 +28,16 @@ struct TempBoxApp: App {
         .commands {
             SidebarCommands()
             CommandGroup(replacing: .help) {
+                Button("Github") {
+                    NSWorkspace.shared.open(URL(string: "https://github.com/devwaseem/TempBox")!)
+                }
+                Button("Website") {
+                    NSWorkspace.shared.open(URL(string: "https://tempbox.waseem.works")!)
+                }
+                Button("Developer") {
+                    NSWorkspace.shared.open(URL(string: "https://waseem.works")!)
+                }
+                Divider()
                 Button("API") {
                     NSWorkspace.shared.open(URL(string: "https://docs.mail.tm")!)
                 }
@@ -46,6 +58,10 @@ struct TempBoxApp: App {
                 }
                 .keyboardShortcut("n")
                 
+            }
+            
+            CommandGroup(after: .appInfo) {
+                CheckForUpdatesView(updaterViewController: updaterViewController)
             }
         }
         
