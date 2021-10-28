@@ -11,6 +11,9 @@
 		7501771C26F38A9E00A47F7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7501770226F38A9E00A47F7D /* Assets.xcassets */; };
 		7501772C26F38E0B00A47F7D /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772B26F38E0B00A47F7D /* RootNavigationView.swift */; };
 		7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501772E26F38E4200A47F7D /* SidebarView.swift */; };
+		751E7117272AB2AD005EB503 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 751E7116272AB2AD005EB503 /* Sparkle */; };
+		751E711A272AB3B8005EB503 /* CheckForUpdatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751E7119272AB3B8005EB503 /* CheckForUpdatesView.swift */; };
+		751E711C272AB3D3005EB503 /* UpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751E711B272AB3D3005EB503 /* UpdaterViewController.swift */; };
 		752D57072711C61C0015D26D /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D57062711C61C0015D26D /* MessageDetailViewController.swift */; };
 		752D57092711D7730015D26D /* MessageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D57082711D7730015D26D /* MessageDownloadManager.swift */; };
 		7535D98F2708663300D39FAB /* MTMessage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535D98E2708663300D39FAB /* MTMessage+Extensions.swift */; };
@@ -101,6 +104,8 @@
 		7501771226F38A9E00A47F7D /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		7501772B26F38E0B00A47F7D /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
 		7501772E26F38E4200A47F7D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		751E7119272AB3B8005EB503 /* CheckForUpdatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForUpdatesView.swift; sourceTree = "<group>"; };
+		751E711B272AB3D3005EB503 /* UpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterViewController.swift; sourceTree = "<group>"; };
 		752D57062711C61C0015D26D /* MessageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		752D57082711D7730015D26D /* MessageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDownloadManager.swift; sourceTree = "<group>"; };
 		7535D98E2708663300D39FAB /* MTMessage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MTMessage+Extensions.swift"; sourceTree = "<group>"; };
@@ -170,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				751E7117272AB2AD005EB503 /* Sparkle in Frameworks */,
 				75C3204D26FBA229009AAB26 /* Resolver in Frameworks */,
 				75C8D5D327131F1C0013F64A /* MailTMSwift in Frameworks */,
 			);
@@ -207,6 +213,7 @@
 		7501771026F38A9E00A47F7D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				751E7118272AB3AB005EB503 /* Updater */,
 				750176FF26F38A9D00A47F7D /* TempBoxApp.swift */,
 				756E473D2712C1E000E8A439 /* AppDelegate.swift */,
 				75752EFC26F39C3D004EA6C1 /* AppController.swift */,
@@ -254,6 +261,15 @@
 				758601702709D6630071BAB2 /* AccountInfoView */,
 			);
 			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		751E7118272AB3AB005EB503 /* Updater */ = {
+			isa = PBXGroup;
+			children = (
+				751E7119272AB3B8005EB503 /* CheckForUpdatesView.swift */,
+				751E711B272AB3D3005EB503 /* UpdaterViewController.swift */,
+			);
+			path = Updater;
 			sourceTree = "<group>";
 		};
 		753D3927270050B900911B58 /* Fakes */ = {
@@ -497,6 +513,7 @@
 			packageProductDependencies = (
 				75C3204C26FBA229009AAB26 /* Resolver */,
 				75C8D5D227131F1C0013F64A /* MailTMSwift */,
+				751E7116272AB2AD005EB503 /* Sparkle */,
 			);
 			productName = "TempBox (macOS)";
 			productReference = 7501770F26F38A9E00A47F7D /* TempBox.app */;
@@ -551,6 +568,7 @@
 			packageReferences = (
 				75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */,
 				75C8D5D127131F1C0013F64A /* XCRemoteSwiftPackageReference "MailTMSwift" */,
+				751E7115272AB2AD005EB503 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = 7501770826F38A9E00A47F7D /* Products */;
 			projectDirPath = "";
@@ -631,6 +649,7 @@
 				75DE87472702D8D0008C089B /* MessagesListenerService.swift in Sources */,
 				75640F2827063A1B00C7BCF6 /* MTLiveMessagesService+Extensions.swift in Sources */,
 				7501771626F38A9E00A47F7D /* TempBoxApp.swift in Sources */,
+				751E711A272AB3B8005EB503 /* CheckForUpdatesView.swift in Sources */,
 				75A3C4D12708CC99004ED1AB /* MessageDetailHeader.swift in Sources */,
 				7501772F26F38E4200A47F7D /* SidebarView.swift in Sources */,
 				757EA59B270CE724004793CA /* AttachmentDownloadManager.swift in Sources */,
@@ -643,6 +662,7 @@
 				75C3202626FB5AEE009AAB26 /* String+Extensions.swift in Sources */,
 				7575A2B426F472C200A90CFE /* TempBox.xcdatamodeld in Sources */,
 				75C3205726FBA89D009AAB26 /* Respositories+Injection.swift in Sources */,
+				751E711C272AB3D3005EB503 /* UpdaterViewController.swift in Sources */,
 				75752EFD26F39C3D004EA6C1 /* AppController.swift in Sources */,
 				75DF252526F3D9D9003F69FE /* WebView.swift in Sources */,
 				75C3204A26FBA1A2009AAB26 /* AccountService.swift in Sources */,
@@ -824,6 +844,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.waseem.TempBox;
 				PRODUCT_NAME = TempBox;
 				SDKROOT = macosx;
@@ -850,6 +871,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.waseem.TempBox;
 				PRODUCT_NAME = TempBox;
 				SDKROOT = macosx;
@@ -943,6 +965,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		751E7115272AB2AD005EB503 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				branch = 2.x;
+				kind = branch;
+			};
+		};
 		75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Resolver";
@@ -962,6 +992,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		751E7116272AB2AD005EB503 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 751E7115272AB2AD005EB503 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
 		75C3204C26FBA229009AAB26 /* Resolver */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 75C3204B26FBA229009AAB26 /* XCRemoteSwiftPackageReference "Resolver" */;

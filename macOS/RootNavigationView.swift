@@ -30,7 +30,7 @@ struct RootNavigationView: View {
             }
 
         }
-        .frame(minWidth: 1000, minHeight: 600, idealHeight: 800)
+        .frame(minHeight: 600, idealHeight: 800)
         .alert(item: $appController.alertData, content: { alertData in
             var messageText: Text?
             if let messsage = alertData.message {

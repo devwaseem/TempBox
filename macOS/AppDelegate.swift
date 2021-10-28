@@ -15,7 +15,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     
     var window: NSWindow?
     @Injected var persistenceManager: PersistenceManager
-        
+            
     func applicationDidFinishLaunching(_ notification: Notification) {
         registerNotifications()
         NSWindow.allowsAutomaticWindowTabbing = false
