@@ -40,7 +40,9 @@ struct SidebarView: View {
                 VStack {
                     AccountInfoView(isActive: appController.selectedAccountConnectionIsActive,
                                     address: selectedAccount.address,
-                                    password: selectedAccount.password)
+                                    password: selectedAccount.password) {
+                        appController.refreshAccount(account: selectedAccount)
+                    }
                         .padding(.horizontal)
                     QuotaView(value: selectedAccount.quotaUsed, total: selectedAccount.quotaLimit)
                         .padding()

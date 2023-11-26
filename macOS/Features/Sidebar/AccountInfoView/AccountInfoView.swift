@@ -12,6 +12,7 @@ struct AccountInfoView: View {
     var isActive: Bool
     var address: String
     var password: String
+    var refresh: () -> Void
     
     @StateObject var controller = AccountInfoViewController()
     @State var isPasswordVisible = false
@@ -37,6 +38,7 @@ struct AccountInfoView: View {
                         .padding()
                 }
             }
+            .padding(.bottom, 4)
             
             HStack {
                 KeyView(key: "Status")
@@ -45,6 +47,14 @@ struct AccountInfoView: View {
                     .foregroundColor(isActive ? .green : .red)
                 Text(isActive ? "Active" : "InActive")
                     .lineLimit(1)
+                if (!isActive) {
+                    Spacer()
+                    Button {
+                        refresh()
+                    } label: {
+                        Image(systemName: "arrow.clockwise.circle.fill")
+                    }
+                }
             }
             
             HStack {
@@ -52,12 +62,14 @@ struct AccountInfoView: View {
                 Text(address)
                     .lineLimit(1)
                 
+                Spacer()
+                
                 Button {
                     controller.copyStringToPasteboard(value: address)
                 } label: {
                     Image(systemName: "doc.on.doc.fill")
                 }
-                Spacer()
+                
             }
             
             HStack {
@@ -70,12 +82,14 @@ struct AccountInfoView: View {
                             isPasswordVisible = isHovering
                         }
                     }
+                
+                Spacer()
+                
                 Button {
                     controller.copyStringToPasteboard(value: password)
                 } label: {
                     Image(systemName: "doc.on.doc.fill")
                 }
-                Spacer()
             }
         }
         .padding()
@@ -102,12 +116,16 @@ struct AccountInfoView_Previews: PreviewProvider {
     static var previews: some View {
         AccountInfoView(isActive: true,
                         address: "Address",
-                        password: "Password")
-            .previewLayout(.fixed(width: 400, height: 500))
+                        password: "Password") {
+            print("Refresh...")
+        }
+        .previewLayout(.fixed(width: 400, height: 500))
         
         AccountInfoView(isActive: false,
                         address: "Address",
-                        password: "Password")
-            .previewLayout(.fixed(width: 400, height: 500))
+                        password: "Password") {
+            print("Refresh...")
+        }
+        .previewLayout(.fixed(width: 400, height: 500))
     }
 }
