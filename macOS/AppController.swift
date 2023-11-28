@@ -82,6 +82,13 @@ class AppController: ObservableObject {
         self.accountService = accountService
         self.mtMessageService = messageService
         self.messageListenerService = messageListenerService
+       
+        listenForAccountEvents()
+        listenForMessageEvents()
+        listenForActivateNotifications()
+    }
+    
+    private func listenForAccountEvents() {
         accountService
             .activeAccountsPublisher
             .sink { [weak self] accounts in
@@ -105,9 +112,6 @@ class AppController: ObservableObject {
             .archivedAccountsPublisher
             .assign(to: \.archivedAccounts, on: self)
             .store(in: &subscriptions)
-          
-        listenForMessageEvents()
-        listenForActivateNotifications()
     }
     
     private func listenForMessageEvents() {
@@ -227,6 +231,30 @@ class AppController: ObservableObject {
         if accountMessages[account] != nil {
             accountMessages.removeValue(forKey: account)
         }
+    }
+    
+    func refreshAccount(account: Account) {
+        accountService.refreshAccount(with: account)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case let .failure(error) = completion {
+                    Self.logger.error("\(#function) \(#line): \(error.localizedDescription)")
+                    switch error {
+                        case .mtError(let apiError):
+                            self?.alertData = .init(title: apiError, message: nil)
+                        default:
+                            break
+                    }
+                }
+            }, receiveValue: { [weak self] success in
+                if success {
+                    guard let selectedAccount = self?.selectedAccount else { return }
+                    self?.messageListenerService.stopListeningAndRemoveChannel(account: selectedAccount)
+                    self?.messageListenerService.addChannelAndStartListening(account: selectedAccount)
+                    self?.fetchInitialMessagesAndSave(forAccount: selectedAccount)
+                }
+            })
+            .store(in: &subscriptions)
     }
     
     func archiveAccount(account: Account) {

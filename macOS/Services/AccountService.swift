@@ -26,6 +26,7 @@ protocol AccountServiceProtocol {
     func activateAccount(account: Account)
     func removeAccount(account: Account)
     func deleteAndRemoveAccount(account: Account) -> AnyPublisher<Never, MTError>
+    func refreshAccount(with account: Account) -> AnyPublisher<Bool, MTError>
 }
 
 class AccountService: NSObject, AccountServiceProtocol {
@@ -112,6 +113,24 @@ class AccountService: NSObject, AccountServiceProtocol {
 
     }
     
+    func refreshAccount(with account: Account) -> AnyPublisher<Bool, MTError> {
+        let auth = MTAuth(address: account.address, password: account.password)
+
+        return Future<Bool, MTError> { promise in
+            self.mtAccountService.login(using: auth) { [weak self] result in
+                switch result {
+                case .success(let token):
+                    account.token = token
+                    self?.repository.update(account: account)
+                    promise(.success(true))
+                case .failure(let error):
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
     func createAccount(using auth: MTAuth) -> AnyPublisher<Account, MTError> {
         guard !self.repository.isAccountExists(forAddress: auth.address) else {
             return Future { promise in
@@ -191,7 +210,7 @@ class AccountService: NSObject, AccountServiceProtocol {
 
 }
 
-extension AccountService:  NSFetchedResultsControllerDelegate {
+extension AccountService: NSFetchedResultsControllerDelegate {
  
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         accountsdidChange()

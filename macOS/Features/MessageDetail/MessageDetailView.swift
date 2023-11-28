@@ -52,7 +52,8 @@ struct MessageDetailView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .padding(24)
-                    if let account = selectedAccount, let attachments = selectedMessage.data.attachments, !attachments.isEmpty {
+                    let account = selectedAccount
+                    if let attachments = selectedMessage.data.attachments, !attachments.isEmpty {
                         AttachmentsView(controller: AttachmentsViewController(account: account, attachments: attachments))
                             .padding(.horizontal)
                     }

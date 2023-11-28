@@ -63,7 +63,7 @@ class MessagesListenerService {
             .store(in: &subscriptions)
     }
     
-    private func addChannelAndStartListening(account: Account) {
+    func addChannelAndStartListening(account: Account) {
         let messageListener = createListener(withToken: account.token, accountId: account.id)
         channels[account] = messageListener
         channelsStatus[account] = .closed
@@ -97,7 +97,7 @@ class MessagesListenerService {
         messageListener.start()
     }
     
-    private func stopListeningAndRemoveChannel(account: Account) {
+    func stopListeningAndRemoveChannel(account: Account) {
         if let existingListener = channels[account] {
             existingListener.stop()
             channels.removeValue(forKey: account)
